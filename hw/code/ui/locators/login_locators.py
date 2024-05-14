@@ -7,3 +7,5 @@ class LoginPageLocators:
     BUTTON_NEXT_LOCATOR = (By.CSS_SELECTOR, '[data-test-id="next-button"]')
     INPUT_PASSWORD_LOCATOR = (By.NAME, 'password')
     BUTTON_SUBMIT_LOCATOR = (By.CSS_SELECTOR, '[data-test-id="submit-button"]')
+
+    AUTH_REDIRECT = (By.CSS_SELECTOR, '[data-test-id="auth-screen-vkid"]')

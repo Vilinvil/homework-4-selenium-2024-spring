@@ -58,4 +58,14 @@ def credentials():
         assert password 
 
         return Credentials(login, password)
- 
+
+@pytest.fixture(scope='session')
+def credentials_new_user():
+    login = os.getenv('LOGIN_NEW_USER')
+    password = os.getenv('PASSWORD_NEW_USER')
+
+    assert login
+    print(password)
+    assert password
+
+    return Credentials(login, password)
