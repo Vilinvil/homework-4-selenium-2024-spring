@@ -14,5 +14,8 @@ class HelpPageLocators:
     TITLE_ARTICLES = (By.CSS_SELECTOR, '[data-test-id="summary-title-ads"]')
     LIST_ARTICLES = (By.CSS_SELECTOR, '[data-test-id="category-page-articles-list-ads"]')
     SIDEBAR_ARTICLES = (By.CSS_SELECTOR, '[data-test-id="layout-sidebar-vkads"]')
-    SEARCH_IN_SIDEBAR_ARTICLES = (By.XPATH, '//input')
+    SEARCH_IN_SIDEBAR_ARTICLES = (By.XPATH, './/input')
     CATEGORIES_IN_SIDEBAR_ARTICLES = (By.CSS_SELECTOR, '[data-test-id="navigation-help-sidebar-ads"]')
+
+    ARTICLE_PAGE = (By.CSS_SELECTOR, '[data-test-id="article-page-vkads"]')
+    ARTICLE_HREF_IN_PAGE = (By.XPATH, './/a[starts-with(@href, "/help/articles/")]')

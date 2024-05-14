@@ -65,3 +65,25 @@ class TestHelp(BaseCase):
                                              self.help_page.locators.SEARCH_IN_SIDEBAR_ARTICLES[1])
 
         assert self.help_page.find(self.help_page.locators.CATEGORIES_IN_SIDEBAR_ARTICLES)
+
+    @pytest.mark.parametrize(
+        'card_locator',
+        [
+            pytest.param(
+                HelpPageLocators.CARD_AUTHORIZATION
+            ),
+            pytest.param(
+                HelpPageLocators.CARD_GENERAL
+            ),
+        ],
+    )
+    def test_card_go_to_article(self, card_locator):
+        self.help_page.click_to_card(card_locator)
+
+        list_articles = self.help_page.find(self.help_page.locators.LIST_ARTICLES)
+
+        href_article = list_articles.find_element(self.help_page.locators.ARTICLE_HREF_IN_PAGE[0],
+                                                  self.help_page.locators.ARTICLE_HREF_IN_PAGE[1])
+        href_article.click()
+
+        assert self.help_page.find(self.help_page.locators.ARTICLE_PAGE)
