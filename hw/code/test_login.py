@@ -1,5 +1,3 @@
-import pytest
-
 from ui.pages.main_page import MainPage, URL_MAIN_PAGE
 from cases import BaseCase
 

@@ -3,6 +3,7 @@ import pytest
 from ui.pages.base_page import BasePage
 from ui.pages.login_page import LoginPage
 
+
 class BaseCase:
     @pytest.fixture(scope='function', autouse=True)
     def setup_base_case(self, driver, config):

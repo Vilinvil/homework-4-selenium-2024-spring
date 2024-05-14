@@ -3,6 +3,7 @@ import pytest
 from cases import BaseCase
 from ui.pages.help_page import HelpPage
 
+
 @pytest.mark.parametrize(
         'query,is_found_expected',
         [
@@ -21,14 +22,14 @@ from ui.pages.help_page import HelpPage
         ],
     )
 class TestHelp(BaseCase):
-    def test_searh(self, query, is_found_expected):
+    def test_search(self, query, is_found_expected):
         self.base_page.click(self.base_page.locators.BUTTON_HELP)
 
-        helpPage = HelpPage(self.driver)
+        help_page = HelpPage(self.driver)
 
-        helpPage.search(query)
+        help_page.search(query)
 
         if is_found_expected:
-            assert helpPage.find(helpPage.locators.SEARCH_FOUND_RESULTS)
+            assert help_page.find(help_page.locators.SEARCH_FOUND_RESULTS)
         else:
-            assert helpPage.find(helpPage.locators.SEARCH_NOT_FOUND_RESULTS)
+            assert help_page.find(help_page.locators.SEARCH_NOT_FOUND_RESULTS)

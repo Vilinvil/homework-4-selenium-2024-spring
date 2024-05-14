@@ -1,7 +1,5 @@
-from selenium.webdriver.support import expected_conditions as EC
-
-from .base_page import BasePage
-from .main_page import MainPage
+from ui.pages.base_page import BasePage
+from ui.pages.main_page import MainPage
 from ui.locators import login_locators
 from utils.credentials import Credentials
 
