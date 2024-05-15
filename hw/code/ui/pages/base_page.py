@@ -35,14 +35,23 @@ class BasePage(object):
     def find(self, locator, timeout=None):
         return self.wait(timeout).until(EC.presence_of_element_located(locator))
 
-    def click(self, locator, timeout=None) -> WebElement:
+    def click(self, locator, timeout=None):
         self.find(locator, timeout=timeout)
         elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
         elem.click()
 
+    def write_input(self, locator, message, timeout=None):
+        input_element = self.find(locator, timeout)
+        input_element = self.wait().until(EC.visibility_of(input_element))
+        input_element.clear()
+        input_element.send_keys(message)
 
-    def write_input(self,locator, message, timeout=None):
-        input = self.find(locator, timeout)
-        input = self.wait().until(EC.visibility_of(input))
-        input.clear()
-        input.send_keys(message)
+
+class PageWithModalView(BasePage):
+    def open_modal_view(self, button_open_locator, sign_opening_locator):
+        self.click(button_open_locator)
+        assert self.find(sign_opening_locator).is_displayed()
+
+    def close_modal_view(self, button_close_locator, sign_opening_locator):
+        self.click(button_close_locator)
+        self.wait().until(EC.invisibility_of_element_located(sign_opening_locator))
