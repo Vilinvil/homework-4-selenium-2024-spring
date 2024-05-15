@@ -3,7 +3,6 @@ import time
 from ui.locators import basic_locators
 from utils.timeout import BASIC_TIMEOUT
 
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -16,7 +15,7 @@ class BasePage(object):
     locators = basic_locators.BasePageLocators()
     url = 'https://ads.vk.com/'
 
-    def is_opened(self, timeout=15):
+    def is_opened(self, timeout=BASIC_TIMEOUT):
         started = time.time()
         while time.time() - started < timeout:
             if self.driver.current_url == self.url:
@@ -27,9 +26,7 @@ class BasePage(object):
         self.driver = driver
         self.is_opened()
 
-    def wait(self, timeout=None):
-        if timeout is None:
-            timeout = BASIC_TIMEOUT
+    def wait(self, timeout=BASIC_TIMEOUT):
         return WebDriverWait(self.driver, timeout=timeout)
 
     def find(self, locator, timeout=None):
