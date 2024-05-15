@@ -29,3 +29,10 @@ class OverviewPageLocators:
 
     SIGN_OPENING_MODAL_PAGE_BUDGET = (By.ID, "_modal_17")
     BUTTON_CLOSE_MODAL_PAGE_BUDGET = (By.CSS_SELECTOR, '.vkuiModalDismissButton')
+
+    BUTTON_OPEN_DATE_CHOOSE = (By.XPATH, '//*[starts-with(@class, "DatePicker_datePickerButton")]')
+    SIGN_OPENING_DATE_CHOOSE = (By.XPATH, '//*[starts-with(@class, "RangeDatePicker_layout")]')
+    BUTTON_CLOSE_DATE_CHOOSE = (By.XPATH, '//*[starts-with(@class, "RangeDatePicker_layout")]'
+                                          '//button//*[contains(text(), "Отменить")]')
+    BUTTON_APPLY_DATE_CHOOSE = (By.XPATH, '//*[starts-with(@class, "RangeDatePicker_layout")]'
+                                          '//button//*[contains(text(), "Применить")]')

@@ -29,15 +29,15 @@ class BasePage(object):
     def wait(self, timeout=BASIC_TIMEOUT):
         return WebDriverWait(self.driver, timeout=timeout)
 
-    def find(self, locator, timeout=None):
+    def find(self, locator, timeout=BASIC_TIMEOUT):
         return self.wait(timeout).until(EC.presence_of_element_located(locator))
 
-    def click(self, locator, timeout=None):
+    def click(self, locator, timeout=BASIC_TIMEOUT):
         self.find(locator, timeout=timeout)
         elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
         elem.click()
 
-    def write_input(self, locator, message, timeout=None):
+    def write_input(self, locator, message, timeout=BASIC_TIMEOUT):
         input_element = self.find(locator, timeout)
         input_element = self.wait().until(EC.visibility_of(input_element))
         input_element.clear()

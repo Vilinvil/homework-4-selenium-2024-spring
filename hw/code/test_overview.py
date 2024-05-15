@@ -7,6 +7,7 @@ from ui.pages.overview_page import OverviewPage
 from ui.locators.overview_locators import OverviewNewUserPageLocators
 from ui.locators.campaigns_locators import CampaignsPageSharedLocators
 from ui.locators.training_locators import TrainingPageSharedLocators
+from utils.redirect_window import redirect_window
 
 
 class TestNewUserOverview(LoggedNewUserCase):
@@ -41,12 +42,12 @@ class TestOverview(LoggedCase):
     def test_display(self):
         self.overview_page.check_display()
 
-    def test_click_redirect_campaign(self):
+    def test_click_create_campaign(self):
         self.overview_page.click(self.overview_page.locators.BUTTON_CREATE_CAMPAIGN)
         assert self.driver.current_url == "https://ads.vk.com/hq/new_create/ad_plan"
 
     def test_click_new_tab_limit_article(self):
-        self.overview_page.click_redirect_article_help()
+        redirect_window(self.overview_page, self.overview_page.locators.BUTTON_LIMIT_ARTICLE)
 
         assert self.driver.current_url == "https://ads.vk.com/help/articles/ad_limits"
 
