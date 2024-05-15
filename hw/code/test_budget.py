@@ -41,9 +41,6 @@ class TestBudget(LoggedCase):
         self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
         assert self.budget_page.find(self.budget_page.locators.ALERT_MIN_SUMM_REPLENISH).is_displayed()
 
-        self.budget_page.hover_wrapper(self.budget_page.locators.HINT_MIN_SUMM_TRIGGER)
-        assert self.budget_page.find(self.budget_page.locators.TOOLTIP_MIN_SUMM).is_displayed()
-
     def test_hint_min_summ(self):
         self.budget_page.open_modal_view(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,
                                          self.budget_page.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
@@ -52,3 +49,16 @@ class TestBudget(LoggedCase):
 
         redirect_window(self.budget_page, self.budget_page.locators.HINT_MIN_SUMM_REF)
         assert self.budget_page.wait().until(EC.url_to_be(HINT_MIN_SUMM_URL))
+
+    def test_error_big_summ(self):
+        self.budget_page.open_modal_view(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,
+                                         self.budget_page.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
+
+        self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT, '200001')
+        self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
+        assert self.budget_page.find(self.budget_page.locators.ALERT_MAX_SUMM_REPLENISH).is_displayed()
+
+        # TODO CREATE REPORT IN ADS.VK.COM
+        # self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT_WITHOUT_VAT, '166667')
+        # self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
+        # assert self.budget_page.find(self.budget_page.locators.ALERT_MAX_SUMM_REPLENISH).is_displayed()

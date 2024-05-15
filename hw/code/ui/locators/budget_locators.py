@@ -28,3 +28,6 @@ class BudgetPageLocators:
     TOOLTIP_MIN_SUMM = (By.XPATH, '//*[starts-with(@class, "Tooltip_tooltipContainer")]'
                                   '//*[contains(text(), "Сумма к оплате")]')
     HINT_MIN_SUMM_REF = (By.CSS_SELECTOR, f'[href="{HINT_MIN_SUMM_URL}"]')
+
+    ALERT_MAX_SUMM_REPLENISH = (By.XPATH, '//*[@id="_modal_17"]'
+                                          '//*[@role="alert" and contains(text(), "уменьшите сумму")]')

@@ -54,7 +54,7 @@ class BasePage(object):
 class PageWithModalView(BasePage):
     def open_modal_view(self, button_open_locator, sign_opening_locator):
         self.click(button_open_locator)
-        assert self.find(sign_opening_locator).is_displayed()
+        self.wait().until(EC.visibility_of_element_located(sign_opening_locator))
 
     def close_modal_view(self, button_close_locator, sign_opening_locator):
         self.click(button_close_locator)
