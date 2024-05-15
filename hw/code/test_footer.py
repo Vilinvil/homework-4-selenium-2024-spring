@@ -57,9 +57,24 @@ class TestFooter(BaseCase):
             pytest.param(
                 BasePageLocators.FOOTER_BUTTON_MONETIZATION, 'https://ads.vk.com/partner', True
             ),
+            pytest.param(
+                BasePageLocators.FOOTER_LOGO_VK_BUSINESS, 'https://vk.company/ru/company/business/', True
+            ),
+            pytest.param(
+                BasePageLocators.FOOTER_LOGO_VK, 'https://vk.com/vk_ads', True
+            ),
+            pytest.param(
+                BasePageLocators.FOOTER_LOGO_OK, 'https://ok.ru/group/64279825940712', True
+            ),
+            pytest.param(
+                BasePageLocators.FOOTER_LOGO_TG, 'https://t.me/vk_ads', True
+            ),
+            pytest.param(
+                BasePageLocators.FOOTER_ABOUT_COMPANY, 'https://vk.company/ru/', True
+            ),
         ],
     )
-    def test_open_pages_of_sections(self, locator, url, redirect):
+    def test_open_pages(self, locator, url, redirect):
         if redirect:
             redirect_window_with_scroll(self.base_page, locator)
         else:
@@ -75,3 +90,22 @@ class TestFooter(BaseCase):
         AC(self.driver).move_to_element(elem).click(elem).perform()
 
         self.base_page.wait().until(EC.url_matches("https://id.vk.com/auth"))
+
+    @pytest.mark.parametrize(
+        'locator,text_value',
+        [
+            pytest.param(
+                BasePageLocators.FOOTER_LANGUAGE_BUTTON_RUSSIAN, 'RU'
+            ),
+            pytest.param(
+                BasePageLocators.FOOTER_LANGUAGE_BUTTON_ENGLISH, 'EN'
+            ),
+        ],
+    )
+    def test_language_wrapped_buttons(self, locator, text_value):
+        elem = self.base_page.wait(BASIC_TIMEOUT).until(
+            EC.presence_of_element_located(self.base_page.locators.FOOTER_WRAPPER_LANGUAGE))
+        AC(self.driver).move_to_element(elem).click(elem).perform()
+
+        self.base_page.click(locator)
+        assert self.base_page.find(self.base_page.locators.FOOTER_WRAPPER_LANGUAGE).text == text_value

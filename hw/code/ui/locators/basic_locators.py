@@ -33,6 +33,10 @@ class BasePageLocators:
     FOOTER_LOGO_TG = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://t.me/vk_ads"]')
     FOOTER_ABOUT_COMPANY = (By.XPATH, '//*[starts-with(@class, "Footer_about")]')
     FOOTER_WRAPPER_LANGUAGE = (By.XPATH, '//*[starts-with(@class, "SelectLanguage_wrapper")]')
+    FOOTER_LANGUAGE_BUTTON_ENGLISH = (
+        By.XPATH, '//*[starts-with(@class,"SelectLanguage_selectElem_") and contains(text(),"English")]')
+    FOOTER_LANGUAGE_BUTTON_RUSSIAN = (
+        By.XPATH, '//*[starts-with(@class,"SelectLanguage_selectElem_") and contains(text(),"Русский")]')
 
 
 
