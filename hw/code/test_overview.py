@@ -2,12 +2,13 @@ import pytest
 
 from cases import LoggedNewUserCase
 from cases import LoggedCase
+from utils.parse_date import parse_date
+from utils.redirect_window import redirect_window
 from ui.pages.overview_page import OverviewNewUserPage
 from ui.pages.overview_page import OverviewPage
 from ui.locators.overview_locators import OverviewNewUserPageLocators
 from ui.locators.campaigns_locators import CampaignsPageSharedLocators
 from ui.locators.training_locators import TrainingPageSharedLocators
-from utils.redirect_window import redirect_window
 
 
 class TestNewUserOverview(LoggedNewUserCase):
@@ -57,3 +58,24 @@ class TestOverview(LoggedCase):
 
         self.overview_page.close_modal_view(self.overview_page.locators.BUTTON_CLOSE_MODAL_PAGE_BUDGET,
                                             self.overview_page.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
+
+    def test_date_picker(self):
+        self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_OPEN_DATE_CHOOSE,
+                                           self.overview_page.locators.SIGN_OPENING_DATE_CHOOSE)
+        self.overview_page.click(self.overview_page.locators.BUTTON_DATE_RANGE_TODAY)
+        self.overview_page.click(self.overview_page.locators.BUTTON_APPLY_DATE_CHOOSE)
+
+        button_date_range = self.overview_page.find(self.overview_page.locators.BUTTON_OPEN_DATE_CHOOSE)
+
+        today_date =\
+            parse_date(button_date_range.find_element(*self.overview_page.locators.RANGE_TEXT_DATE_CHOOSE).text)
+
+        self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_OPEN_DATE_CHOOSE,
+                                           self.overview_page.locators.SIGN_OPENING_DATE_CHOOSE)
+        self.overview_page.click(self.overview_page.locators.BUTTON_DATE_RANGE_YESTERDAY)
+        self.overview_page.click(self.overview_page.locators.BUTTON_APPLY_DATE_CHOOSE)
+
+        yesterday_date =\
+            parse_date(button_date_range.find_element(*self.overview_page.locators.RANGE_TEXT_DATE_CHOOSE).text)
+
+        assert (today_date - yesterday_date).days == 1

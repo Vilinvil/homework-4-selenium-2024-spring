@@ -36,3 +36,6 @@ class OverviewPageLocators:
                                           '//button//*[contains(text(), "Отменить")]')
     BUTTON_APPLY_DATE_CHOOSE = (By.XPATH, '//*[starts-with(@class, "RangeDatePicker_layout")]'
                                           '//button//*[contains(text(), "Применить")]')
+    BUTTON_DATE_RANGE_TODAY = (By.XPATH, '//*[(contains(@class, "rdrStaticRangeLabel") and text()="Сегодня")]')
+    BUTTON_DATE_RANGE_YESTERDAY = (By.XPATH, '//*[(contains(@class, "rdrStaticRangeLabel") and text()="Вчера")]')
+    RANGE_TEXT_DATE_CHOOSE = (By.XPATH, '//*[starts-with(@class, "RangeDatePickerManager_rangeText")]')
