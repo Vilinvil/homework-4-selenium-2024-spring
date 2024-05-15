@@ -61,10 +61,9 @@ class TestHelp(BaseCase):
         assert self.help_page.find(self.help_page.locators.LIST_ARTICLES).is_displayed()
 
         sidebar_articles = self.help_page.find(self.help_page.locators.SIDEBAR_ARTICLES)
-        assert sidebar_articles.find_element(self.help_page.locators.SEARCH_IN_SIDEBAR_ARTICLES[0],
-                                             self.help_page.locators.SEARCH_IN_SIDEBAR_ARTICLES[1]).is_displayed()
+        assert sidebar_articles.find_element(*self.help_page.locators.SEARCH_IN_SIDEBAR_ARTICLES).is_displayed()
 
-        assert self.help_page.find(self.help_page.locators.CATEGORIES_IN_SIDEBAR_ARTICLES).is_displayed()
+        assert sidebar_articles.find_element(*self.help_page.locators.CATEGORIES_IN_SIDEBAR_ARTICLES).is_displayed()
 
     @pytest.mark.parametrize(
         'card_locator',
@@ -82,8 +81,7 @@ class TestHelp(BaseCase):
 
         list_articles = self.help_page.find(self.help_page.locators.LIST_ARTICLES)
 
-        href_article = list_articles.find_element(self.help_page.locators.ARTICLE_HREF_IN_PAGE[0],
-                                                  self.help_page.locators.ARTICLE_HREF_IN_PAGE[1])
+        href_article = list_articles.find_element(*self.help_page.locators.ARTICLE_HREF_IN_PAGE)
         href_article.click()
 
         assert self.help_page.find(self.help_page.locators.ARTICLE_PAGE).is_displayed()

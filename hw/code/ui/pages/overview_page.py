@@ -16,8 +16,7 @@ class OverviewNewUserPage(BasePage):
         start_actions_wrapper = (
             self.find(self.locators.START_ACTIONS_WRAPPER))
 
-        start_actions = start_actions_wrapper.find_elements(self.locators.START_ACTION[0],
-                                                            self.locators.START_ACTION[1])
+        start_actions = start_actions_wrapper.find_elements(*self.locators.START_ACTION)
 
         for start_action in start_actions:
             assert start_action.find_element(By.XPATH, './/button').is_displayed()
