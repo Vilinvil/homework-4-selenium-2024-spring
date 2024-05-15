@@ -11,7 +11,7 @@ from ui.locators.training_locators import TrainingPageSharedLocators
 
 class TestNewUserOverview(LoggedNewUserCase):
     @pytest.fixture(scope='function', autouse=True)
-    def setup_help(self, driver, config):
+    def setup_new_user_overview(self, driver, config):
         self.overview_new_user_page = OverviewNewUserPage(self.driver)
 
     def test_display(self):
@@ -35,7 +35,7 @@ class TestNewUserOverview(LoggedNewUserCase):
 
 class TestOverview(LoggedCase):
     @pytest.fixture(scope='function', autouse=True)
-    def setup_help(self, driver, config):
+    def setup_overview(self, driver, config):
         self.overview_page = OverviewPage(self.driver)
 
     def test_display(self):
