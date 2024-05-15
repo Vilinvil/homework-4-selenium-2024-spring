@@ -8,6 +8,8 @@ from ui.locators.overview_locators import OverviewNewUserPageLocators, OverviewP
 from ui.locators.campaigns_locators import CampaignsPageSharedLocators
 from ui.locators.training_locators import TrainingPageSharedLocators
 
+from selenium.webdriver.support import expected_conditions as EC
+
 
 class TestNewUserOverview(LoggedNewUserCase):
     @pytest.fixture(scope='function', autouse=True)
@@ -43,12 +45,12 @@ class TestOverview(LoggedCase):
 
     def test_click_create_campaign(self):
         self.overview_page.click(self.overview_page.locators.BUTTON_CREATE_CAMPAIGN)
-        assert self.driver.current_url == "https://ads.vk.com/hq/new_create/ad_plan"
+        assert self.overview_page.wait().until(EC.url_to_be("https://ads.vk.com/hq/new_create/ad_plan"))
 
     def test_click_new_tab_limit_article(self):
         redirect_window(self.overview_page, self.overview_page.locators.BUTTON_LIMIT_ARTICLE)
 
-        assert self.driver.current_url == "https://ads.vk.com/help/articles/ad_limits"
+        assert self.overview_page.wait().until(EC.url_to_be("https://ads.vk.com/help/articles/ad_limits"))
 
     def test_modal_page_budget(self):
         self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_BUDGET_REPLENISH,

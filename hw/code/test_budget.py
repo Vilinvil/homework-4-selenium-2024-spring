@@ -1,7 +1,11 @@
 import pytest
 
 from cases import LoggedCase
+from utils.redirect_window import redirect_window
 from ui.pages.budget_page import BudgetPage
+from ui.locators.budget_locators import HINT_MIN_SUMM_URL
+
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class TestBudget(LoggedCase):
@@ -19,5 +23,32 @@ class TestBudget(LoggedCase):
 
         assert self.budget_page.find(self.budget_page.locators.TITLE_MODAL_PAGE_BUDGET).is_displayed()
         assert self.budget_page.find(self.budget_page.locators.TITLE_CRETE_INVOICE_SUMM).is_displayed()
-        assert self.budget_page.find(self.budget_page.locators.TITLE_CRETE_INVOICE_TAX).is_displayed()
+        assert self.budget_page.find(self.budget_page.locators.TITLE_CRETE_INVOICE_VAT).is_displayed()
         assert self.budget_page.find(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH).is_displayed()
+
+        self.budget_page.hover_wrapper(self.budget_page.locators.HINT_MIN_SUMM_TRIGGER)
+        assert self.budget_page.find(self.budget_page.locators.TOOLTIP_MIN_SUMM).is_displayed()
+
+    def test_error_min_sum(self):
+        self.budget_page.open_modal_view(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,
+                                         self.budget_page.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
+
+        self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT, '599')
+        self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
+        assert self.budget_page.find(self.budget_page.locators.ALERT_MIN_SUMM_REPLENISH).is_displayed()
+
+        self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT_WITHOUT_VAT, '499')
+        self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
+        assert self.budget_page.find(self.budget_page.locators.ALERT_MIN_SUMM_REPLENISH).is_displayed()
+
+        self.budget_page.hover_wrapper(self.budget_page.locators.HINT_MIN_SUMM_TRIGGER)
+        assert self.budget_page.find(self.budget_page.locators.TOOLTIP_MIN_SUMM).is_displayed()
+
+    def test_hint_min_summ(self):
+        self.budget_page.open_modal_view(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,
+                                         self.budget_page.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
+
+        self.budget_page.hover_wrapper(self.budget_page.locators.HINT_MIN_SUMM_TRIGGER)
+
+        redirect_window(self.budget_page, self.budget_page.locators.HINT_MIN_SUMM_REF)
+        assert self.budget_page.wait().until(EC.url_to_be(HINT_MIN_SUMM_URL))

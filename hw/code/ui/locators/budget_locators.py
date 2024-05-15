@@ -1,6 +1,9 @@
 from selenium.webdriver.common.by import By
 
 
+HINT_MIN_SUMM_URL = "https://ads.vk.com/help/articles/billing#min"
+
+
 class BudgetPageLocators:
     BUTTON_BUDGET_SECTION = (By.CSS_SELECTOR, '[data-entityid="budget"]')
     TITLE = (By.XPATH, '//*[@id="budget"]//*[contains(text(), "Транзакций пока нет")]')
@@ -12,6 +15,16 @@ class BudgetPageLocators:
                                          '//*[contains(text(), "Пополнение счёта")]')
     TITLE_CRETE_INVOICE_SUMM = (By.XPATH, '//*[@id="_modal_17"]//*[starts-with(@class, "CreateInvoiceModal_top")]'
                                           '//*[contains(text(), "Cумма к оплате")]')
-    TITLE_CRETE_INVOICE_TAX = (By.XPATH, '//*[@id="_modal_17"]//*[starts-with(@class, "CreateInvoiceModal_top")]'
+    TITLE_CRETE_INVOICE_VAT = (By.XPATH, '//*[@id="_modal_17"]//*[starts-with(@class, "CreateInvoiceModal_top")]'
                                          '//*[contains(text(), "Сумма, поступающая на ваш счёт (НДС — 20%)")]')
     BUTTON_CONTINUE_BUDGET_REPLENISH = (By.XPATH, '//*[@id="_modal_17"]//button//*[contains(text(), "Пополнить счёт")]')
+
+    INPUT_AMOUNT = (By.NAME, 'amount')
+    INPUT_AMOUNT_WITHOUT_VAT = (By.NAME, 'amountWithoutVat')
+    ALERT_MIN_SUMM_REPLENISH = (By.XPATH, '//*[@id="_modal_17"]'
+                                          '//*[@role="alert" and contains(text(), "Минимальная сумма 600,00")]')
+
+    HINT_MIN_SUMM_TRIGGER = (By.XPATH, '//*[@id="_modal_17"]//*[starts-with(@class, "Hint_hintTrigger")]')
+    TOOLTIP_MIN_SUMM = (By.XPATH, '//*[starts-with(@class, "Tooltip_tooltipContainer")]'
+                                  '//*[contains(text(), "Сумма к оплате")]')
+    HINT_MIN_SUMM_REF = (By.CSS_SELECTOR, f'[href="{HINT_MIN_SUMM_URL}"]')
