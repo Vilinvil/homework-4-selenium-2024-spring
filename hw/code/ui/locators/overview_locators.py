@@ -39,3 +39,9 @@ class OverviewPageLocators:
     BUTTON_DATE_RANGE_TODAY = (By.XPATH, '//*[(contains(@class, "rdrStaticRangeLabel") and text()="Сегодня")]')
     BUTTON_DATE_RANGE_YESTERDAY = (By.XPATH, '//*[(contains(@class, "rdrStaticRangeLabel") and text()="Вчера")]')
     RANGE_TEXT_DATE_CHOOSE = (By.XPATH, '//*[starts-with(@class, "RangeDatePickerManager_rangeText")]')
+
+    INPUT_SEARCH_IN_CHOOSE_CAMPAIGNS = (By.CSS_SELECTOR, '[data-testid="search"')
+    SIGN_SEARCH_NOT_FOUND_RESULTS = (By.XPATH, '//*[@id="_modal_30"]//*[contains(text(), "Ничего не нашлось")]')
+    SIGN_SEARCH_FOUND_RESULTS = (By.XPATH, '//*[@id="_modal_30"]//*[contains(@class, "vkuiCheckbox__title")'
+                                           ' and contains(text(), "Кампания")]')
+    SIGN_OPENING_CHOOSE_CAMPAIGNS = (By.ID, "_modal_30")
