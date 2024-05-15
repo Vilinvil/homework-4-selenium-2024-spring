@@ -17,7 +17,7 @@ class BasePage(object):
     locators = basic_locators.BasePageLocators()
     url = 'https://ads.vk.com/'
 
-    def is_opened(self, url=url, timeout=15):
+    def is_opened(self, url=url, timeout=BASIC_TIMEOUT):
         started = time.time()
         while time.time() - started < timeout:
             if self.driver.current_url == url:
@@ -28,27 +28,34 @@ class BasePage(object):
         self.driver = driver
         self.is_opened()
 
-    def wait(self, timeout=None):
-        if timeout is None:
-            timeout = BASIC_TIMEOUT
+    def wait(self, timeout=BASIC_TIMEOUT):
         return WebDriverWait(self.driver, timeout=timeout)
 
-    def find(self, locator, timeout=None):
+    def find(self, locator, timeout=BASIC_TIMEOUT):
         return self.wait(timeout).until(EC.presence_of_element_located(locator))
 
-    def click(self, locator, timeout=None) -> WebElement:
+    def click(self, locator, timeout=BASIC_TIMEOUT):
         self.find(locator, timeout=timeout)
         elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
         elem.click()
 
-    def hover_wrapper(self, locator, timeout=None):
+    def hover_wrapper(self, locator, timeout=BASIC_TIMEOUT):
         self.find(locator, timeout=timeout)
         elem = self.wait(timeout).until(EC.presence_of_element_located(locator))
         actions = AC(self.driver)
         actions.move_to_element(elem).perform()
+    def write_input(self, locator, message, timeout=BASIC_TIMEOUT):
+        input_element = self.find(locator, timeout)
+        input_element = self.wait().until(EC.visibility_of(input_element))
+        input_element.clear()
+        input_element.send_keys(message)
 
-    def write_input(self, locator, message, timeout=None):
-        input = self.find(locator, timeout)
-        input = self.wait().until(EC.visibility_of(input))
-        input.clear()
-        input.send_keys(message)
+
+class PageWithModalView(BasePage):
+    def open_modal_view(self, button_open_locator, sign_opening_locator):
+        self.click(button_open_locator)
+        assert self.find(sign_opening_locator).is_displayed()
+
+    def close_modal_view(self, button_close_locator, sign_opening_locator):
+        self.click(button_close_locator)
+        self.wait().until(EC.invisibility_of_element_located(sign_opening_locator))
