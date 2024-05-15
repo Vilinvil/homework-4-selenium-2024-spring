@@ -3,7 +3,6 @@ import time
 from ui.locators import basic_locators
 from utils.timeout import BASIC_TIMEOUT
 
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.action_chains import ActionChains as AC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -44,6 +43,7 @@ class BasePage(object):
         elem = self.wait(timeout).until(EC.presence_of_element_located(locator))
         actions = AC(self.driver)
         actions.move_to_element(elem).perform()
+
     def write_input(self, locator, message, timeout=BASIC_TIMEOUT):
         input_element = self.find(locator, timeout)
         input_element = self.wait().until(EC.visibility_of(input_element))
@@ -54,7 +54,7 @@ class BasePage(object):
 class PageWithModalView(BasePage):
     def open_modal_view(self, button_open_locator, sign_opening_locator):
         self.click(button_open_locator)
-        assert self.find(sign_opening_locator).is_displayed()
+        self.wait().until(EC.visibility_of_element_located(sign_opening_locator))
 
     def close_modal_view(self, button_close_locator, sign_opening_locator):
         self.click(button_close_locator)
