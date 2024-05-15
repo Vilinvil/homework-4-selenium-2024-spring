@@ -62,3 +62,39 @@ class TestBudget(LoggedCase):
         # self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT_WITHOUT_VAT, '166667')
         # self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
         # assert self.budget_page.find(self.budget_page.locators.ALERT_MAX_SUMM_REPLENISH).is_displayed()
+
+    def test_incorrect_input(self):
+        self.budget_page.open_modal_view(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,
+                                         self.budget_page.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
+
+        incorrect_value = 'asdf700.02asdf'
+        expected_value = '700,02 ₽'
+
+        self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT,incorrect_value )
+        assert self.budget_page.find(self.budget_page.locators.INPUT_AMOUNT).get_attribute('value') == expected_value
+
+        self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT_WITHOUT_VAT, incorrect_value)
+        assert (self.budget_page.find(self.budget_page.locators.INPUT_AMOUNT_WITHOUT_VAT).get_attribute('value')
+                == expected_value)
+
+    def test_full_way(self):
+        self.budget_page.open_modal_view(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,
+                                         self.budget_page.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
+
+        value_invoice = '600'
+        value_invoice_with_vat = '500'
+
+        self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT, value_invoice)
+
+        assert (self.budget_page.find(self.budget_page.locators.INPUT_AMOUNT_WITHOUT_VAT).
+                get_attribute('value').startswith(value_invoice_with_vat))
+
+        self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT_WITHOUT_VAT, value_invoice_with_vat)
+
+        assert (self.budget_page.find(self.budget_page.locators.INPUT_AMOUNT).
+                get_attribute('value').startswith(value_invoice))
+
+        self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
+
+        (self.budget_page.wait().
+         until(EC.visibility_of_element_located(self.budget_page.locators.SIGN_OPENING_INVOICE_END_IFRAME)))

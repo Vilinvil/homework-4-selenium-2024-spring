@@ -31,3 +31,6 @@ class BudgetPageLocators:
 
     ALERT_MAX_SUMM_REPLENISH = (By.XPATH, '//*[@id="_modal_17"]'
                                           '//*[@role="alert" and contains(text(), "уменьшите сумму")]')
+
+    SIGN_OPENING_INVOICE_END_IFRAME = \
+        (By.XPATH, '//*[@id="_modal_17"]//iframe[starts-with(@class, "CreateInvoiceModal")]')
