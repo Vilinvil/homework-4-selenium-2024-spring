@@ -8,7 +8,7 @@ from ui.pages.help_page import HelpPage
 class TestHelp(BaseCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup_help(self, driver, config):
-        self.base_page.click(self.base_page.locators.BUTTON_HELP)
+        self.base_page.click(self.base_page.locators.NAV_BUTTON_HELP)
         self.help_page = HelpPage(self.driver)
 
     def test_display(self):

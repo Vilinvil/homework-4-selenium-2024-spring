@@ -17,12 +17,12 @@ class BasePage(object):
     locators = basic_locators.BasePageLocators()
     url = 'https://ads.vk.com/'
 
-    def is_opened(self, url=url, timeout=BASIC_TIMEOUT):
+    def is_opened(self, timeout=BASIC_TIMEOUT):
         started = time.time()
         while time.time() - started < timeout:
-            if self.driver.current_url == url:
+            if self.driver.current_url == self.url:
                 return True
-        raise PageNotOpenedExeption(f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
+        raise PageNotOpenedExeption(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
     def __init__(self, driver):
         self.driver = driver
