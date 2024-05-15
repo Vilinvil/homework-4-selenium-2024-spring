@@ -8,7 +8,7 @@ class LoginPage(BasePage):
     locators = login_locators.LoginPageLocators()
     
     def login(self, credentials: Credentials):
-        self.click(super().locators.BUTTON_CABINET_LOCATOR)
+        self.click(super().locators.NAV_BUTTON_CABINET_LOCATOR)
 
         self.click(self.locators.BUTTON_MAILRU_AUTH_LOCATOR)
 
