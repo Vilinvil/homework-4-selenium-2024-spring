@@ -1,5 +1,3 @@
-import time
-
 import pytest
 from cases import BaseCase
 from ui.locators.basic_locators import BasePageLocators

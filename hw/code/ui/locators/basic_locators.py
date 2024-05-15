@@ -16,5 +16,23 @@ class BasePageLocators:
     BUTTON_VIDEO_COURSES = (By.CSS_SELECTOR, '[href="https://expert.vk.com/catalog/courses/"]')
     BUTTON_CERTIFICATION = (By.CSS_SELECTOR, '[href="https://expert.vk.com/certification/"]')
 
+    FOOTER_LOCATOR = (By.CSS_SELECTOR, '[data-test-id="footer-test-id"]')
+    FOOTER_BUTTON_NEWS = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/news"]')
+    FOOTER_BUTTON_INSIGHTS = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/insights"]')
+    FOOTER_BUTTON_EVENTS = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/events"]')
+    FOOTER_BUTTON_DOCUMENTS = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/documents"]')
+    FOOTER_BUTTON_EXPERTS = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://expert.vk.com/"]')
+    FOOTER_BUTTON_CASES = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/cases"]')
+    FOOTER_BUTTON_HELP = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/help"]')
+    FOOTER_BUTTON_MONETIZATION = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/partner"]')
+    FOOTER_BUTTON_CABINET = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/hq?ref=main_landing"]')
+    FOOTER_LOGO_VK_BUSINESS = (
+        By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://vk.company/ru/company/business/"]')
+    FOOTER_LOGO_VK = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://vk.com/vk_ads"]')
+    FOOTER_LOGO_OK = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://ok.ru/group/64279825940712"]')
+    FOOTER_LOGO_TG = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://t.me/vk_ads"]')
+    FOOTER_ABOUT_COMPANY = (By.XPATH, '//*[starts-with(@class, "Footer_about")]')
+    FOOTER_WRAPPER_LANGUAGE = (By.XPATH, '//*[starts-with(@class, "SelectLanguage_wrapper")]')
+
 
 
