@@ -9,6 +9,6 @@ class MonetizationPageLocators:
         (By.XPATH, '//*[starts-with(@class, "PartnerContent_footer")]//*[contains(text(),"Справка")]')
     MONETIZATION_FOOTER_LANGUAGE_WRAPPER = (By.XPATH, '//*[starts-with(@class, "SelectLanguage_desktopSelect")]')
     MONETIZATION_FOOTER_LANGUAGE_BUTTON_ENGLISH = \
-        (By.XPATH, '//*[starts-with(@class, "SelectLanguage_selectElem")]//*[contains(text(),"English")]')
+        (By.XPATH, '//*[starts-with(@class, "SelectLanguage_desktopSelect")]//*[contains(text(),"English")]')
     MONETIZATION_FOOTER_LANGUAGE_BUTTON_RUSSIAN = \
-        (By.XPATH, '//*[starts-with(@class, "SelectLanguage_selectElem")]//*[contains(text(),"Русский")]')
+        (By.XPATH, '//*[starts-with(@class, "SelectLanguage_desktopSelect")]//*[contains(text(),"Русский")]')
