@@ -52,6 +52,16 @@ class TestOverview(LoggedCase):
 
         assert self.overview_page.wait().until(EC.url_to_be("https://ads.vk.com/help/articles/ad_limits"))
 
+    def test_change_budget_date(self):
+        budget_date_elem = self.overview_page.find(self.overview_page.locators.BUTTON_CHOOSE_BUDGET_DATE)
+        assert budget_date_elem.text.find("cегодня")
+
+        budget_date_elem.click()
+
+        self.overview_page.click(self.overview_page.locators.BUTTON_CHOOSE_BUDGET_DATE_YESTERDAY)
+        budget_date_elem = self.overview_page.find(self.overview_page.locators.BUTTON_CHOOSE_BUDGET_DATE)
+        assert budget_date_elem.text.find("Вчера")
+
     def test_modal_page_budget(self):
         self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_BUDGET_REPLENISH,
                                            self.overview_page.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
@@ -141,3 +151,27 @@ class TestOverview(LoggedCase):
         chose_campaigns = self.driver.find_elements(*self.overview_page.locators.COUNTER_CHOOSE_CAMPAIGN_IN_MAIN_VIEW)
 
         assert len(chose_campaigns) == expected_count_chose_campaigns
+
+    def test_choose_settings_graph(self):
+        begin_graph_settings = self.overview_page.find(self.overview_page.locators.BUTTON_SETTINGS_GRAPH).text
+
+        self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_SETTINGS_GRAPH,
+                                           self.overview_page.locators.SIGN_OPENING_CHOOSE_SETTINGS_GRAPH)
+
+        self.overview_page.click(self.overview_page.locators.BUTTON_CHOOSE_CLICKS_SETTINGS_GRAPH)
+
+        self.overview_page.close_modal_view(self.overview_page.locators.BUTTON_SAVE_SETTINGS_GRAPH,
+                                            self.overview_page.locators.SIGN_OPENING_CHOOSE_SETTINGS_GRAPH)
+
+        end_graph_settings = self.overview_page.find(self.overview_page.locators.BUTTON_SETTINGS_GRAPH).text
+
+        assert begin_graph_settings != end_graph_settings and end_graph_settings == "Клики"
+
+    def test_useful_articles(self):
+        begin_useful_articles = self.overview_page.find(self.overview_page.locators.USEFUL_ARTICLES)
+
+        self.overview_page.click(self.overview_page.locators.BUTTON_NEWS_USEFUL_ARTICLES)
+
+        end_useful_articles = self.overview_page.find(self.overview_page.locators.USEFUL_ARTICLES)
+
+        assert begin_useful_articles.screenshot_as_base64 != end_useful_articles.screenshot_as_base64
