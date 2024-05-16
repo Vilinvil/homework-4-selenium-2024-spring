@@ -11,11 +11,11 @@ class BudgetPageLocators:
     SIGN_OPENING_MODAL_PAGE_BUDGET = (By.ID, "_modal_17")
     BUTTON_CLOSE_MODAL_PAGE_BUDGET = (By.CSS_SELECTOR, '.vkuiModalDismissButton')
 
-    TITLE_MODAL_PAGE_BUDGET = (By.XPATH, '//*[@id="_modal_17"]//*[starts-with(@class, "CreateInvoiceModal_desc")]'
+    TITLE_MODAL_PAGE_BUDGET = (By.XPATH, '//*[@id="_modal_17"]//*[contains(@class, "CreateInvoiceModal_desc")]'
                                          '//*[contains(text(), "Пополнение счёта")]')
-    TITLE_CRETE_INVOICE_SUMM = (By.XPATH, '//*[@id="_modal_17"]//*[starts-with(@class, "CreateInvoiceModal_top")]'
+    TITLE_CRETE_INVOICE_SUMM = (By.XPATH, '//*[@id="_modal_17"]//*[contains(@class, "CreateInvoiceModal_top")]'
                                           '//*[contains(text(), "Cумма к оплате")]')
-    TITLE_CRETE_INVOICE_VAT = (By.XPATH, '//*[@id="_modal_17"]//*[starts-with(@class, "CreateInvoiceModal_top")]'
+    TITLE_CRETE_INVOICE_VAT = (By.XPATH, '//*[@id="_modal_17"]//*[contains(@class, "CreateInvoiceModal_top")]'
                                          '//*[contains(text(), "Сумма, поступающая на ваш счёт (НДС — 20%)")]')
     BUTTON_CONTINUE_BUDGET_REPLENISH = (By.XPATH, '//*[@id="_modal_17"]//button//*[contains(text(), "Пополнить счёт")]')
 
@@ -24,8 +24,8 @@ class BudgetPageLocators:
     ALERT_MIN_SUMM_REPLENISH = (By.XPATH, '//*[@id="_modal_17"]'
                                           '//*[@role="alert" and contains(text(), "Минимальная сумма 600,00")]')
 
-    HINT_MIN_SUMM_TRIGGER = (By.XPATH, '//*[@id="_modal_17"]//*[starts-with(@class, "Hint_hintTrigger")]')
-    TOOLTIP_MIN_SUMM = (By.XPATH, '//*[starts-with(@class, "Tooltip_tooltipContainer")]'
+    HINT_MIN_SUMM_TRIGGER = (By.XPATH, '//*[@id="_modal_17"]//*[contains(@class, "Hint_hintTrigger")]')
+    TOOLTIP_MIN_SUMM = (By.XPATH, '//*[contains(@class, "Tooltip_tooltipContainer")]'
                                   '//*[contains(text(), "Сумма к оплате")]')
     HINT_MIN_SUMM_REF = (By.CSS_SELECTOR, f'[href="{HINT_MIN_SUMM_URL}"]')
 
@@ -33,4 +33,4 @@ class BudgetPageLocators:
                                           '//*[@role="alert" and contains(text(), "уменьшите сумму")]')
 
     SIGN_OPENING_INVOICE_END_IFRAME = \
-        (By.XPATH, '//*[@id="_modal_17"]//iframe[starts-with(@class, "CreateInvoiceModal")]')
+        (By.XPATH, '//*[@id="_modal_17"]//iframe[contains(@class, "CreateInvoiceModal")]')

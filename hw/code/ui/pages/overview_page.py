@@ -1,4 +1,4 @@
-from ui.pages.base_page import BasePage, PageWithModalView
+from ui.pages.base_page import BasePage, PageWithModalView, PageWithRedirectWindow
 from ui.locators.overview_locators import OverviewNewUserPageLocators
 from ui.locators.overview_locators import OverviewPageLocators
 from ui.locators.training_locators import TrainingPageSharedLocators
@@ -23,7 +23,7 @@ class OverviewNewUserPage(BasePage):
             assert start_action.find_element(By.XPATH, './/button').is_displayed()
 
 
-class OverviewPage(PageWithModalView):
+class OverviewPage(PageWithModalView, PageWithRedirectWindow):
     url = "https://ads.vk.com/hq/overview"
     locators = OverviewPageLocators()
 
@@ -36,3 +36,28 @@ class OverviewPage(PageWithModalView):
         assert self.find(self.locators.BUTTON_BUDGET_REPLENISH).is_displayed()
         assert self.find(self.locators.BUTTON_CHOOSE_CAMPAIGNS).is_displayed()
         assert self.find(self.locators.BUTTON_LIMIT_ARTICLE).is_displayed()
+
+    def get_current_count_chose_campaigns(self):
+        text_choose_campaign = self.find(self.locators.COUNTER_CHOOSE_CAMPAIGN).text
+        idx_counter = text_choose_campaign.find(' ')
+
+        try:
+            result = int(text_choose_campaign[idx_counter:idx_counter+2])
+        except ValueError:
+            result = 0
+
+        return result
+
+    def activate_count_choose_campaigns(self, expected_count_chose_campaigns):
+        self.find(self.locators.CHECKBOX_CHOOSE_CAMPAIGN)
+        checkboxes = self.driver.find_elements(*self.locators.CHECKBOX_CHOOSE_CAMPAIGN)
+
+        cur_count_clicked_checkboxes = 0
+        while len(checkboxes) != 0 and cur_count_clicked_checkboxes < expected_count_chose_campaigns:
+            if checkboxes[0].is_displayed():
+                checkboxes[0].click()
+                cur_count_clicked_checkboxes += 1
+            checkboxes = checkboxes[1:]
+
+        if cur_count_clicked_checkboxes < expected_count_chose_campaigns:
+            raise BaseException("Not enough checkboxes to click")
