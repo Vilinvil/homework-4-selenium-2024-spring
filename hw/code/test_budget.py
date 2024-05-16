@@ -1,7 +1,6 @@
 import pytest
 
 from cases import LoggedCase
-from utils.redirect_window import redirect_window
 from ui.pages.budget_page import BudgetPage
 from ui.locators.budget_locators import HINT_MIN_SUMM_URL
 
@@ -47,7 +46,7 @@ class TestBudget(LoggedCase):
 
         self.budget_page.hover_wrapper(self.budget_page.locators.HINT_MIN_SUMM_TRIGGER)
 
-        redirect_window(self.budget_page, self.budget_page.locators.HINT_MIN_SUMM_REF)
+        self.budget_page.redirect_window(self.budget_page.locators.HINT_MIN_SUMM_REF)
         assert self.budget_page.wait().until(EC.url_to_be(HINT_MIN_SUMM_URL))
 
     def test_error_big_summ(self):

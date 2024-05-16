@@ -1,13 +1,15 @@
 import pytest
 from cases import BaseCase
 from ui.locators.basic_locators import BasePageLocators
-from ui.pages.base_page import BasePage
+from ui.pages.base_page import PageWithRedirectWindow
 from selenium.webdriver.support import expected_conditions as EC
-from utils.redirect_window import redirect_window
-
 
 
 class TestNavbar(BaseCase):
+    @pytest.fixture(scope='function', autouse=True)
+    def setup_monetization(self, driver, config):
+        self.redirect_page = PageWithRedirectWindow(self.driver)
+
     def test_display(self):
         assert self.base_page.find(self.base_page.locators.NAV_BUTTON_HELP).is_displayed()
         assert self.base_page.find(self.base_page.locators.NAV_BUTTON_MONETIZATION).is_displayed()
@@ -39,13 +41,11 @@ class TestNavbar(BaseCase):
     )
     def test_open_pages(self, locator, url, redirect):
         if redirect:
-            redirect_window(self.base_page, locator)
+            self.redirect_page.redirect_window(locator)
         else:
             self.base_page.click(locator)
 
-
         self.base_page.wait().until(EC.url_to_be(url))
-
 
     def test_education_dropdown_display(self):
         self.base_page.hover_wrapper(self.base_page.locators.NAV_WRAPPER_EDUCATION)
@@ -76,7 +76,7 @@ class TestNavbar(BaseCase):
         self.base_page.hover_wrapper(self.base_page.locators.NAV_WRAPPER_EDUCATION)
 
         if redirect:
-            redirect_window(self.base_page, locator)
+            self.redirect_page.redirect_window(self.base_page, locator)
         else:
             self.base_page.click(locator)
 
@@ -98,5 +98,3 @@ class TestNavbar(BaseCase):
     def test_open_login_page(self):
         self.base_page.click(self.base_page.locators.NAV_BUTTON_CABINET_LOCATOR)
         self.base_page.wait().until(EC.url_matches("https://id.vk.com/auth"))
-
-

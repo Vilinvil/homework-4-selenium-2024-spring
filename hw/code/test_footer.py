@@ -1,12 +1,10 @@
 import pytest
 from cases import BaseCase
+from ui.pages.base_page import PageWithRedirectWindow
 from ui.locators.basic_locators import BasePageLocators
-from ui.pages.base_page import BasePage
 from selenium.webdriver.support import expected_conditions as EC
-from utils.redirect_window import redirect_window_with_scroll
 from utils.timeout import BASIC_TIMEOUT
 from selenium.webdriver.common.action_chains import ActionChains as AC
-import time
 
 
 class TestFooter(BaseCase):
@@ -76,7 +74,8 @@ class TestFooter(BaseCase):
     )
     def test_open_pages(self, locator, url, redirect):
         if redirect:
-            redirect_window_with_scroll(self.base_page, locator)
+            page_with_redirect = PageWithRedirectWindow(self.driver)
+            page_with_redirect.redirect_window_with_scroll(locator)
         else:
             elem = self.base_page.wait(BASIC_TIMEOUT).until(
                 EC.presence_of_element_located(locator))

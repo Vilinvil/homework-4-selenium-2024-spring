@@ -59,3 +59,28 @@ class PageWithModalView(BasePage):
     def close_modal_view(self, button_close_locator, sign_opening_locator):
         self.click(button_close_locator)
         self.wait().until(EC.invisibility_of_element_located(sign_opening_locator))
+
+
+class PageWithRedirectWindow(BasePage):
+    def redirect_window(self, redirect_button_locator, expected_number_of_windows_to_be=2):
+        original_window = self.driver.current_window_handle
+        self.click(redirect_button_locator)
+
+        self.wait().until(EC.number_of_windows_to_be(expected_number_of_windows_to_be))
+
+        new_window = self.driver.window_handles[-1]
+        self.driver.switch_to.window(new_window)
+
+        return original_window
+
+    def redirect_window_with_scroll(self, redirect_button_locator, expected_number_of_windows_to_be=2):
+        original_window = self.driver.current_window_handle
+        elem = self.wait(BASIC_TIMEOUT).until(EC.presence_of_element_located(redirect_button_locator))
+        AC(self.driver).move_to_element(elem).click(elem).perform()
+
+        self.wait().until(EC.number_of_windows_to_be(expected_number_of_windows_to_be))
+
+        new_window = self.driver.window_handles[-1]
+        self.driver.switch_to.window(new_window)
+
+        return original_window
