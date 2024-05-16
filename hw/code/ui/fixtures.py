@@ -69,3 +69,14 @@ def credentials_new_user():
     assert password
 
     return Credentials(login, password)
+
+@pytest.fixture(scope='session')
+def credentials_user_without_cabinet():
+    login = os.getenv('LOGIN_USER_WITHOUT_CABINET')
+    password = os.getenv('PASSWORD_USER_WITHOUT_CABINET')
+
+    assert login
+    print(password)
+    assert password
+
+    return Credentials(login, password)
