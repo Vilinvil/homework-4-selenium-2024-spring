@@ -14,19 +14,25 @@ class TestBudget(LoggedCase):
         self.budget_page = BudgetPage(self.driver)
 
     def test_display(self):
-        assert self.budget_page.find(self.budget_page.locators.TITLE).is_displayed()
-        assert self.budget_page.find(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH).is_displayed()
+        assert self.budget_page.find(self.budget_page.locators.TITLE, until_EC=EC.visibility_of_element_located)
+        assert self.budget_page.find(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,
+                                     until_EC=EC.visibility_of_element_located)
 
         self.budget_page.open_modal_view(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,
                                          self.budget_page.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
 
-        assert self.budget_page.find(self.budget_page.locators.TITLE_MODAL_PAGE_BUDGET).is_displayed()
-        assert self.budget_page.find(self.budget_page.locators.TITLE_CRETE_INVOICE_SUMM).is_displayed()
-        assert self.budget_page.find(self.budget_page.locators.TITLE_CRETE_INVOICE_VAT).is_displayed()
-        assert self.budget_page.find(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH).is_displayed()
+        assert self.budget_page.find(self.budget_page.locators.TITLE_MODAL_PAGE_BUDGET,
+                                     until_EC=EC.visibility_of_element_located)
+        assert self.budget_page.find(self.budget_page.locators.TITLE_CRETE_INVOICE_SUMM,
+                                     until_EC=EC.visibility_of_element_located)
+        assert self.budget_page.find(self.budget_page.locators.TITLE_CRETE_INVOICE_VAT,
+                                     until_EC=EC.visibility_of_element_located)
+        assert self.budget_page.find(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH,
+                                     until_EC=EC.visibility_of_element_located)
 
         self.budget_page.hover_wrapper(self.budget_page.locators.HINT_MIN_SUMM_TRIGGER)
-        assert self.budget_page.find(self.budget_page.locators.TOOLTIP_MIN_SUMM).is_displayed()
+        assert self.budget_page.find(self.budget_page.locators.TOOLTIP_MIN_SUMM,
+                                     until_EC=EC.visibility_of_element_located)
 
     def test_error_min_sum(self):
         self.budget_page.open_modal_view(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,
@@ -34,11 +40,13 @@ class TestBudget(LoggedCase):
 
         self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT, '599')
         self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
-        assert self.budget_page.find(self.budget_page.locators.ALERT_MIN_SUMM_REPLENISH).is_displayed()
+        assert self.budget_page.find(self.budget_page.locators.ALERT_MIN_SUMM_REPLENISH,
+                                     until_EC=EC.visibility_of_element_located)
 
         self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT_WITHOUT_VAT, '499')
         self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
-        assert self.budget_page.find(self.budget_page.locators.ALERT_MIN_SUMM_REPLENISH).is_displayed()
+        assert self.budget_page.find(self.budget_page.locators.ALERT_MIN_SUMM_REPLENISH,
+                                     until_EC=EC.visibility_of_element_located)
 
     def test_hint_min_summ(self):
         self.budget_page.open_modal_view(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,
@@ -55,12 +63,13 @@ class TestBudget(LoggedCase):
 
         self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT, '200001')
         self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
-        assert self.budget_page.find(self.budget_page.locators.ALERT_MAX_SUMM_REPLENISH).is_displayed()
+        assert self.budget_page.find(self.budget_page.locators.ALERT_MAX_SUMM_REPLENISH,
+                                     until_EC=EC.visibility_of_element_located)
 
         # TODO CREATE REPORT IN ADS.VK.COM
         # self.budget_page.write_input(self.budget_page.locators.INPUT_AMOUNT_WITHOUT_VAT, '166667')
         # self.budget_page.click(self.budget_page.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
-        # assert self.budget_page.find(self.budget_page.locators.ALERT_MAX_SUMM_REPLENISH).is_displayed()
+        # assert self.budget_page.find(self.budget_page.locators.ALERT_MAX_SUMM_REPLENISH, until_EC=EC.visibility_of_element_located)
 
     def test_incorrect_input(self):
         self.budget_page.open_modal_view(self.budget_page.locators.BUTTON_START_BUDGET_REPLENISH,

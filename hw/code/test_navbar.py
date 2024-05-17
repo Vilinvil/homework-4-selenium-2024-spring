@@ -11,13 +11,20 @@ class TestNavbar(BaseCase):
         self.redirect_page = PageWithRedirectWindow(self.driver)
 
     def test_display(self):
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_HELP).is_displayed()
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_MONETIZATION).is_displayed()
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_IDEAS).is_displayed()
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_CASES).is_displayed()
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_NEWS).is_displayed()
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_CABINET_LOCATOR).is_displayed()
-        assert self.base_page.find(self.base_page.locators.NAV_WRAPPER_EDUCATION).is_displayed()
+        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_HELP,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_MONETIZATION,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_IDEAS,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_CASES,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_NEWS,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_CABINET_LOCATOR,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.NAV_WRAPPER_EDUCATION,
+                                   until_EC=EC.visibility_of_element_located)
 
     @pytest.mark.parametrize(
         'locator,url,redirect',
@@ -50,10 +57,12 @@ class TestNavbar(BaseCase):
     def test_education_dropdown_display(self):
         self.base_page.hover_wrapper(self.base_page.locators.NAV_WRAPPER_EDUCATION)
 
-        assert self.base_page.find(self.base_page.locators.BUTTON_INSIGHTS).is_displayed()
-        assert self.base_page.find(self.base_page.locators.BUTTON_EVENTS).is_displayed()
-        assert self.base_page.find(self.base_page.locators.BUTTON_VIDEO_COURSES).is_displayed()
-        assert self.base_page.find(self.base_page.locators.BUTTON_CERTIFICATION).is_displayed()
+        assert self.base_page.find(self.base_page.locators.BUTTON_INSIGHTS, until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.BUTTON_EVENTS, until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.BUTTON_VIDEO_COURSES,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.BUTTON_CERTIFICATION,
+                                   until_EC=EC.visibility_of_element_located)
 
     @pytest.mark.parametrize(
         'locator,url,redirect',

@@ -30,8 +30,8 @@ class BasePage(object):
     def wait(self, timeout=BASIC_TIMEOUT):
         return WebDriverWait(self.driver, timeout=timeout)
 
-    def find(self, locator, timeout=BASIC_TIMEOUT):
-        return self.wait(timeout).until(EC.presence_of_element_located(locator))
+    def find(self, locator, timeout=BASIC_TIMEOUT, until_EC=EC.presence_of_element_located):
+        return self.wait(timeout).until(until_EC(locator))
 
     def click(self, locator, timeout=BASIC_TIMEOUT):
         self.find(locator, timeout=timeout)

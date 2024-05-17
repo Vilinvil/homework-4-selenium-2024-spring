@@ -13,7 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class TestNewUserOverview(LoggedNewUserCase):
     @pytest.fixture(scope='function', autouse=True)
-    def setup_new_user_overview(self, driver, config):
+    def setup_new_user_overview(self, driver):
         self.overview_new_user_page = OverviewNewUserPage(self.driver)
 
     def test_display(self):
@@ -32,12 +32,12 @@ class TestNewUserOverview(LoggedNewUserCase):
                              ], )
     def test_open_page_by_click(self, button_locator, expected_locator):
         self.overview_new_user_page.click(button_locator)
-        assert self.overview_new_user_page.find(expected_locator).is_displayed()
+        assert self.overview_new_user_page.find(expected_locator, until_EC=EC.visibility_of_element_located)
 
 
 class TestOverview(LoggedCase):
     @pytest.fixture(scope='function', autouse=True)
-    def setup_overview(self, driver, config):
+    def setup_overview(self, driver):
         self.overview_page = OverviewPage(self.driver)
         self.max_count_campaigns = 5
 
@@ -117,7 +117,7 @@ class TestOverview(LoggedCase):
         self.overview_page.write_input(self.overview_page.locators.choose_campaign_locators.
                                        INPUT_SEARCH_IN_CHOOSE_CAMPAIGNS, query)
 
-        assert self.overview_page.find(expected_locator).is_displayed()
+        assert self.overview_page.find(expected_locator, until_EC=EC.visibility_of_element_located)
 
     def test_tooltip_max_count_campaigns(self, setup_choose_campaigns):
         count_choose_campaigns = self.overview_page.get_current_count_chose_campaigns()
