@@ -34,11 +34,11 @@ class OverviewPage(PageWithModalView, PageWithRedirectWindow):
         assert self.find(self.locators.WIDGET_FAVOURITES).is_displayed()
         assert self.find(self.locators.BUTTON_CREATE_CAMPAIGN).is_displayed()
         assert self.find(self.locators.BUTTON_BUDGET_REPLENISH).is_displayed()
-        assert self.find(self.locators.BUTTON_CHOOSE_CAMPAIGNS).is_displayed()
+        assert self.find(self.locators.choose_campaign_locators.BUTTON_CHOOSE_CAMPAIGNS).is_displayed()
         assert self.find(self.locators.BUTTON_LIMIT_ARTICLE).is_displayed()
 
     def get_current_count_chose_campaigns(self):
-        text_choose_campaign = self.find(self.locators.COUNTER_CHOOSE_CAMPAIGN).text
+        text_choose_campaign = self.find(self.locators.choose_campaign_locators.COUNTER_CHOOSE_CAMPAIGN).text
         idx_counter = text_choose_campaign.find(' ')
 
         try:
@@ -49,8 +49,8 @@ class OverviewPage(PageWithModalView, PageWithRedirectWindow):
         return result
 
     def activate_count_choose_campaigns(self, expected_count_chose_campaigns):
-        self.find(self.locators.CHECKBOX_CHOOSE_CAMPAIGN)
-        checkboxes = self.driver.find_elements(*self.locators.CHECKBOX_CHOOSE_CAMPAIGN)
+        self.find(self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN)
+        checkboxes = self.driver.find_elements(*self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN)
 
         cur_count_clicked_checkboxes = 0
         while len(checkboxes) != 0 and cur_count_clicked_checkboxes < expected_count_chose_campaigns:

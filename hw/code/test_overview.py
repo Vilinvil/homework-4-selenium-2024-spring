@@ -3,7 +3,8 @@ import pytest
 from cases import LoggedNewUserCase, LoggedCase
 from utils.parse_date import parse_date
 from ui.pages.overview_page import OverviewNewUserPage, OverviewPage
-from ui.locators.overview_locators import OverviewNewUserPageLocators, OverviewPageLocatorsLocatorsLocatorsLocatorsLocators
+from ui.locators.overview_locators import OverviewNewUserPageLocators, \
+    OverviewPageLocators
 from ui.locators.campaigns_locators import CampaignsPageSharedLocators
 from ui.locators.training_locators import TrainingPageSharedLocators
 
@@ -70,108 +71,124 @@ class TestOverview(LoggedCase):
                                             self.overview_page.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
 
     def test_date_picker(self):
-        self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_OPEN_DATE_CHOOSE,
-                                           self.overview_page.locators.SIGN_OPENING_DATE_CHOOSE)
-        self.overview_page.click(self.overview_page.locators.BUTTON_DATE_RANGE_TODAY)
-        self.overview_page.close_modal_view(self.overview_page.locators.BUTTON_APPLY_DATE_CHOOSE)
+        self.overview_page.open_modal_view(self.overview_page.locators.choose_date_locators.BUTTON_OPEN_DATE_CHOOSE,
+                                           self.overview_page.locators.choose_date_locators.SIGN_OPENING_DATE_CHOOSE)
+        self.overview_page.click(self.overview_page.locators.choose_date_locators.BUTTON_DATE_RANGE_TODAY)
+        self.overview_page.close_modal_view(self.overview_page.locators.choose_date_locators.BUTTON_APPLY_DATE_CHOOSE,
+                                            self.overview_page.locators.choose_date_locators.SIGN_OPENING_DATE_CHOOSE)
 
-        button_date_range = self.overview_page.find(self.overview_page.locators.BUTTON_OPEN_DATE_CHOOSE)
+        button_date_range = self.overview_page.find(self.overview_page.locators.choose_date_locators.
+                                                    BUTTON_OPEN_DATE_CHOOSE)
 
         today_date = \
             parse_date(button_date_range.find_element(*self.overview_page.locators.RANGE_TEXT_DATE_CHOOSE).text)
 
-        self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_OPEN_DATE_CHOOSE,
-                                           self.overview_page.locators.SIGN_OPENING_DATE_CHOOSE)
-        self.overview_page.click(self.overview_page.locators.BUTTON_DATE_RANGE_YESTERDAY)
-        self.overview_page.close_modal_view(self.overview_page.locators.BUTTON_APPLY_DATE_CHOOSE)
+        self.overview_page.open_modal_view(self.overview_page.locators.choose_date_locators.BUTTON_OPEN_DATE_CHOOSE,
+                                           self.overview_page.locators.choose_date_locators.SIGN_OPENING_DATE_CHOOSE)
+        self.overview_page.click(self.overview_page.locators.choose_date_locators.BUTTON_DATE_RANGE_YESTERDAY)
+        self.overview_page.close_modal_view(self.overview_page.locators.choose_date_locators.BUTTON_APPLY_DATE_CHOOSE)
 
         yesterday_date = \
-            parse_date(button_date_range.find_element(*self.overview_page.locators.RANGE_TEXT_DATE_CHOOSE).text)
+            parse_date(button_date_range.find_element(*self.overview_page.locators.choose_date_locators.
+                                                      RANGE_TEXT_DATE_CHOOSE).text)
 
         assert (today_date - yesterday_date).days == 1
+
+    @pytest.fixture(scope="function")
+    def setup_choose_campaigns(self):
+        self.overview_page.open_modal_view(self.overview_page.locators.choose_campaign_locators.BUTTON_CHOOSE_CAMPAIGNS,
+                                           self.overview_page.locators.choose_campaign_locators.
+                                           SIGN_OPENING_CHOOSE_CAMPAIGNS)
 
     @pytest.mark.parametrize('query, expected_locator',
                              [
                                  pytest.param(
                                      "asdfasdf",
-                                     OverviewPageLocatorsLocatorsLocatorsLocatorsLocators.SIGN_SEARCH_NOT_FOUND_RESULTS,
+                                     OverviewPageLocators.choose_campaign_locators
+                                     .SIGN_SEARCH_NOT_FOUND_RESULTS,
                                  ),
                                  pytest.param(
                                      "Кампания",
-                                     OverviewPageLocatorsLocatorsLocatorsLocatorsLocators.SIGN_SEARCH_FOUND_RESULTS,
+                                     OverviewPageLocators.choose_campaign_locators
+                                     .SIGN_SEARCH_FOUND_RESULTS,
                                  )
                              ], )
-    def test_search_in_choose_campaigns(self, query, expected_locator):
-        self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_CHOOSE_CAMPAIGNS,
-                                           self.overview_page.locators.SIGN_OPENING_CHOOSE_CAMPAIGNS)
-
-        self.overview_page.write_input(self.overview_page.locators.INPUT_SEARCH_IN_CHOOSE_CAMPAIGNS, query)
+    def test_search_in_choose_campaigns(self,setup_choose_campaigns, query, expected_locator):
+        self.overview_page.write_input(self.overview_page.locators.choose_campaign_locators.
+                                       INPUT_SEARCH_IN_CHOOSE_CAMPAIGNS, query)
 
         assert self.overview_page.find(expected_locator).is_displayed()
 
-    def test_tooltip_max_count_campaigns(self):
-        self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_CHOOSE_CAMPAIGNS,
-                                           self.overview_page.locators.SIGN_OPENING_CHOOSE_CAMPAIGNS)
-
+    def test_tooltip_max_count_campaigns(self, setup_choose_campaigns):
         count_choose_campaigns = self.overview_page.get_current_count_chose_campaigns()
         self.overview_page.activate_count_choose_campaigns(self.max_count_campaigns - count_choose_campaigns)
 
-        self.overview_page.hover_wrapper(self.overview_page.locators.CHECKBOX_CHOOSE_CAMPAIGN_FOR_TOOLTIP)
-        assert self.overview_page.find(self.overview_page.locators.TOOLTIP_MAX_COUNT_CHOOSE_CAMPAIGN)
+        self.overview_page.hover_wrapper(self.overview_page.locators.choose_campaign_locators.
+                                         CHECKBOX_CHOOSE_CAMPAIGN_FOR_TOOLTIP)
+        assert self.overview_page.find(self.overview_page.locators.choose_campaign_locators.
+                                       TOOLTIP_MAX_COUNT_CHOOSE_CAMPAIGN)
 
-    def test_reset_choose_campaigns(self):
-        self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_CHOOSE_CAMPAIGNS,
-                                           self.overview_page.locators.SIGN_OPENING_CHOOSE_CAMPAIGNS)
-
+    def test_reset_choose_campaigns(self, setup_choose_campaigns):
         cur_count_chose_campaigns = self.overview_page.get_current_count_chose_campaigns()
         assert cur_count_chose_campaigns != 0
 
-        self.overview_page.click(self.overview_page.locators.BUTTON_RESET_CHOOSE_CAMPAIGN)
+        self.overview_page.click(self.overview_page.locators.choose_campaign_locators.
+                                 BUTTON_RESET_CHOOSE_CAMPAIGN)
 
         cur_count_chose_campaigns = self.overview_page.get_current_count_chose_campaigns()
         assert cur_count_chose_campaigns == 0
 
-        checkboxes = self.driver.find_elements(*self.overview_page.locators.CHECKBOX_CHOOSE_CAMPAIGN)
+        checkboxes = self.driver.find_elements(*self.overview_page.locators.choose_campaign_locators.
+                                               CHECKBOX_CHOOSE_CAMPAIGN)
         for checkbox in checkboxes:
             if checkbox.is_displayed():
                 raise BaseException("Checkbox should not be displayed")
 
-    def test_check_save_campaigns(self):
-        self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_CHOOSE_CAMPAIGNS,
-                                           self.overview_page.locators.SIGN_OPENING_CHOOSE_CAMPAIGNS)
-
+    def test_check_save_campaigns(self, setup_choose_campaigns):
         expected_count_chose_campaigns = 2
 
-        self.overview_page.click(self.overview_page.locators.BUTTON_RESET_CHOOSE_CAMPAIGN)
+        self.overview_page.click(self.overview_page.locators.choose_campaign_locators
+                                 .BUTTON_RESET_CHOOSE_CAMPAIGN)
         self.overview_page.activate_count_choose_campaigns(expected_count_chose_campaigns)
 
-        self.overview_page.close_modal_view(self.overview_page.locators.BUTTON_SAVE_CHOOSE_CAMPAIGN,
-                                            self.overview_page.locators.SIGN_OPENING_CHOOSE_CAMPAIGNS)
+        self.overview_page.close_modal_view(self.overview_page.locators.choose_campaign_locators
+                                            .BUTTON_SAVE_CHOOSE_CAMPAIGN,
+                                            self.overview_page.locators.choose_campaign_locators.
+                                            SIGN_OPENING_CHOOSE_CAMPAIGNS)
 
-        chose_campaigns = self.driver.find_elements(*self.overview_page.locators.COUNTER_CHOOSE_CAMPAIGN_IN_MAIN_VIEW)
+        chose_campaigns = self.driver.find_elements(*self.overview_page.locators.choose_campaign_locators.
+                                                    COUNTER_CHOOSE_CAMPAIGN_IN_MAIN_VIEW)
 
         assert len(chose_campaigns) == expected_count_chose_campaigns
 
     def test_choose_settings_graph(self):
-        begin_graph_settings = self.overview_page.find(self.overview_page.locators.BUTTON_SETTINGS_GRAPH).text
+        begin_graph_settings = self.overview_page.find(self.overview_page.locators.settings_graph_locators.
+                                                       BUTTON_OPEN_SETTINGS_GRAPH).text
 
-        self.overview_page.open_modal_view(self.overview_page.locators.BUTTON_SETTINGS_GRAPH,
-                                           self.overview_page.locators.SIGN_OPENING_CHOOSE_SETTINGS_GRAPH)
+        self.overview_page.open_modal_view(self.overview_page.locators.settings_graph_locators.BUTTON_OPEN_SETTINGS_GRAPH,
+                                           self.overview_page.locators.settings_graph_locators.
+                                           SIGN_OPENING_CHOOSE)
 
-        self.overview_page.click(self.overview_page.locators.BUTTON_CHOOSE_CLICKS_SETTINGS_GRAPH)
+        self.overview_page.click(self.overview_page.locators.settings_graph_locators.BUTTON_CHOOSE_CLICKS)
 
-        self.overview_page.close_modal_view(self.overview_page.locators.BUTTON_SAVE_SETTINGS_GRAPH,
-                                            self.overview_page.locators.SIGN_OPENING_CHOOSE_SETTINGS_GRAPH)
+        self.overview_page.close_modal_view(self.overview_page.locators.settings_graph_locators.
+                                            BUTTON_SAVE,
+                                            self.overview_page.locators.settings_graph_locators.
+                                            SIGN_OPENING_CHOOSE)
 
-        end_graph_settings = self.overview_page.find(self.overview_page.locators.BUTTON_SETTINGS_GRAPH).text
+        end_graph_settings = self.overview_page.find(self.overview_page.locators.settings_graph_locators.
+                                                     BUTTON_OPEN_SETTINGS_GRAPH).text
 
         assert begin_graph_settings != end_graph_settings and end_graph_settings == "Клики"
 
     def test_useful_articles(self):
-        begin_useful_articles = self.overview_page.find(self.overview_page.locators.USEFUL_ARTICLES)
+        self.overview_page.click(self.overview_page.locators.useful_articles_locators.BUTTON_CASES)
+        begin_useful_articles = self.overview_page.find(self.overview_page.locators.useful_articles_locators.
+                                                        USEFUL_ARTICLES).screenshot_as_base64
 
-        self.overview_page.click(self.overview_page.locators.BUTTON_NEWS_USEFUL_ARTICLES)
+        self.overview_page.click(self.overview_page.locators.useful_articles_locators.BUTTON_NEWS)
 
-        end_useful_articles = self.overview_page.find(self.overview_page.locators.USEFUL_ARTICLES)
+        end_useful_articles = self.overview_page.find(self.overview_page.locators.useful_articles_locators.
+                                                      USEFUL_ARTICLES).screenshot_as_base64
 
-        assert begin_useful_articles.screenshot_as_base64 != end_useful_articles.screenshot_as_base64
+        assert begin_useful_articles != end_useful_articles

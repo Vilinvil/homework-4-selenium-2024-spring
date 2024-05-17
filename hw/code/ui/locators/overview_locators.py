@@ -12,7 +12,7 @@ class OverviewNewUserPageLocators:
         (By.XPATH, '//*[contains(@class, "StartAction_wrapper")]//button//*[contains(text(),"Пройти обучение")]')
 
 
-class OverviewPageDateChooseLocators:
+class OverviewPageChooseDateLocators:
     BUTTON_OPEN_DATE_CHOOSE = (By.XPATH, '//*[contains(@class, "DatePicker_datePickerButton")]')
     SIGN_OPENING_DATE_CHOOSE = (By.XPATH, '//*[contains(@class, "RangeDatePicker_layout")]')
     BUTTON_CLOSE_DATE_CHOOSE = (By.XPATH, '//*[contains(@class, "RangeDatePicker_layout")]'
@@ -25,13 +25,16 @@ class OverviewPageDateChooseLocators:
 
 
 class OverviewPageChooseCampaignLocators:
+    BUTTON_CHOOSE_CAMPAIGNS = (By.XPATH, '//*[contains(@class, "FavoritesWidget_wrapper")]'
+                                         '//button//*[contains(text(), "Выбрать кампании")]')
+    SIGN_OPENING_CHOOSE_CAMPAIGNS = (By.XPATH, '//*[contains(@class, "PlansSelector_modal")]')
+
     INPUT_SEARCH_IN_CHOOSE_CAMPAIGNS = (By.CSS_SELECTOR, '[data-testid="search"')
     SIGN_SEARCH_NOT_FOUND_RESULTS = (By.XPATH, '//*[contains(@class, "PlansSelector_modal")]'
                                                '//*[contains(text(), "Ничего не нашлось")]')
     SIGN_SEARCH_FOUND_RESULTS = (By.XPATH, '//*[contains(@class, "PlansSelector_modal")]'
                                            '//*[contains(@class, "vkuiCheckbox__title")'
                                            ' and contains(text(), "Кампания")]')
-    SIGN_OPENING_CHOOSE_CAMPAIGNS = (By.XPATH, '//*[contains(@class, "PlansSelector_modal")]')
 
     COUNTER_CHOOSE_CAMPAIGN = (By.XPATH, '//*[contains(@class, "PlansSelector_modal")]'
                                          '//*[contains(@class, "PlansSelector_desc")]')
@@ -55,12 +58,12 @@ class OverviewPageChooseCampaignLocators:
 
 
 class OverviewPageSettingsGraphLocators:
-    BUTTON_SETTINGS_GRAPH = (By.XPATH, '//*[contains(@class, "FavoritesWidget_actions")]'
+    BUTTON_OPEN_SETTINGS_GRAPH = (By.XPATH, '//*[contains(@class, "FavoritesWidget_actions")]'
                                        '//*[contains(@class, "vkuiButton")]')
-    SIGN_OPENING_CHOOSE_SETTINGS_GRAPH = (By.XPATH, '//*[contains(@class, "Control_modalRoot")]')
-    BUTTON_CHOOSE_CLICKS_SETTINGS_GRAPH = (By.XPATH, '//*[contains(@class, "Control_modalRoot")]'
+    SIGN_OPENING_CHOOSE = (By.XPATH, '//*[contains(@class, "Control_modalRoot")]')
+    BUTTON_CHOOSE_CLICKS = (By.XPATH, '//*[contains(@class, "Control_modalRoot")]'
                                                      '//*[@role="button"]//*[contains(text(), "Клики")]')
-    BUTTON_SAVE_SETTINGS_GRAPH = (By.XPATH, '//*[contains(@class, "Control_modalRoot")]'
+    BUTTON_SAVE = (By.XPATH, '//*[contains(@class, "Control_modalRoot")]'
                                             '//*[contains(@class, "vkuiButton__content") and'
                                             ' contains(text(), "Применить")]')
 
@@ -68,12 +71,16 @@ class OverviewPageSettingsGraphLocators:
 class OverviewPageUsefulArticlesLocators:
     USEFUL_ARTICLES = (By.XPATH, '//*[contains(@class, "UsefulArticlesWidget_wrapper")]'
                                  '//*[contains(@class, "vkuiBaseGallery__viewport")]')
-    BUTTON_CASES_USEFUL_ARTICLES = (By.XPATH, '//*[@class="vkuiSegmentedControl__in"]//*[contains(text(), "Кейсы")]')
-    BUTTON_NEWS_USEFUL_ARTICLES = (By.XPATH, '//*[@class="vkuiSegmentedControl__in"]//*[contains(text(), "Новости")]')
+    BUTTON_CASES = (By.XPATH, '//*[@class="vkuiSegmentedControl__in"]//*[contains(text(), "Кейсы")]')
+    BUTTON_NEWS = (By.XPATH, '//*[@class="vkuiSegmentedControl__in"]//*[contains(text(), "Новости")]')
 
 
-class OverviewPageLocatorsLocatorsLocatorsLocatorsLocators(OverviewPageChooseCampaignLocators, OverviewPageDateChooseLocators,
-                                                           OverviewPageSettingsGraphLocators, OverviewPageUsefulArticlesLocators):
+class OverviewPageLocators:
+    choose_date_locators = OverviewPageChooseDateLocators()
+    choose_campaign_locators = OverviewPageChooseCampaignLocators()
+    settings_graph_locators = OverviewPageSettingsGraphLocators()
+    useful_articles_locators = OverviewPageUsefulArticlesLocators()
+
     WIDGET_CAMPAIGNS = \
         (By.XPATH, '//*[contains(@class, "FeedWidgetWrapper_wrapper")]//*[contains(text(), "Кампании")]')
     WIDGET_BUDGET = (By.XPATH, '//*[contains(@class, "FeedWidgetWrapper_wrapper")]//*[contains(text(), "Бюджет")]')
@@ -84,8 +91,6 @@ class OverviewPageLocatorsLocatorsLocatorsLocatorsLocators(OverviewPageChooseCam
     BUTTON_CREATE_CAMPAIGN = (By.CSS_SELECTOR, '[data-testid="create-button"]')
     BUTTON_BUDGET_REPLENISH = (By.XPATH, '//*[contains(@class, "FeedWidgetWrapper_wrapper")]'
                                          '//button//*[contains(text(), "Пополнить")]')
-    BUTTON_CHOOSE_CAMPAIGNS = (By.XPATH, '//*[contains(@class, "FavoritesWidget_wrapper")]'
-                                         '//button//*[contains(text(), "Выбрать кампании")]')
     BUTTON_LIMIT_ARTICLE = (By.CSS_SELECTOR, '[href="/help/articles/ad_limits"]')
 
     BUTTON_CHOOSE_BUDGET_DATE = (By.XPATH, '//*[contains(@class, "BudgetWidget")]'
