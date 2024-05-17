@@ -46,7 +46,7 @@ class TrainingPage(PageWithModalView, PageWithRedirectWindow):
         self.click(button_continue_locator)
 
     # STEP 2 of full way step_by_step training. Settings of Campaign.
-    def test_step2_of_full_way_step_by_step(self, campaign_shared_page: CampaignSharedPage):
+    def test_step2_of_full_way_step_by_step(self, campaign_shared_page: CampaignSharedPage) -> CampaignSharedPage:
         self.test_standard_tooltip(self.locators.step_by_step_locators.STEP2_TOOLTIP_GOALS,
                                    self.locators.step_by_step_locators.STEP2_BUTTON_CONTINUE_GOALS)
 
@@ -56,12 +56,12 @@ class TrainingPage(PageWithModalView, PageWithRedirectWindow):
 
         assert (self.find(self.locators.step_by_step_locators.STEP2_TOOLTIP_SITE,
                           until_EC=EC.visibility_of_element_located))
-        # check disable of continue button if input wrong url. # TODO create bug_report because
-        #  not always BUTTON_CONTINUE is disabled
-        # campaign_shared_page.input_site_url('wrong_url///' + Keys.ENTER)
-        # campaign_shared_page.find(campaign_shared_page.locators_shared.STEP2_ALERT_WRONG_URL,
-        #                          until_EC=EC.visibility_of_element_located)
-        # self.check_disable_of_locator(self.locators.step_by_step_locators.STEP2_BUTTON_CONTINUE)
+        # check disable of continue button if input wrong url.
+        campaign_shared_page.input_site_url('wrong_url' + Keys.ENTER)
+        campaign_shared_page.wait(1).until(EC.text_to_be_present_in_element_value(
+            campaign_shared_page.locators_shared.STEP2_INPUT_SITE_URL, 'wrong_url'))
+        self.check_disable_of_locator(self.locators.step_by_step_locators.STEP2_BUTTON_CONTINUE)
+
         campaign_shared_page.input_site_url('goods-galaxy.ru' + Keys.ENTER)
         campaign_shared_page.wait().until(EC.text_to_be_present_in_element_value(
             campaign_shared_page.locators_shared.STEP2_INPUT_SITE_URL, 'goods-galaxy.ru'))
@@ -85,6 +85,7 @@ class TrainingPage(PageWithModalView, PageWithRedirectWindow):
 
         assert (self.find(self.locators.step_by_step_locators.STEP2_TOOLTIP_BUDGET,
                           until_EC=EC.visibility_of_element_located))
+        self.check_disable_of_locator(self.locators.step_by_step_locators.STEP2_BUTTON_CONTINUE)
         campaign_shared_page.input_budget('100')
         self.click(self.locators.step_by_step_locators.STEP2_BUTTON_CONTINUE)
 
@@ -95,3 +96,82 @@ class TrainingPage(PageWithModalView, PageWithRedirectWindow):
         assert (self.find(self.locators.step_by_step_locators.STEP2_TOOLTIP_END_STEP,
                           until_EC=EC.visibility_of_element_located))
         campaign_shared_page.click_start_group_step()
+
+        return campaign_shared_page
+
+
+    def test_step3_of_full_way_step_by_step(self, campaign_shared_page: CampaignSharedPage) -> CampaignSharedPage:
+        self.test_standard_tooltip(self.locators.step_by_step_locators.STEP3_TOOLTIP_SETTINGS_TARGET_AUDIENCE,
+                                   self.locators.step_by_step_locators.STEP3_BUTTON_CONTINUE_SETTINGS_TARGET_AUDIENCE)
+
+        self.test_standard_tooltip(self.locators.step_by_step_locators.STEP3_TOOLTIP_SCHEDULE,
+                                   self.locators.step_by_step_locators.STEP3_BUTTON_CONTINUE)
+
+        assert (self.find(self.locators.step_by_step_locators.STEP3_TOOLTIP_REGIONS,
+                          until_EC=EC.visibility_of_element_located))
+        self.check_disable_of_locator(self.locators.step_by_step_locators.STEP2_BUTTON_CONTINUE)
+        campaign_shared_page.choose_region_by_name('Москва')
+        self.click(self.locators.step_by_step_locators.STEP3_BUTTON_CONTINUE)
+
+        self.test_standard_tooltip(self.locators.step_by_step_locators.STEP3_TOOLTIP_PARAMETERS_AUDIENCE,
+                                   self.locators.step_by_step_locators.STEP3_BUTTON_CONTINUE)
+
+        self.hover_wrapper(self.locators.step_by_step_locators.STEP3_HEADER_PARAMETERS_URL)
+        assert (self.find(self.locators.step_by_step_locators.STEP3_TOOLTIP_PARAMETERS_URL,
+                          until_EC=EC.visibility_of_element_located))
+
+        assert (self.find(self.locators.step_by_step_locators.STEP3_TOOLTIP_END_STEP,
+                          until_EC=EC.visibility_of_element_located))
+
+        campaign_shared_page.click_start_ads_step()
+
+        return campaign_shared_page
+
+    def test_step4_of_full_way_step_by_step(self, campaign_shared_page: CampaignSharedPage) -> CampaignSharedPage:
+        self.test_standard_tooltip(self.locators.step_by_step_locators.STEP4_TOOLTIP_ADS,
+                                   self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE_ADS)
+
+        assert (self.find(self.locators.step_by_step_locators.STEP4_TOOLTIP_LOGO,
+                          until_EC=EC.visibility_of_element_located))
+        self.check_disable_of_locator(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+        campaign_shared_page.set_image()
+        self.test_standard_tooltip(self.locators.step_by_step_locators.STEP4_TOOLTIP_LOGO,
+                                   self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+
+        assert (self.find(self.locators.step_by_step_locators.STEP4_TOOLTIP_TITLE,
+                          until_EC=EC.visibility_of_element_located))
+        self.check_disable_of_locator(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+        campaign_shared_page.input_title("Title")
+        self.click(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+
+        assert (self.find(self.locators.step_by_step_locators.STEP4_TOOLTIP_SHORT_DESCRIPTION,
+                          until_EC=EC.visibility_of_element_located))
+        self.check_disable_of_locator(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+        campaign_shared_page.input_short_description("Short description")
+        self.click(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+
+        assert (self.find(self.locators.step_by_step_locators.STEP4_TOOLTIP_LONG_DESCRIPTION,
+                          until_EC=EC.visibility_of_element_located))
+        self.check_disable_of_locator(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+        campaign_shared_page.input_long_description("Long description")
+        self.click(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+
+        self.test_standard_tooltip(self.locators.step_by_step_locators.STEP4_TOOLTIP_HREF,
+                                   self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+
+        assert (self.find(self.locators.step_by_step_locators.STEP4_TOOLTIP_MEDIA,
+                          until_EC=EC.visibility_of_element_located))
+        self.check_disable_of_locator(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+        campaign_shared_page.set_media()
+        self.click(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+
+        self.test_standard_tooltip(self.locators.step_by_step_locators.STEP4_TOOLTIP_LEGAL_INFO,
+                                   self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+
+        self.test_standard_tooltip(self.locators.step_by_step_locators.STEP4_TOOLTIP_PREVIEW,
+                                   self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
+
+        assert (self.find(self.locators.step_by_step_locators.STEP4_TOOLTIP_END_STEP,
+                          until_EC=EC.visibility_of_element_located))
+
+        return campaign_shared_page

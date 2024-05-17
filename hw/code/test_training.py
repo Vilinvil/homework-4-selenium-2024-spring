@@ -90,9 +90,8 @@ class TestTraining(LoggedCase):
     def test_full_way_step_by_step(self, setup_step_by_step):
         campaign_shared_page = self.training_page.test_step1_of_full_way_step_by_step()
 
-        self.training_page.test_step2_of_full_way_step_by_step(campaign_shared_page)
+        campaign_shared_page = self.training_page.test_step2_of_full_way_step_by_step(campaign_shared_page)
 
+        campaign_shared_page = self.training_page.test_step3_of_full_way_step_by_step(campaign_shared_page)
 
-
-
-
+        self.training_page.test_step4_of_full_way_step_by_step(campaign_shared_page)

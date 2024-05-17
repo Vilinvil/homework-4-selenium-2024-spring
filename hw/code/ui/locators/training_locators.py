@@ -39,12 +39,12 @@ class TrainingPageStepByStepLocators:
                                                 '//button//*[contains(text(), "Отмена")]')
 
     # STEP 2 of full way step_by_step training. Settings of Campaign.
-    STEP2_TOOLTIP_GOALS = (By.XPATH, '//*[contains(@class, "Info_root")]')
+    STEP2_TOOLTIP_GOALS = (By.XPATH, '//*[contains(@class, "Info_root")]//*[contains(text(), "Выбор объекта и цели рекламы")]')
     STEP2_BUTTON_CONTINUE_GOALS = (By.XPATH, '//*[contains(@class, "Info_firstButton")]')
 
     STEP2_TOOLTIP_OBJECT_ADS = create_rich_tooltip("Объект рекламы")
 
-    STEP2_TOOLTIP_SITE = create_rich_tooltip("Рекламируемый сайт")
+    STEP2_TOOLTIP_SITE = create_rich_tooltip("Рекламируемый сайт") # disabled
     STEP2_BUTTON_CONTINUE = (By.XPATH, '//*[contains(@class, "RichTooltop_wrapper")]'
                                        '//button[.//*[contains(text(), "Далее")]]')
 
@@ -60,11 +60,52 @@ class TrainingPageStepByStepLocators:
 
     STEP2_TOOLTIP_STRATEGY = create_rich_tooltip("Стратегия ставок кампании")
 
-    STEP2_TOOLTIP_BUDGET = create_rich_tooltip("Бюджет")
+    STEP2_TOOLTIP_BUDGET = create_rich_tooltip("Бюджет") # disabled
 
     STEP2_TOOLTIP_DATE = create_rich_tooltip("Даты проведения")
 
     STEP2_TOOLTIP_END_STEP = create_rich_tooltip("Кампания настроена")
+
+    # STEP 3 of full way step_by_step training. Groups of target audience.
+    STEP3_TOOLTIP_SETTINGS_TARGET_AUDIENCE = (By.XPATH, '//*[contains(@class, "Info_root")]'
+                                                        '//*[contains(text(), "Настройка целевой аудитории")]')
+    STEP3_BUTTON_CONTINUE_SETTINGS_TARGET_AUDIENCE = (By.XPATH, '//*[contains(@class, "Info_firstButton")]')
+
+    STEP3_TOOLTIP_SCHEDULE = create_rich_tooltip("Расписание показа")
+    STEP3_BUTTON_CONTINUE = STEP2_BUTTON_CONTINUE
+
+    STEP3_TOOLTIP_REGIONS = create_rich_tooltip("Регионы показа") # disabled
+
+    STEP3_TOOLTIP_PARAMETERS_AUDIENCE = create_rich_tooltip("Параметры аудитории")
+
+    STEP3_HEADER_PARAMETERS_URL = (By.XPATH, '//*[contains(@class, "vkuiGroup__header")]//*[contains(text(), "Параметры URL")]')
+    STEP3_TOOLTIP_PARAMETERS_URL = create_rich_tooltip("Параметры URL")
+
+    STEP3_TOOLTIP_END_STEP = create_rich_tooltip("Группа объявлений готова")
+
+    # STEP 4 of full way step_by_step training. ADS.
+    STEP4_TOOLTIP_ADS = (By.XPATH, '//*[contains(@class, "Info_root")]'
+                                                        '//*[contains(text(), "Оформление объявления")]')
+    STEP4_BUTTON_CONTINUE_ADS = (By.XPATH, '//*[contains(@class, "Info_firstButton")]')
+
+    STEP4_TOOLTIP_LOGO = create_rich_tooltip("Логотип") # disabled
+
+    STEP4_TOOLTIP_TITLE = create_rich_tooltip("Заголовок") # disabled
+    STEP4_BUTTON_CONTINUE = STEP2_BUTTON_CONTINUE
+
+    STEP4_TOOLTIP_SHORT_DESCRIPTION = create_rich_tooltip("Короткое описание") # disabled
+
+    STEP4_TOOLTIP_LONG_DESCRIPTION = create_rich_tooltip("Длинное описание") # disabled
+
+    STEP4_TOOLTIP_HREF = create_rich_tooltip("Укажите ссылку")
+
+    STEP4_TOOLTIP_MEDIA = create_rich_tooltip("Медиафайлы")
+
+    STEP4_TOOLTIP_LEGAL_INFO = create_rich_tooltip("Юридическая информация")
+
+    STEP4_TOOLTIP_PREVIEW = create_rich_tooltip("Предпросмотр")
+
+    STEP4_TOOLTIP_END_STEP = create_rich_tooltip("Объявление оформлено")
 
 
 class TrainingPageLocators:
