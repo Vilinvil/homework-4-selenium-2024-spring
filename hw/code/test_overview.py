@@ -3,7 +3,7 @@ import pytest
 from cases import LoggedNewUserCase, LoggedCase
 from utils.parse_date import parse_date
 from ui.pages.overview_page import OverviewNewUserPage, OverviewPage
-from ui.locators.overview_locators import OverviewNewUserPageLocators, OverviewPageLocators
+from ui.locators.overview_locators import OverviewNewUserPageLocators, OverviewPageLocatorsLocatorsLocatorsLocatorsLocators
 from ui.locators.campaigns_locators import CampaignsPageSharedLocators
 from ui.locators.training_locators import TrainingPageSharedLocators
 
@@ -26,7 +26,7 @@ class TestNewUserOverview(LoggedNewUserCase):
                                  ),
                                  pytest.param(
                                      OverviewNewUserPageLocators.BUTTON_START_TRAINING,
-                                     TrainingPageSharedLocators.MODAL_PAGE,
+                                     TrainingPageSharedLocators.SIGN_OPENING_MODAL_VIEW,
                                  )
                              ], )
     def test_open_page_by_click(self, button_locator, expected_locator):
@@ -94,11 +94,11 @@ class TestOverview(LoggedCase):
                              [
                                  pytest.param(
                                      "asdfasdf",
-                                     OverviewPageLocators.SIGN_SEARCH_NOT_FOUND_RESULTS,
+                                     OverviewPageLocatorsLocatorsLocatorsLocatorsLocators.SIGN_SEARCH_NOT_FOUND_RESULTS,
                                  ),
                                  pytest.param(
                                      "Кампания",
-                                     OverviewPageLocators.SIGN_SEARCH_FOUND_RESULTS,
+                                     OverviewPageLocatorsLocatorsLocatorsLocatorsLocators.SIGN_SEARCH_FOUND_RESULTS,
                                  )
                              ], )
     def test_search_in_choose_campaigns(self, query, expected_locator):
