@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from ui.pages.base_page import PageWithModalView, PageWithRedirectWindow
 
 
-class SettingsPage(PageWithRedirectWindow):
+class SettingsPage(PageWithRedirectWindow, PageWithModalView):
     url = "https://ads.vk.com/hq/settings"
     locators = SettingsPageLocators()
 

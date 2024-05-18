@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from ui.pages.settings_page import SettingsPage
@@ -7,6 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains as AC
 from utils.timeout import BASIC_TIMEOUT
 from ui.locators.settings_locators import SettingsPageLocators
 from ui.pages.base_page import PageWithRedirectWindow
+from selenium.webdriver.support.ui import WebDriverWait
 
 class TestSettingsBase(LoggedCase):
     @pytest.fixture(scope='function', autouse=True)
@@ -171,5 +174,14 @@ class TestSettingsBase(LoggedCase):
         self.settings_page.redirect_window(self.settings_page.locators.SETTINGS_ACCESS_DETAILS_LINK)
         self.settings_page.wait().until(EC.url_to_be('https://ads.vk.com/help/articles/additionalaccounts'))
 
+    def test_add_user_modal(self, setup_access):
+        self.settings_page.open_modal_view(self.settings_page.locators.SETTINGS_ACCESS_ADD_USER_BUTTON,
+                                         self.settings_page.locators.SETTINGS_ACCESS_ADD_USER_MODAL)
 
+    @pytest.fixture(scope='function')
+    def setup_logs(self):
+        self.settings_page.click(self.settings_page.locators.SETTINGS_LOGS_TAB)
 
+    def test_display_logs(self, setup_logs):
+        assert self.settings_page.find(self.settings_page.locators.SETTINGS_LOGS_FILTER_BUTTON).is_displayed()
+        assert self.settings_page.find(self.settings_page.locators.SETTINGS_LOGS_DATE_BUTTON).is_displayed()

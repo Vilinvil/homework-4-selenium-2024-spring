@@ -41,6 +41,7 @@ class SettingsPageLocators:
 
     SETTINGS_ACCESS_DETAILS_LINK = (By.XPATH, '//*[@href="/help/articles/additionalaccounts"]')
     SETTINGS_ACCESS_ADD_USER_BUTTON = (By.XPATH, '//*[@data-testid="add-user"]')
+    SETTINGS_ACCESS_ADD_USER_MODAL = (By.XPATH, '//*[contains(@class, "ModalManagerPage_modal")]')
 
-
-
+    SETTINGS_LOGS_FILTER_BUTTON = (By.XPATH, '//*[@data-testid="filter-button"]')
+    SETTINGS_LOGS_DATE_BUTTON = (By.XPATH, '//*[@data-testid="filter-button"]')
