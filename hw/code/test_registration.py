@@ -4,11 +4,12 @@ from cases import LoggedNewUserCase, LoggedCase, RegisteredUserCase
 from ui.pages.registration_page import PreRegistrationPage, RegistrationPage
 from selenium.webdriver.support import expected_conditions as EC
 from ui.locators.registration_locators import RegistrationPageLocators
-from ui.locators.navigation_locators import NavigationPageLocators
+from ui.locators.main_locators import MainPageLocators
 from ui.locators.settings_locators import SettingsPageLocators
 from utils.timeout import BASIC_TIMEOUT
 from selenium.webdriver.common.action_chains import ActionChains as AC
 from utils.credentials import Credentials
+
 
 class TestPreRegistration(RegisteredUserCase):
     @pytest.fixture(scope='function', autouse=True)
@@ -21,6 +22,7 @@ class TestPreRegistration(RegisteredUserCase):
     def test_new_cabinet_button_click(self):
         self.pre_registration_page.click(self.pre_registration_page.locators.CREATE_NEW_CABINET_BUTTON)
         self.pre_registration_page.wait().until(EC.url_to_be("https://ads.vk.com/hq/registration/new"))
+
 
 class TestRegistration(RegisteredUserCase):
     @pytest.fixture(scope='function', autouse=True)
@@ -140,7 +142,7 @@ class TestRegistration(RegisteredUserCase):
 
         self.registration_page.wait().until(EC.url_matches("https://ads.vk.com/hq/overview"))
 
-        self.registration_page.click(NavigationPageLocators.NAVIGATION_BUTTON_SETTINGS)
+        self.registration_page.click(MainPageLocators.NAV_BUTTON_SETTINGS)
         elem = self.registration_page.wait(BASIC_TIMEOUT).until(
             EC.presence_of_element_located(SettingsPageLocators.SETTINGS_BUTTON_DELETE_CABINET))
         AC(self.driver).move_to_element(elem).click(elem).perform()
