@@ -13,20 +13,31 @@ class TestFooter(BaseCase):
         AC(self.driver).move_to_element(elem).perform()
 
         assert self.base_page.find(self.base_page.locators.FOOTER_WRAPPER_LANGUAGE)
-        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_OK).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_TG).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_VK).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_CASES).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_ABOUT_COMPANY).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_CABINET).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_DOCUMENTS).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_EVENTS).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_EXPERTS).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_HELP).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_INSIGHTS).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_MONETIZATION).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_NEWS).is_displayed()
-        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_VK_BUSINESS).is_displayed()
+        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_OK, until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_TG, until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_VK, until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_CASES,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_ABOUT_COMPANY,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_CABINET,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_DOCUMENTS,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_EVENTS,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_EXPERTS,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_HELP,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_INSIGHTS,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_MONETIZATION,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_NEWS,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_VK_BUSINESS,
+                                   until_EC=EC.visibility_of_element_located)
 
     @pytest.mark.parametrize(
         'locator,url,redirect',

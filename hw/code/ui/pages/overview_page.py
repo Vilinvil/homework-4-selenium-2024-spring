@@ -5,6 +5,7 @@ from ui.locators.training_locators import TrainingPageSharedLocators
 from ui.locators.campaigns_locators import CampaignsPageSharedLocators
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class OverviewNewUserPage(BasePage):
@@ -20,7 +21,7 @@ class OverviewNewUserPage(BasePage):
         start_actions = start_actions_wrapper.find_elements(*self.locators.START_ACTION)
 
         for start_action in start_actions:
-            assert start_action.find_element(By.XPATH, './/button').is_displayed()
+            assert start_action.find_element(By.XPATH, './/button', until_EC=EC.visibility_of_element_located)
 
 
 class OverviewPage(PageWithModalView, PageWithRedirectWindow):
@@ -28,17 +29,18 @@ class OverviewPage(PageWithModalView, PageWithRedirectWindow):
     locators = OverviewPageLocators()
 
     def check_display(self):
-        assert self.find(self.locators.WIDGET_CAMPAIGNS).is_displayed()
-        assert self.find(self.locators.WIDGET_BUDGET).is_displayed()
-        assert self.find(self.locators.WIDGET_LIMIT).is_displayed()
-        assert self.find(self.locators.WIDGET_FAVOURITES).is_displayed()
-        assert self.find(self.locators.BUTTON_CREATE_CAMPAIGN).is_displayed()
-        assert self.find(self.locators.BUTTON_BUDGET_REPLENISH).is_displayed()
-        assert self.find(self.locators.BUTTON_CHOOSE_CAMPAIGNS).is_displayed()
-        assert self.find(self.locators.BUTTON_LIMIT_ARTICLE).is_displayed()
+        assert self.find(self.locators.WIDGET_CAMPAIGNS, until_EC=EC.visibility_of_element_located)
+        assert self.find(self.locators.WIDGET_BUDGET, until_EC=EC.visibility_of_element_located)
+        assert self.find(self.locators.WIDGET_LIMIT, until_EC=EC.visibility_of_element_located)
+        assert self.find(self.locators.WIDGET_FAVOURITES, until_EC=EC.visibility_of_element_located)
+        assert self.find(self.locators.BUTTON_CREATE_CAMPAIGN, until_EC=EC.visibility_of_element_located)
+        assert self.find(self.locators.BUTTON_BUDGET_REPLENISH, until_EC=EC.visibility_of_element_located)
+        assert self.find(self.locators.choose_campaign_locators.BUTTON_CHOOSE_CAMPAIGNS,
+                         until_EC=EC.visibility_of_element_located)
+        assert self.find(self.locators.BUTTON_LIMIT_ARTICLE, until_EC=EC.visibility_of_element_located)
 
     def get_current_count_chose_campaigns(self):
-        text_choose_campaign = self.find(self.locators.COUNTER_CHOOSE_CAMPAIGN).text
+        text_choose_campaign = self.find(self.locators.choose_campaign_locators.COUNTER_CHOOSE_CAMPAIGN).text
         idx_counter = text_choose_campaign.find(' ')
 
         try:
@@ -49,8 +51,8 @@ class OverviewPage(PageWithModalView, PageWithRedirectWindow):
         return result
 
     def activate_count_choose_campaigns(self, expected_count_chose_campaigns):
-        self.find(self.locators.CHECKBOX_CHOOSE_CAMPAIGN)
-        checkboxes = self.driver.find_elements(*self.locators.CHECKBOX_CHOOSE_CAMPAIGN)
+        self.find(self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN)
+        checkboxes = self.driver.find_elements(*self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN)
 
         cur_count_clicked_checkboxes = 0
         while len(checkboxes) != 0 and cur_count_clicked_checkboxes < expected_count_chose_campaigns:
