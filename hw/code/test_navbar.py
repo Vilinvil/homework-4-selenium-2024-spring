@@ -85,7 +85,7 @@ class TestNavbar(BaseCase):
         self.base_page.hover_wrapper(self.base_page.locators.NAV_WRAPPER_EDUCATION)
 
         if redirect:
-            self.redirect_page.redirect_window(self.base_page, locator)
+            self.redirect_page.redirect_window(locator)
         else:
             self.base_page.click(locator)
 
@@ -93,16 +93,16 @@ class TestNavbar(BaseCase):
 
     def test_sequential_transition(self):
         self.base_page.click(self.base_page.locators.NAV_BUTTON_CASES)
-        assert self.base_page.is_opened('https://ads.vk.com/cases')
+        self.base_page.wait().until(EC.url_matches("https://ads.vk.com/cases"))
 
         self.base_page.click(self.base_page.locators.NAV_BUTTON_IDEAS)
-        assert self.base_page.is_opened('https://ads.vk.com/upvote')
+        self.base_page.wait().until(EC.url_matches("https://ads.vk.com/upvote"))
 
         self.base_page.click(self.base_page.locators.NAV_BUTTON_NEWS)
-        assert self.base_page.is_opened('https://ads.vk.com/news')
+        self.base_page.wait().until(EC.url_matches("https://ads.vk.com/news"))
 
         self.base_page.click(self.base_page.locators.NAV_BUTTON_CASES)
-        assert self.base_page.is_opened('https://ads.vk.com/cases')
+        self.base_page.wait().until(EC.url_matches("https://ads.vk.com/cases"))
 
     def test_open_login_page(self):
         self.base_page.click(self.base_page.locators.NAV_BUTTON_CABINET_LOCATOR)

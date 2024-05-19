@@ -8,10 +8,9 @@ from cases import LoggedCase
 from selenium.webdriver.common.action_chains import ActionChains as AC
 from utils.timeout import BASIC_TIMEOUT
 from ui.locators.settings_locators import SettingsPageLocators
-from ui.pages.base_page import PageWithRedirectWindow
-from selenium.webdriver.support.ui import WebDriverWait
 
-class TestSettingsBase(LoggedCase):
+
+class TestSettings(LoggedCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup_new_settings(self, driver, config):
         self.main_page.click(self.main_page.locators.NAV_BUTTON_SETTINGS)

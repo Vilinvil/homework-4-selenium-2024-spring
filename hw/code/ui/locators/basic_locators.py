@@ -21,7 +21,7 @@ class BasePageLocators:
     FOOTER_BUTTON_INSIGHTS = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/insights"]')
     FOOTER_BUTTON_EVENTS = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/events"]')
     FOOTER_BUTTON_DOCUMENTS = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/documents"]')
-    FOOTER_BUTTON_EXPERTS = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://expert.vk.com/"]')
+    FOOTER_BUTTON_EXPERTS = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[contains(text(),"Обучение для бизнеса")]')
     FOOTER_BUTTON_CASES = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/cases"]')
     FOOTER_BUTTON_HELP = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/help"]')
     FOOTER_BUTTON_MONETIZATION = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/partner"]')

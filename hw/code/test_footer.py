@@ -92,7 +92,7 @@ class TestFooter(BaseCase):
                 EC.presence_of_element_located(locator))
             AC(self.driver).move_to_element(elem).click(elem).perform()
 
-        self.base_page.wait().until(EC.url_to_be(url))
+        self.base_page.wait().until(EC.url_matches(url))
 
     def test_open_login_page(self):
         elem = self.base_page.wait(BASIC_TIMEOUT).until(
