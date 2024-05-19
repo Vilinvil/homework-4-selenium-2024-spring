@@ -45,6 +45,25 @@ class SidebarLocators:
     SIGN_TOGGLE = (By.XPATH, '//*[contains(@class, "layout_sidebarShort")]')
 
 
+class NavBarLocators:
+    ADS_LOGO = (By.XPATH, '//*[contains(@class, "header_left")]//img[@alt="Logo"]')
+
+    BUTTON_ACCOUNT_SWITCH = (By.XPATH, '//*[contains(@class, "AccountSwitch_changeAccount")]')
+    SIGN_OPENING_ACCOUNT_SWITCH = (By.XPATH, '//*[contains(@class, "AccountSwitch_accountsDropdown")]')
+
+    BUTTON_BALANCE = (By.XPATH, '//*[contains(@class, "balance_balanceWithAction")]')
+    SIGN_OPENING_BALANCE = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal")]')
+
+    BUTTON_NOTIFICATIONS = (By.XPATH, '//*[contains(@class, "header_bellNotifications")]')
+    SIGN_OPENING_NOTIFICATIONS = (By.XPATH, '//*[contains(@class, "BellNotificationsContent")]')
+
+    BUTTON_USER_MENU = (By.XPATH, '//*[contains(@class, "userMenu")]')
+    BUTTON_USER_MENU_ACCOUNT = (By.CSS_SELECTOR, '[href="https://id.vk.com/account"]')
+    SIGN_OPENING_USER_MENU = BUTTON_USER_MENU_ACCOUNT
+    BUTTON_USER_MENU_LOGOUT = (By.XPATH, '//*[contains(@class, "vkuiPopper")]'
+                                         '//*[@role="button"]//*[contains(text(), "Выйти")]')
+
+
 class MainPageLocators:
     sidebar_locators = SidebarLocators()
-
+    navbar_locators = NavBarLocators()

@@ -121,12 +121,60 @@ class TestSidebarLogged(LoggedCase):
 
         self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_CAMPAIGN)
         assert self.main_page.find(self.main_page.locators.sidebar_locators.SIGN_OPENING_CAMPAIGN,
-                                      until_EC=EC.visibility_of_element_located)
+                                   until_EC=EC.visibility_of_element_located)
 
         self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_AUDIENCE)
         assert self.main_page.find(self.main_page.locators.sidebar_locators.SIGN_OPENING_AUDIENCE,
-                                      until_EC=EC.visibility_of_element_located)
+                                   until_EC=EC.visibility_of_element_located)
 
         self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_OVERVIEW)
         assert self.main_page.find(self.main_page.locators.sidebar_locators.SIGN_OPENING_OVERVIEW,
                                    until_EC=EC.visibility_of_element_located)
+
+
+class TestNavBarLogged(LoggedCase):
+    def test_display(self):
+        assert self.main_page.find(self.main_page.locators.navbar_locators.ADS_LOGO,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.main_page.find(self.main_page.locators.navbar_locators.BUTTON_ACCOUNT_SWITCH,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.main_page.find(self.main_page.locators.navbar_locators.BUTTON_BALANCE,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.main_page.find(self.main_page.locators.navbar_locators.BUTTON_NOTIFICATIONS,
+                                   until_EC=EC.visibility_of_element_located)
+        assert self.main_page.find(self.main_page.locators.navbar_locators.BUTTON_USER_MENU,
+                                   until_EC=EC.visibility_of_element_located)
+
+    def test_click_logo(self):
+        self.main_page.click(self.main_page.locators.navbar_locators.ADS_LOGO)
+        assert self.main_page.wait(5).until(EC.url_matches('https://ads.vk.com/hq/overview'))
+
+    @pytest.mark.parametrize('button_locator, sign_opening',
+                             [
+                                 pytest.param(MainPageLocators.navbar_locators.BUTTON_ACCOUNT_SWITCH,
+                                              MainPageLocators.navbar_locators.SIGN_OPENING_ACCOUNT_SWITCH),
+                                 pytest.param(MainPageLocators.navbar_locators.BUTTON_BALANCE,
+                                              MainPageLocators.navbar_locators.SIGN_OPENING_BALANCE),
+                                 pytest.param(MainPageLocators.navbar_locators.BUTTON_NOTIFICATIONS,
+                                              MainPageLocators.navbar_locators.SIGN_OPENING_NOTIFICATIONS),
+                                 pytest.param(MainPageLocators.navbar_locators.BUTTON_USER_MENU,
+                                              MainPageLocators.navbar_locators.SIGN_OPENING_USER_MENU),
+
+                             ], )
+    def test_navigation_buttons(self, button_locator, sign_opening):
+        self.main_page.click(button_locator)
+        assert self.main_page.find(sign_opening, until_EC=EC.visibility_of_element_located)
+
+    @pytest.fixture(scope="function")
+    def setup_user_menu(self):
+        self.main_page.click(self.main_page.locators.navbar_locators.BUTTON_USER_MENU)
+
+    def test_user_menu_redirect_account(self, setup_user_menu):
+        page_with_redirect = PageWithRedirectWindow(self.driver)
+        page_with_redirect.redirect_window(self.main_page.locators.navbar_locators.BUTTON_USER_MENU_ACCOUNT,
+                                           expected_number_of_windows_to_be=2)
+        assert self.main_page.wait(5).until(EC.url_matches('https://id.vk.com/about/id'))
+
+    def test_user_menu_logout(self, setup_user_menu):
+        self.main_page.click(self.main_page.locators.navbar_locators.BUTTON_USER_MENU_LOGOUT)
+        assert self.main_page.wait(5).until(EC.url_matches('https://ads.vk.com/'))
