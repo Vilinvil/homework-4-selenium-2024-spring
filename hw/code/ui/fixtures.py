@@ -65,7 +65,6 @@ def credentials_new_user():
     password = os.getenv('PASSWORD_NEW_USER')
 
     assert login
-    print(password)
     assert password
 
     return Credentials(login, password)
@@ -76,7 +75,6 @@ def credentials_user_without_cabinet():
     password = os.getenv('PASSWORD_USER_WITHOUT_CABINET')
 
     assert login
-    print(password)
     assert password
 
     return Credentials(login, password)

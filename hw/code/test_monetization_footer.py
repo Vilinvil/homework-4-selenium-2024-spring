@@ -11,7 +11,7 @@ from selenium.webdriver.common.action_chains import ActionChains as AC
 
 class TestMonetizationFooter(BaseCase):
     @pytest.fixture(scope='function', autouse=True)
-    def setup_monetization(self, driver, config):
+    def setup_monetization(self, driver):
         self.redirect_page = PageWithRedirectWindow(self.driver)
         self.redirect_page.redirect_window(self.base_page.locators.NAV_BUTTON_MONETIZATION)
 

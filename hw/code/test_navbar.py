@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class TestNavbar(BaseCase):
     @pytest.fixture(scope='function', autouse=True)
-    def setup_monetization(self, driver, config):
+    def setup_monetization(self, driver):
         self.redirect_page = PageWithRedirectWindow(self.driver)
 
     def test_display(self):

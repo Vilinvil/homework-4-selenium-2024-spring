@@ -9,10 +9,9 @@ from selenium.webdriver.common.action_chains import ActionChains as AC
 
 class TestFooter(BaseCase):
     def test_display(self):
-        elem = self.base_page.wait(BASIC_TIMEOUT).until(EC.presence_of_element_located(self.base_page.locators.FOOTER_LOCATOR))
-        AC(self.driver).move_to_element(elem).perform()
+        self.base_page.hover_wrapper((self.base_page.locators.FOOTER_LOCATOR))
 
-        assert self.base_page.find(self.base_page.locators.FOOTER_WRAPPER_LANGUAGE)
+        assert self.base_page.find(self.base_page.locators.FOOTER_WRAPPER_LANGUAGE, until_EC=EC.visibility_of_element_located)
         assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_OK, until_EC=EC.visibility_of_element_located)
         assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_TG, until_EC=EC.visibility_of_element_located)
         assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_VK, until_EC=EC.visibility_of_element_located)
@@ -88,15 +87,13 @@ class TestFooter(BaseCase):
             page_with_redirect = PageWithRedirectWindow(self.driver)
             page_with_redirect.redirect_window_with_scroll(locator)
         else:
-            elem = self.base_page.wait(BASIC_TIMEOUT).until(
-                EC.presence_of_element_located(locator))
+            elem = self.base_page.find(locator)
             AC(self.driver).move_to_element(elem).click(elem).perform()
 
         self.base_page.wait().until(EC.url_matches(url))
 
     def test_open_login_page(self):
-        elem = self.base_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(self.base_page.locators.FOOTER_BUTTON_CABINET))
+        elem = self.base_page.find(self.base_page.locators.FOOTER_BUTTON_CABINET)
         AC(self.driver).move_to_element(elem).click(elem).perform()
 
         self.base_page.wait().until(EC.url_matches("https://id.vk.com/auth"))
@@ -113,8 +110,7 @@ class TestFooter(BaseCase):
         ],
     )
     def test_language_wrapped_buttons(self, locator, text_value):
-        elem = self.base_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(self.base_page.locators.FOOTER_WRAPPER_LANGUAGE))
+        elem = self.base_page.find(self.base_page.locators.FOOTER_WRAPPER_LANGUAGE)
         AC(self.driver).move_to_element(elem).click(elem).perform()
 
         self.base_page.click(locator)

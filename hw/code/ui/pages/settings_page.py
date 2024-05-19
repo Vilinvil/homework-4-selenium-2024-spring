@@ -11,6 +11,5 @@ class SettingsPage(PageWithRedirectWindow, PageWithModalView):
     locators = SettingsPageLocators()
 
     def get_input_field_value(self, locator, timeout=BASIC_TIMEOUT):
-        self.find(locator, timeout=timeout)
-        elem = self.wait(timeout).until(EC.presence_of_element_located(locator))
+        elem = self.find(locator, timeout=timeout)
         return elem.get_attribute('value')
