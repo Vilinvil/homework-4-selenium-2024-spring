@@ -113,7 +113,6 @@ class TrainingPageLocators:
     campaign_page_shared_locators = CampaignsPageSharedLocators()
     step_by_step_locators = TrainingPageStepByStepLocators()
 
-    BUTTON_START_TRAINING = (By.CSS_SELECTOR, '[data-entityid="onboarding"]')
     TITLE = (By.XPATH, '//*[contains(@class, "ModalRoot_componentWrapper")]'
                        '//*[contains(text(), "С чего начнём обучение?")]')
     BUTTON_TRY_LATER = (By.XPATH, '//*[contains(@class, "ModalRoot_componentWrapper")]'

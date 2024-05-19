@@ -11,7 +11,7 @@ class TestTraining(LoggedCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup_training(self, driver):
         self.training_page = TrainingPage(self.driver)
-        self.training_page.open_modal_view(self.training_page.locators.BUTTON_START_TRAINING,
+        self.training_page.open_modal_view(self.main_page.locators.sidebar_locators.BUTTON_TRAINING,
                                            self.training_page.locators_shared.SIGN_OPENING_MODAL_VIEW)
 
     def test_display(self):

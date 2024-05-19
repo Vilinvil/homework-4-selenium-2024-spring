@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class TestBudget(LoggedCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup_training(self, driver, config):
-        self.main_page.click(self.main_page.locators.NAV_BUTTON_BUDGET_SECTION)
+        self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_BUDGET)
         self.budget_page = BudgetPage(self.driver)
 
     def test_display(self):
