@@ -39,7 +39,7 @@ class OverviewPage(PageWithModalView, PageWithRedirectWindow):
                          until_EC=EC.visibility_of_element_located)
         assert self.find(self.locators.BUTTON_LIMIT_ARTICLE, until_EC=EC.visibility_of_element_located)
 
-    def get_current_count_chose_campaigns(self):
+    def get_current_count_chosen_campaigns(self):
         text_choose_campaign = self.find(self.locators.choose_campaign_locators.COUNTER_CHOOSE_CAMPAIGN).text
         idx_counter = text_choose_campaign.find(' ')
 
@@ -50,7 +50,7 @@ class OverviewPage(PageWithModalView, PageWithRedirectWindow):
 
         return result
 
-    def activate_count_choose_campaigns(self, expected_count_chose_campaigns):
+    def activate_amount_campaigns(self, expected_count_chose_campaigns):
         self.find(self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN)
         checkboxes = self.driver.find_elements(*self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN)
 

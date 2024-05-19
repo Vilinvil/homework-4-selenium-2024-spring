@@ -134,7 +134,7 @@ class TrainingPage(PageWithModalView, PageWithRedirectWindow):
         assert (self.find(self.locators.step_by_step_locators.STEP4_TOOLTIP_LOGO,
                           until_EC=EC.visibility_of_element_located))
         self.check_disable_of_locator(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
-        campaign_shared_page.set_image()
+        campaign_shared_page.set_default_image()
         self.test_standard_tooltip(self.locators.step_by_step_locators.STEP4_TOOLTIP_LOGO,
                                    self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
 
@@ -162,7 +162,7 @@ class TrainingPage(PageWithModalView, PageWithRedirectWindow):
         assert (self.find(self.locators.step_by_step_locators.STEP4_TOOLTIP_MEDIA,
                           until_EC=EC.visibility_of_element_located))
         self.check_disable_of_locator(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
-        campaign_shared_page.set_media()
+        campaign_shared_page.set_default_media()
         self.click(self.locators.step_by_step_locators.STEP4_BUTTON_CONTINUE)
 
         self.test_standard_tooltip(self.locators.step_by_step_locators.STEP4_TOOLTIP_LEGAL_INFO,

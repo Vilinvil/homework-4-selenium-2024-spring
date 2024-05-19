@@ -49,15 +49,17 @@ def all_drivers(config, request):
 def base_page(driver):
     return BasePage(driver=driver)
 
+
 @pytest.fixture(scope='session')
 def credentials():
-        login = os.getenv('LOGIN')
-        password = os.getenv('PASSWORD')
+    login = os.getenv('LOGIN')
+    password = os.getenv('PASSWORD')
 
-        assert login 
-        assert password 
+    assert login
+    assert password
 
-        return Credentials(login, password)
+    return Credentials(login, password)
+
 
 @pytest.fixture(scope='session')
 def credentials_new_user():
@@ -65,7 +67,6 @@ def credentials_new_user():
     password = os.getenv('PASSWORD_NEW_USER')
 
     assert login
-    print(password)
     assert password
 
     return Credentials(login, password)

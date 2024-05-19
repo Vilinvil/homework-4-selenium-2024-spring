@@ -120,8 +120,8 @@ class TestOverview(LoggedCase):
         assert self.overview_page.find(expected_locator, until_EC=EC.visibility_of_element_located)
 
     def test_tooltip_max_count_campaigns(self, setup_choose_campaigns):
-        count_choose_campaigns = self.overview_page.get_current_count_chose_campaigns()
-        self.overview_page.activate_count_choose_campaigns(self.max_count_campaigns - count_choose_campaigns)
+        count_choose_campaigns = self.overview_page.get_current_count_chosen_campaigns()
+        self.overview_page.activate_amount_campaigns(self.max_count_campaigns - count_choose_campaigns)
 
         self.overview_page.hover_wrapper(self.overview_page.locators.choose_campaign_locators.
                                          CHECKBOX_CHOOSE_CAMPAIGN_FOR_TOOLTIP)
@@ -129,13 +129,13 @@ class TestOverview(LoggedCase):
                                        TOOLTIP_MAX_COUNT_CHOOSE_CAMPAIGN)
 
     def test_reset_choose_campaigns(self, setup_choose_campaigns):
-        cur_count_chose_campaigns = self.overview_page.get_current_count_chose_campaigns()
+        cur_count_chose_campaigns = self.overview_page.get_current_count_chosen_campaigns()
         assert cur_count_chose_campaigns != 0
 
         self.overview_page.click(self.overview_page.locators.choose_campaign_locators.
                                  BUTTON_RESET_CHOOSE_CAMPAIGN)
 
-        cur_count_chose_campaigns = self.overview_page.get_current_count_chose_campaigns()
+        cur_count_chose_campaigns = self.overview_page.get_current_count_chosen_campaigns()
         assert cur_count_chose_campaigns == 0
 
         checkboxes = self.driver.find_elements(*self.overview_page.locators.choose_campaign_locators.
@@ -149,7 +149,7 @@ class TestOverview(LoggedCase):
 
         self.overview_page.click(self.overview_page.locators.choose_campaign_locators
                                  .BUTTON_RESET_CHOOSE_CAMPAIGN)
-        self.overview_page.activate_count_choose_campaigns(expected_count_chose_campaigns)
+        self.overview_page.activate_amount_campaigns(expected_count_chose_campaigns)
 
         self.overview_page.close_modal_view(self.overview_page.locators.choose_campaign_locators
                                             .BUTTON_SAVE_CHOOSE_CAMPAIGN,

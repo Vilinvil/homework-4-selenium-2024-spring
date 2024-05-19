@@ -28,7 +28,7 @@ class CampaignSharedPage(BasePage):
     def click_start_ads_step(self):
         self.click(self.locators_shared.STEP3_BUTTON_START_ADS_STEP)
 
-    def set_image(self):
+    def set_default_image(self):
         self.click(self.locators_shared.STEP4_BUTTON_SET_GLOBAL_IMAGE)
         self.click(self.locators_shared.STEP4_IMAGE_ITEM)
 
@@ -41,7 +41,7 @@ class CampaignSharedPage(BasePage):
     def input_long_description(self, description):
         self.write_input(self.locators_shared.STEP4_LONG_DESCRIPTION, description)
 
-    def set_media(self):
+    def set_default_media(self):
         self.click(self.locators_shared.STEP4_BUTTON_SET_MEDIA)
         self.click(self.locators_shared.STEP4_IMAGE_ITEM)
         self.click(self.locators_shared.STEP4_BUTTON_SUBMIT_MEDIA)
