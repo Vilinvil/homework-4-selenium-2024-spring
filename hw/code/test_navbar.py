@@ -57,27 +57,27 @@ class TestNavbar(BaseCase):
     def test_education_dropdown_display(self):
         self.base_page.hover_wrapper(self.base_page.locators.NAV_WRAPPER_EDUCATION)
 
-        assert self.base_page.find(self.base_page.locators.BUTTON_INSIGHTS, until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.BUTTON_EVENTS, until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.BUTTON_VIDEO_COURSES,
+        assert self.base_page.find(self.base_page.locators.NAV_WRAPPED_BUTTON_INSIGHTS, until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.NAV_WRAPPED_BUTTON_EVENTS, until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find(self.base_page.locators.NAV_WRAPPED_BUTTON_VIDEO_COURSES,
                                    until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.BUTTON_CERTIFICATION,
+        assert self.base_page.find(self.base_page.locators.NAV_WRAPPED_BUTTON_CERTIFICATION,
                                    until_EC=EC.visibility_of_element_located)
 
     @pytest.mark.parametrize(
         'locator,url,redirect',
         [
             pytest.param(
-                BasePageLocators.BUTTON_INSIGHTS, 'https://ads.vk.com/insights', False
+                BasePageLocators.NAV_WRAPPED_BUTTON_INSIGHTS, 'https://ads.vk.com/insights', False
             ),
             pytest.param(
-                BasePageLocators.BUTTON_EVENTS, 'https://ads.vk.com/events', False
+                BasePageLocators.NAV_WRAPPED_BUTTON_EVENTS, 'https://ads.vk.com/events', False
             ),
             pytest.param(
-                BasePageLocators.BUTTON_VIDEO_COURSES, 'https://expert.vk.com/catalog/courses/', True
+                BasePageLocators.NAV_WRAPPED_BUTTON_VIDEO_COURSES, 'https://expert.vk.com/catalog/courses/', True
             ),
             pytest.param(
-                BasePageLocators.BUTTON_CERTIFICATION, 'https://expert.vk.com/certification/', True
+                BasePageLocators.NAV_WRAPPED_BUTTON_CERTIFICATION, 'https://expert.vk.com/certification/', True
             ),
         ],
     )

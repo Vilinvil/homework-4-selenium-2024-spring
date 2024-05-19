@@ -38,5 +38,3 @@ class RegistrationPageLocators:
     REGISTRATION_CURRENCY_SELECT_RUB = (By.XPATH, '//*[@title="Российский рубль (RUB)"]')
     REGISTRATION_CURRENCY_SELECT_USD = (By.XPATH, '//*[@title="Доллар США (USD)"]')
     REGISTRATION_CURRENCY_SELECT_EUR = (By.XPATH, '//*[@title="Евро (EUR)"]')
-
-    SETTINGS_LOGOUT_FROM_ALL_DEVICES_MESSAGE = (By.XPATH, '//*[contains(@class, "Snackbar_success_")]')
