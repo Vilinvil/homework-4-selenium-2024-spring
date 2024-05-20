@@ -2,4 +2,5 @@ from selenium.webdriver.common.by import By
 
 
 class BasePageLocators:
-    BUTTON_CABINET_LOCATOR = (By.CSS_SELECTOR, '[href="/hq?ref=main_landing"]')
+    NAV_BUTTON_HELP = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/help"]')
+    NAV_BUTTON_CABINET_LOCATOR = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/hq?ref=main_landing"]')
