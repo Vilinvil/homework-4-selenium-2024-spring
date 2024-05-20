@@ -92,12 +92,12 @@ class TestSettings(LoggedCase):
 
         self.settings_page.write_input(self.settings_page.locators.SETTINGS_FIO_FIELD, "Дзержинский Феликс Эдмундович")
 
-        if self.settings_page.find(self.settings_page.locators.SETTINGS_SAVE_BUTTON, until_EC=EC.visibility_of_element_located):
-            elem = self.settings_page.wait(BASIC_TIMEOUT).until(
-                EC.presence_of_element_located(self.settings_page.locators.SETTINGS_SAVE_BUTTON))
-            AC(self.driver).move_to_element(elem).click(elem).perform()
-            assert (self.settings_page.get_input_field_value(self.settings_page.locators.SETTINGS_FIO_FIELD)
-                    == "Дзержинский Феликс Эдмундович")
+        self.settings_page.find(self.settings_page.locators.SETTINGS_SAVE_BUTTON, until_EC=EC.visibility_of_element_located)
+        elem = self.settings_page.wait(BASIC_TIMEOUT).until(
+            EC.presence_of_element_located(self.settings_page.locators.SETTINGS_SAVE_BUTTON))
+        AC(self.driver).move_to_element(elem).click(elem).perform()
+        assert (self.settings_page.get_input_field_value(self.settings_page.locators.SETTINGS_FIO_FIELD)
+                == "Дзержинский Феликс Эдмундович")
 
     def test_cancel(self):
         elem = self.settings_page.wait(BASIC_TIMEOUT).until(
@@ -108,10 +108,10 @@ class TestSettings(LoggedCase):
 
         self.settings_page.write_input(self.settings_page.locators.SETTINGS_FIO_FIELD, "Дзержинский Феликс Эдмундович")
 
-        if self.settings_page.find(self.settings_page.locators.SETTINGS_CANCEL_BUTTON, until_EC=EC.visibility_of_element_located):
-            elem = self.settings_page.find(self.settings_page.locators.SETTINGS_CANCEL_BUTTON)
-            AC(self.driver).move_to_element(elem).click(elem).perform()
-            assert (self.settings_page.get_input_field_value(self.settings_page.locators.SETTINGS_FIO_FIELD) == old_fio)
+        self.settings_page.find(self.settings_page.locators.SETTINGS_CANCEL_BUTTON, until_EC=EC.visibility_of_element_located)
+        elem = self.settings_page.find(self.settings_page.locators.SETTINGS_CANCEL_BUTTON)
+        AC(self.driver).move_to_element(elem).click(elem).perform()
+        assert (self.settings_page.get_input_field_value(self.settings_page.locators.SETTINGS_FIO_FIELD) == old_fio)
 
     @pytest.mark.parametrize(
         'field_locator,new_value,alert_locator',
