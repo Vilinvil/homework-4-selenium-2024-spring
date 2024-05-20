@@ -1,19 +1,18 @@
-import time
-
 import pytest
 
 from ui.pages.settings_page import SettingsPage
-from selenium.webdriver.support import expected_conditions as EC
 from cases import LoggedCase
-from selenium.webdriver.common.action_chains import ActionChains as AC
 from utils.timeout import BASIC_TIMEOUT
 from ui.locators.settings_locators import SettingsPageLocators
+
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains as AC
 
 
 class TestSettings(LoggedCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup_new_settings(self, driver):
-        self.main_page.click(self.main_page.locators.NAV_BUTTON_SETTINGS)
+        self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_SETTINGS)
         self.settings_page = SettingsPage(self.driver)
 
     def test_display_tabs(self):

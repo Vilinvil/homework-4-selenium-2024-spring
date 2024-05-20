@@ -34,15 +34,12 @@ class BasePage(object):
         return self.wait(timeout).until(until_EC(locator))
 
     def click(self, locator, timeout=BASIC_TIMEOUT):
-        self.find(locator, timeout=timeout)
-        elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
+        elem = self.find(locator, timeout=timeout, until_EC=EC.element_to_be_clickable)
         elem.click()
 
     def hover_wrapper(self, locator, timeout=BASIC_TIMEOUT):
-        self.find(locator, timeout=timeout)
-        elem = self.wait(timeout).until(EC.presence_of_element_located(locator))
-        actions = AC(self.driver)
-        actions.move_to_element(elem).perform()
+        elem = self.find(locator, timeout=timeout)
+        AC(self.driver).move_to_element(elem).perform()
 
     def write_input(self, locator, message, timeout=BASIC_TIMEOUT):
         input_element = self.find(locator, timeout)

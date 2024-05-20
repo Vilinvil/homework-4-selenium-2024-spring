@@ -41,4 +41,3 @@ class LoginPage(BasePage):
         self.preRegistrationPage = PreRegistrationPage(self.driver)
 
         return self.preRegistrationPage
-

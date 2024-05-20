@@ -1,9 +1,10 @@
 import pytest
+
 from cases import BaseCase
 from ui.pages.base_page import PageWithRedirectWindow
 from ui.locators.basic_locators import BasePageLocators
+
 from selenium.webdriver.support import expected_conditions as EC
-from utils.timeout import BASIC_TIMEOUT
 from selenium.webdriver.common.action_chains import ActionChains as AC
 
 

@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+
 class MonetizationPageLocators:
     MONETIZATION_FOOTER_LOGO_VK_BUSINESS = (By.XPATH, '//*[contains(@class, "PartnerContent_footerLogoImage")]')
     MONETIZATION_FOOTER_BUTTON_RULES = \

@@ -33,4 +33,3 @@ class RegisteredUserCase(BaseCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup(self, setup_base_case, credentials_user_without_cabinet):
         self.pre_registration_page = self.login_page.register(credentials_user_without_cabinet)
-

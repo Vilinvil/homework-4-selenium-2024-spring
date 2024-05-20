@@ -1,7 +1,9 @@
 import pytest
+
 from cases import BaseCase
 from ui.locators.basic_locators import BasePageLocators
 from ui.pages.base_page import PageWithRedirectWindow
+
 from selenium.webdriver.support import expected_conditions as EC
 
 

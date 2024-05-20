@@ -1,14 +1,15 @@
 import pytest
 
-from cases import LoggedNewUserCase, LoggedCase, RegisteredUserCase
+from cases import RegisteredUserCase
 from ui.pages.registration_page import PreRegistrationPage, RegistrationPage
-from selenium.webdriver.support import expected_conditions as EC
 from ui.locators.registration_locators import RegistrationPageLocators
 from ui.locators.main_locators import MainPageLocators
 from ui.locators.settings_locators import SettingsPageLocators
 from utils.timeout import BASIC_TIMEOUT
-from selenium.webdriver.common.action_chains import ActionChains as AC
 from utils.credentials import Credentials
+
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains as AC
 
 
 class TestPreRegistration(RegisteredUserCase):
@@ -161,9 +162,8 @@ class TestRegistration(RegisteredUserCase):
 
         self.registration_page.wait().until(EC.url_matches("https://ads.vk.com/hq/overview"))
 
-        self.registration_page.click(MainPageLocators.NAV_BUTTON_SETTINGS)
+        self.registration_page.click(MainPageLocators.sidebar_locators.BUTTON_SETTINGS)
         elem = self.registration_page.wait(BASIC_TIMEOUT).until(
             EC.presence_of_element_located(SettingsPageLocators.SETTINGS_BUTTON_DELETE_CABINET))
         AC(self.driver).move_to_element(elem).click(elem).perform()
         self.registration_page.click(SettingsPageLocators.SETTINGS_BUTTON_ACCEPT_DELETE_CABINET)
-
