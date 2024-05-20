@@ -16,7 +16,10 @@ source .venv/bin/activate
 ### Заполненение переменных окружения
 Запишите свой логин и пароль.
 
-```export LOGIN="your_login" PASSWORD="your_password"```
+```
+export LOGIN="your_login" PASSWORD="your_password" LOGIN_NEW_USER="login_new_user" \
+ PASSWORD_NEW_USER="password_new_user"
+```
 
 ## Запуск
  ```./runner_tests.sh```
