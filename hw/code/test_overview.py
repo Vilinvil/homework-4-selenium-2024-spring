@@ -23,7 +23,7 @@ class TestNewUserOverview(LoggedNewUserCase):
                              [
                                  pytest.param(
                                      OverviewNewUserPageLocators.BUTTON_CREATE_CAMPAIGN,
-                                     CampaignsPageSharedLocators.SIGN_NEW_AD_CREATE,
+                                     CampaignsPageSharedLocators.STEP1_SIGN_NEW_AD_CREATE,
                                  ),
                                  pytest.param(
                                      OverviewNewUserPageLocators.BUTTON_START_TRAINING,
@@ -81,12 +81,14 @@ class TestOverview(LoggedCase):
                                                     BUTTON_OPEN_DATE_CHOOSE)
 
         today_date = \
-            parse_date(button_date_range.find_element(*self.overview_page.locators.RANGE_TEXT_DATE_CHOOSE).text)
+            parse_date(button_date_range.find_element(*self.overview_page.locators.
+                                                      choose_date_locators.RANGE_TEXT_DATE_CHOOSE).text)
 
         self.overview_page.open_modal_view(self.overview_page.locators.choose_date_locators.BUTTON_OPEN_DATE_CHOOSE,
                                            self.overview_page.locators.choose_date_locators.SIGN_OPENING_DATE_CHOOSE)
         self.overview_page.click(self.overview_page.locators.choose_date_locators.BUTTON_DATE_RANGE_YESTERDAY)
-        self.overview_page.close_modal_view(self.overview_page.locators.choose_date_locators.BUTTON_APPLY_DATE_CHOOSE)
+        self.overview_page.close_modal_view(self.overview_page.locators.choose_date_locators.BUTTON_APPLY_DATE_CHOOSE,
+                                            self.overview_page.locators.choose_date_locators.SIGN_OPENING_DATE_CHOOSE)
 
         yesterday_date = \
             parse_date(button_date_range.find_element(*self.overview_page.locators.choose_date_locators.
