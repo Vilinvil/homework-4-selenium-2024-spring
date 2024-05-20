@@ -99,7 +99,6 @@ class TrainingPage(PageWithModalView, PageWithRedirectWindow):
 
         return campaign_shared_page
 
-
     def test_step3_of_full_way_step_by_step(self, campaign_shared_page: CampaignSharedPage) -> CampaignSharedPage:
         self.test_standard_tooltip(self.locators.step_by_step_locators.STEP3_TOOLTIP_SETTINGS_TARGET_AUDIENCE,
                                    self.locators.step_by_step_locators.STEP3_BUTTON_CONTINUE_SETTINGS_TARGET_AUDIENCE)
