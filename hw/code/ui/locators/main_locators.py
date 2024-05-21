@@ -34,6 +34,8 @@ class SidebarLocators:
     SIGN_OPENING_SETTINGS = (By.ID, 'settings')
 
     BUTTON_HELP = (By.XPATH, '//*[contains(@class, "sidebar_portalMenuTrigger")]')
+    SIGN_OPENING_HELP = (By.XPATH, '//*[contains(@class, "Tooltip_tooltipContainer")]'
+                                   '//*[@href="https://ads.vk.com/cases"]')
     BUTTON_HELP_CASES = (By.CSS_SELECTOR, '[href="https://ads.vk.com/cases"]')
     BUTTON_HELP_HELP = (By.CSS_SELECTOR, '[href="https://ads.vk.com/help"]')
     BUTTON_HELP_IDEAS = (By.CSS_SELECTOR, '[href="https://ads.vk.com/upvote"]')

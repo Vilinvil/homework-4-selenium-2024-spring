@@ -12,6 +12,7 @@ class TrainingPageSiteLocators:
                              '//*[@role="button"]//*[contains(text(), "Сайт")]')
     TITLE = (By.XPATH, '//*[contains(@class, "ModalRoot_componentWrapper")]'
                        '//*[contains(text(), "Как хотите учиться?")]')
+    SIGN_OPENING_SITE = TITLE
     BUTTON_VIDEO = (By.XPATH, '//*[contains(@class, "ModalRoot_componentWrapper")]//*[@role="button"]'
                               '//*[contains(text(), "Смотреть видеоурок")]')
     BUTTON_ARTICLES = (By.XPATH, '//*[contains(@class, "ModalRoot_componentWrapper")]//*[@role="button"]'

@@ -1,9 +1,9 @@
 from ui.locators.settings_locators import SettingsPageLocators
 from utils.timeout import BASIC_TIMEOUT
-from ui.pages.base_page import PageWithModalView, PageWithRedirectWindow
+from ui.pages.base_page import PageWithlView, PageWithRedirectWindow
 
 
-class SettingsPage(PageWithRedirectWindow, PageWithModalView):
+class SettingsPage(PageWithRedirectWindow, PageWithlView):
     url = "https://ads.vk.com/hq/settings"
     locators = SettingsPageLocators()
 

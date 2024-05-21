@@ -10,14 +10,13 @@ from selenium.webdriver.support import expected_conditions as EC
 class TestHelp(BaseCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup_help(self, driver):
-        self.base_page.click(self.base_page.locators.NAV_BUTTON_HELP)
+        self.base_page.click_nav_button_help()
         self.help_page = HelpPage(self.driver)
 
     def test_display(self):
-        assert self.help_page.find(self.help_page.locators.HEADER_HELP, until_EC=EC.visibility_of_element_located)
-        assert self.help_page.find(self.help_page.locators.INPUT_SEARCH, until_EC=EC.visibility_of_element_located)
-        assert self.help_page.find(self.help_page.locators.WRAPPER_CATEGORIES,
-                                   until_EC=EC.visibility_of_element_located)
+        assert self.help_page.find_header_help()
+        assert self.help_page.find_input_search()
+        assert self.help_page.find_wrapper_categories()
 
     @pytest.mark.parametrize(
         'query,is_found_expected',
@@ -40,56 +39,47 @@ class TestHelp(BaseCase):
         self.help_page.search(query)
 
         if is_found_expected:
-            assert self.help_page.find(self.help_page.locators.SEARCH_FOUND_RESULTS,
-                                       until_EC=EC.visibility_of_element_located)
+            assert self.help_page.find_sign_found_result()
         else:
-            assert self.help_page.find(self.help_page.locators.SEARCH_NOT_FOUND_RESULTS,
-                                       until_EC=EC.visibility_of_element_located)
+            assert self.help_page.find_sign_not_found_result()
 
     @pytest.mark.parametrize(
-        'card_locator,expected_title',
+        'click_to_card,expected_title',
         [
             pytest.param(
-                HelpPageLocators.CARD_AUTHORIZATION, 'Авторизация'
+                HelpPage.click_to_card_authorization, 'Авторизация'
             ),
             pytest.param(
-                HelpPageLocators.CARD_GENERAL, 'Как настроить рекламу'
+                HelpPage.click_to_card_general, 'Как настроить рекламу'
             ),
         ],
     )
-    def test_card_display(self, card_locator, expected_title):
-        self.help_page.click_to_card(card_locator)
+    def test_card_display(self, click_to_card, expected_title):
+        click_to_card(self.help_page)
 
-        title_articles = self.help_page.find(self.help_page.locators.TITLE_ARTICLES)
+        title_articles = self.help_page.get_title_articles()
 
         assert expected_title == title_articles.text
-        assert self.help_page.find(self.help_page.locators.LIST_ARTICLES, until_EC=EC.visibility_of_element_located)
+        assert self.help_page.find_list_articles()
 
-        sidebar_articles = self.help_page.find(self.help_page.locators.SIDEBAR_ARTICLES)
-
-        search_elem = sidebar_articles.find_element(*self.help_page.locators.SEARCH_IN_SIDEBAR_ARTICLES)
-        self.help_page.wait().until(EC.visibility_of(search_elem))
-
-        categories_elem = sidebar_articles.find_element(*self.help_page.locators.CATEGORIES_IN_SIDEBAR_ARTICLES)
-        self.help_page.wait().until(EC.visibility_of(categories_elem))
+        assert self.help_page.find_sidebar_articles_search()
+        assert self.help_page.find_sidebar_articles_categories()
 
     @pytest.mark.parametrize(
-        'card_locator',
+        'click_to_card',
         [
             pytest.param(
-                HelpPageLocators.CARD_AUTHORIZATION
+                HelpPage.click_to_card_authorization
             ),
             pytest.param(
-                HelpPageLocators.CARD_GENERAL
+                HelpPage.click_to_card_general
             ),
         ],
     )
-    def test_card_go_to_article(self, card_locator):
-        self.help_page.click_to_card(card_locator)
+    def test_card_go_to_article(self, click_to_card):
+        click_to_card(self.help_page)
 
-        list_articles = self.help_page.find(self.help_page.locators.LIST_ARTICLES)
+        list_articles = self.help_page.find_list_articles()
+        self.help_page.click_href_in_list_articles(list_articles)
 
-        href_article = list_articles.find_element(*self.help_page.locators.ARTICLE_HREF_IN_PAGE)
-        href_article.click()
-
-        assert self.help_page.find(self.help_page.locators.ARTICLE_PAGE, until_EC=EC.visibility_of_element_located)
+        assert self.help_page.find_article_page()

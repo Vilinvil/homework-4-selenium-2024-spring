@@ -6,8 +6,8 @@ class HelpPageLocators:
     INPUT_SEARCH = (By.XPATH, '//*[@data-test-id="fullscreen-search-vkads"]//input')
     WRAPPER_CATEGORIES = (By.XPATH, '//*[contains(@class, "Categories_wrapper")]')
 
-    SEARCH_FOUND_RESULTS = (By.CSS_SELECTOR, '[data-test-id="search-page-vkads"]')
-    SEARCH_NOT_FOUND_RESULTS = (By.CSS_SELECTOR, '[data-test-id="not-found-search-page-vkads"]')
+    SIGN_SEARCH_FOUND_RESULTS = (By.CSS_SELECTOR, '[data-test-id="search-page-vkads"]')
+    SIGN_SEARCH_NOT_FOUND_RESULTS = (By.CSS_SELECTOR, '[data-test-id="not-found-search-page-vkads"]')
     CARD_AUTHORIZATION = (By.CSS_SELECTOR, '[href="/help/categories/authorization"]')
     CARD_GENERAL = (By.CSS_SELECTOR, '[href="/help/categories/general"]')
 
