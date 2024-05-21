@@ -1,8 +1,8 @@
-from ui.pages.base_page import PageWithlView, PageWithRedirectWindow
+from ui.pages.base_page import PageWithView, PageWithRedirectWindow
 from ui.locators.budget_locators import BudgetPageLocators, HINT_MIN_SUMM_URL
 
 
-class BudgetPage(PageWithlView, PageWithRedirectWindow):
+class BudgetPage(PageWithView, PageWithRedirectWindow):
     url = "https://ads.vk.com/hq/budget/transactions"
     locators = BudgetPageLocators()
 

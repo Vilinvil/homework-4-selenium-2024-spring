@@ -1,1 +1,1 @@
-pytest hw/code --reruns 3 --retry-delay 5
+pytest hw/code --reruns 3
