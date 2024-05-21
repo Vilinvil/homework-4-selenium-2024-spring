@@ -14,67 +14,60 @@ class TestMonetizationFooter(BaseCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup_monetization(self, driver):
         self.redirect_page = PageWithRedirectWindow(self.driver)
-        self.redirect_page.redirect_window(self.base_page.locators.NAV_BUTTON_MONETIZATION)
+        self.base_page.redirect_nav_monetization(self.redirect_page)
 
         self.monetization_page = MonetizationPage(self.driver)
 
     def test_display(self):
-        elem = self.monetization_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(self.monetization_page.locators.MONETIZATION_FOOTER_LOGO_VK_BUSINESS))
-        AC(self.driver).move_to_element(elem).perform()
+        self.monetization_page.go_to_footer()
 
-        assert self.monetization_page.find(self.monetization_page.locators.MONETIZATION_FOOTER_BUTTON_HELP)
-        assert self.monetization_page.find(self.monetization_page.locators.MONETIZATION_FOOTER_BUTTON_RULES)
-        assert self.monetization_page.find(self.monetization_page.locators.MONETIZATION_FOOTER_BUTTON_MAIN)
-        assert self.monetization_page.find(self.monetization_page.locators.MONETIZATION_FOOTER_LANGUAGE_WRAPPER)
-        assert self.monetization_page.find(self.monetization_page.locators.MONETIZATION_FOOTER_LOGO_VK_BUSINESS)
+        assert self.monetization_page.find_help_button()
+        assert self.monetization_page.find_rules_button()
+        assert self.monetization_page.find_main_button()
+        assert self.monetization_page.find_language_wrapper()
+        assert self.monetization_page.find_vk_business_logo()
+
+
+    def test_vk_business_logo_redirect(self):
+        self.monetization_page.redirect_to_vk_business(self.redirect_page)
+        self.monetization_page.check_url('https://vk.company/ru/company/business/')
+
 
     @pytest.mark.parametrize(
-        'locator,url,redirect',
+        'button,url',
         [
             pytest.param(
-                MonetizationPageLocators.MONETIZATION_FOOTER_LOGO_VK_BUSINESS,
-                'https://vk.company/ru/company/business/', True
+                MonetizationPage.click_rules_button,
+                'https://ads.vk.com/help/articles/partner_rules'
             ),
             pytest.param(
-                MonetizationPageLocators.MONETIZATION_FOOTER_BUTTON_RULES,
-                'https://ads.vk.com/help/articles/partner_rules', False
+                MonetizationPage.click_main_button, 'https://ads.vk.com/'
             ),
             pytest.param(
-                MonetizationPageLocators.MONETIZATION_FOOTER_BUTTON_MAIN, 'https://ads.vk.com/', False
-            ),
-            pytest.param(
-                MonetizationPageLocators.MONETIZATION_FOOTER_BUTTON_HELP,
-                'https://ads.vk.com/help/categories/partner', False
+                MonetizationPage.click_help_button,
+                'https://ads.vk.com/help/categories/partner'
             ),
         ],
     )
-    def test_open_pages(self, locator, url, redirect):
-        if redirect:
-            self.redirect_page.redirect_window_with_scroll(locator, 3)
-        else:
-            elem = self.monetization_page.wait(BASIC_TIMEOUT).until(
-                EC.presence_of_element_located(locator))
-            AC(self.driver).move_to_element(elem).click(elem).perform()
+    def test_open_pages(self, button, url):
+        button(self.monetization_page)
 
-        self.monetization_page.wait().until(EC.url_to_be(url))
+        self.monetization_page.check_url(url)
 
     @pytest.mark.parametrize(
-        'locator,text_value',
+        'button,text_value',
         [
             pytest.param(
-                MonetizationPageLocators.MONETIZATION_FOOTER_LANGUAGE_BUTTON_RUSSIAN, 'RU'
+                MonetizationPage.click_ru_button, 'RU'
             ),
             pytest.param(
-                MonetizationPageLocators.MONETIZATION_FOOTER_LANGUAGE_BUTTON_ENGLISH, 'EN'
+                MonetizationPage.click_en_button, 'EN'
             ),
         ],
     )
-    def test_language_wrapped_buttons(self, locator, text_value):
-        elem = self.monetization_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(self.monetization_page.locators.MONETIZATION_FOOTER_LANGUAGE_WRAPPER))
-        AC(self.driver).move_to_element(elem).click(elem).perform()
+    def test_language_wrapped_buttons(self, button, text_value):
+        self.monetization_page.click_language_wrapper()
 
-        self.monetization_page.click(locator)
-        assert self.monetization_page.find(
-            self.monetization_page.locators.MONETIZATION_FOOTER_LANGUAGE_WRAPPER).text == text_value
+        button(self.monetization_page)
+        assert self.monetization_page.find_language_wrapper().text == text_value
+
