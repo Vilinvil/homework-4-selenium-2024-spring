@@ -197,7 +197,7 @@ class TestSettings(LoggedCase):
         self.settings_page.wait().until(EC.url_to_be('https://ads.vk.com/help/articles/additionalaccounts'))
 
     def test_add_user_modal(self, setup_access):
-        self.settings_page.open_modal_view(self.settings_page.locators.SETTINGS_ACCESS_ADD_USER_BUTTON,
+        self.settings_page.open_view(self.settings_page.locators.SETTINGS_ACCESS_ADD_USER_BUTTON,
                                          self.settings_page.locators.SETTINGS_ACCESS_ADD_USER_MODAL)
 
     @pytest.fixture(scope='function')

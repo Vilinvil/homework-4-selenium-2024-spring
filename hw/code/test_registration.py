@@ -118,6 +118,6 @@ class TestRegistration(RegisteredUserCase):
 
         self.registration_page.click_create_button()
 
-        self.registration_page.wait().until(EC.url_matches("https://ads.vk.com/hq/overview"))
+        self.registration_page.check_url("https://ads.vk.com/hq/overview")
 
         self.registration_page.delete_cabinet()
