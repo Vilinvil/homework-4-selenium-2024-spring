@@ -98,10 +98,10 @@ class TestSidebarLogged(LoggedCase):
 class TestNavBarLogged(LoggedCase):
     def test_display(self):
         assert self.main_page.find_ads_logo()
-        assert self.main_page.find_account_switch()
-        assert self.main_page.find_balance()
-        assert self.main_page.find_notifications()
-        assert self.main_page.find_user_menu()
+        assert self.main_page.find_button_account_switch()
+        assert self.main_page.find_button_balance()
+        assert self.main_page.find_button_notifications()
+        assert self.main_page.find_button_user_menu()
 
     def test_click_logo(self):
         self.main_page.click_ads_logo()
