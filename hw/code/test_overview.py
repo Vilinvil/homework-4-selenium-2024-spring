@@ -141,7 +141,7 @@ class TestOverview(LoggedCase):
         assert cur_count_chose_campaigns == 0
 
         checkboxes = self.driver.find_elements(*self.overview_page.locators.choose_campaign_locators.
-                                               CHECKBOX_CHOOSE_CAMPAIGN)
+                                               CHECKBOX_CHOOSE_CAMPAIGN_ON)
         for checkbox in checkboxes:
             if checkbox.is_displayed():
                 raise BaseException("Checkbox should not be displayed")

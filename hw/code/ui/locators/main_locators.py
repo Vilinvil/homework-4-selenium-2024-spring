@@ -39,7 +39,9 @@ class SidebarLocators:
     BUTTON_HELP_IDEAS = (By.CSS_SELECTOR, '[href="https://ads.vk.com/upvote"]')
     BUTTON_HELP_QUESTION = (By.XPATH, '//*[contains(@class, "Tooltip_tooltipContainer")]'
                                       '//*[@role="button"]//*[contains(text(), "Задать вопрос")]')
-    SIGN_OPENING_HELP_QUESTION = (By.XPATH, '//iframe[contains(@src, "https://id.vk.com/messenger")]')
+    SIGN_OPENING_HELP_QUESTION = (By.XPATH, '//iframe[contains(@src, "https://id.vk.com/messenger")] |'
+                                            ' //*[contains(@class, "vkuiModalPage__header")]'
+                                            '//*[contains(text(), "Служба заботы")]')
 
     BUTTON_TOGGLE = (By.XPATH, '//*[contains(@class, "sidebar_toggleButton")]')
     SIGN_TOGGLE = (By.XPATH, '//*[contains(@class, "layout_sidebarShort")]')

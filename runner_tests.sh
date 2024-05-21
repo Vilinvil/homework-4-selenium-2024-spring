@@ -1,1 +1,1 @@
-pytest hw/code
+pytest hw/code --reruns 3

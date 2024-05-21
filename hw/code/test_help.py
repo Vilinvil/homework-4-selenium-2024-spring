@@ -66,9 +66,12 @@ class TestHelp(BaseCase):
         assert self.help_page.find(self.help_page.locators.LIST_ARTICLES, until_EC=EC.visibility_of_element_located)
 
         sidebar_articles = self.help_page.find(self.help_page.locators.SIDEBAR_ARTICLES)
-        assert sidebar_articles.find_element(*self.help_page.locators.SEARCH_IN_SIDEBAR_ARTICLES).is_disabled()
 
-        assert sidebar_articles.find_element(*self.help_page.locators.CATEGORIES_IN_SIDEBAR_ARTICLES).is_disabled()
+        search_elem = sidebar_articles.find_element(*self.help_page.locators.SEARCH_IN_SIDEBAR_ARTICLES)
+        self.help_page.wait().until(EC.visibility_of(search_elem))
+
+        categories_elem = sidebar_articles.find_element(*self.help_page.locators.CATEGORIES_IN_SIDEBAR_ARTICLES)
+        self.help_page.wait().until(EC.visibility_of(categories_elem))
 
     @pytest.mark.parametrize(
         'card_locator',

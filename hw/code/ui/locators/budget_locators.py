@@ -38,4 +38,4 @@ class BudgetPageLocators:
                                           '//*[@role="alert" and contains(text(), "уменьшите сумму")]')
 
     SIGN_OPENING_INVOICE_END_IFRAME = \
-        (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]//iframe[contains(@class, "CreateInvoiceModal")]')
+        (By.XPATH, '//*[contains(@class, "CreateInvoiceModal")]//iframe[contains(@class, "CreateInvoiceModal")]')

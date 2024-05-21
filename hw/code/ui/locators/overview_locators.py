@@ -38,9 +38,12 @@ class OverviewPageChooseCampaignLocators:
 
     COUNTER_CHOOSE_CAMPAIGN = (By.XPATH, '//*[contains(@class, "PlansSelector_modal")]'
                                          '//*[contains(@class, "PlansSelector_desc")]')
-    CHECKBOX_CHOOSE_CAMPAIGN = (By.XPATH, '//*[contains(@class, "PlansSelector_modal")]'
-                                          '//*[contains(@class, "PlansSelector_list")]'
-                                          '//*[contains(@class, "vkuiCheckbox__icon--off")]')
+    CHECKBOX_CHOOSE_CAMPAIGN_OFF = (By.XPATH, '//*[contains(@class, "PlansSelector_modal")]'
+                                              '//*[contains(@class, "PlansSelector_list")]'
+                                              '//*[contains(@class, "vkuiCheckbox__icon--off")]')
+    CHECKBOX_CHOOSE_CAMPAIGN_ON = (By.XPATH, '//*[contains(@class, "PlansSelector_modal")]'
+                                             '//*[contains(@class, "PlansSelector_list")]'
+                                             '//*[contains(@class, "vkuiCheckbox__icon--on")]')
     CHECKBOX_CHOOSE_CAMPAIGN_FOR_TOOLTIP = (By.XPATH, '(//*[contains(@class, "PlansSelector_modal")]'
                                                       '//*[contains(@class, "PlansSelector_list")]'
                                                       '//*[contains(@class, "vkuiCheckbox__icon--off")])[6]')
@@ -59,13 +62,13 @@ class OverviewPageChooseCampaignLocators:
 
 class OverviewPageSettingsGraphLocators:
     BUTTON_OPEN_SETTINGS_GRAPH = (By.XPATH, '//*[contains(@class, "FavoritesWidget_actions")]'
-                                       '//*[contains(@class, "vkuiButton")]')
+                                            '//*[contains(@class, "vkuiButton")]')
     SIGN_OPENING_CHOOSE = (By.XPATH, '//*[contains(@class, "Control_modalRoot")]')
     BUTTON_CHOOSE_CLICKS = (By.XPATH, '//*[contains(@class, "Control_modalRoot")]'
-                                                     '//*[@role="button"]//*[contains(text(), "Клики")]')
+                                      '//*[@role="button"]//*[contains(text(), "Клики")]')
     BUTTON_SAVE = (By.XPATH, '//*[contains(@class, "Control_modalRoot")]'
-                                            '//*[contains(@class, "vkuiButton__content") and'
-                                            ' contains(text(), "Применить")]')
+                             '//*[contains(@class, "vkuiButton__content") and'
+                             ' contains(text(), "Применить")]')
 
 
 class OverviewPageUsefulArticlesLocators:

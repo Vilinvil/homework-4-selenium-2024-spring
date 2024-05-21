@@ -21,7 +21,8 @@ class OverviewNewUserPage(BasePage):
         start_actions = start_actions_wrapper.find_elements(*self.locators.START_ACTION)
 
         for start_action in start_actions:
-            assert start_action.find_element(By.XPATH, './/button', until_EC=EC.visibility_of_element_located)
+            elem = start_action.find_element(By.XPATH, './/button')
+            self.wait().until(EC.visibility_of(elem))
 
 
 class OverviewPage(PageWithModalView, PageWithRedirectWindow):
@@ -51,8 +52,8 @@ class OverviewPage(PageWithModalView, PageWithRedirectWindow):
         return result
 
     def activate_amount_campaigns(self, expected_count_chose_campaigns):
-        self.find(self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN)
-        checkboxes = self.driver.find_elements(*self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN)
+        self.find(self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN_OFF)
+        checkboxes = self.driver.find_elements(*self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN_OFF)
 
         cur_count_clicked_checkboxes = 0
         while len(checkboxes) != 0 and cur_count_clicked_checkboxes < expected_count_chose_campaigns:

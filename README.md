@@ -11,7 +11,7 @@ source .venv/bin/activate
 ```
 
 ### Установка зависимостей
-```pip install -r hw/code/requirements.txt```
+```pip install -r requirements.txt```
 
 ### Заполненение переменных окружения
 Запишите свой логин и пароль.
