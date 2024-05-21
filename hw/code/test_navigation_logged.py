@@ -1,180 +1,132 @@
 import pytest
 
 from cases import LoggedCase
-from ui.locators.main_locators import MainPageLocators
 from ui.pages.base_page import PageWithRedirectWindow
-
-from selenium.webdriver.support import expected_conditions as EC
+from ui.pages.main_page import MainPage
 
 
 class TestSidebarLogged(LoggedCase):
     def test_display(self):
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_OVERVIEW,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_CAMPAIGN,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_AUDIENCE,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_BUDGET,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_TRAINING,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_CATALOGS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_SITES,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_MOBILE_APPS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_LEADS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_SETTINGS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_HELP,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_TOGGLE,
-                                   until_EC=EC.visibility_of_element_located)
+        assert self.main_page.find_button_overview()
+        assert self.main_page.find_button_campaigns()
+        assert self.main_page.find_button_audience()
+        assert self.main_page.find_button_budget()
+        assert self.main_page.find_button_training()
+        assert self.main_page.find_button_catalogs()
+        assert self.main_page.find_button_sites()
+        assert self.main_page.find_button_mobile_app()
+        assert self.main_page.find_button_leads()
+        assert self.main_page.find_button_settings()
+        assert self.main_page.find_button_help()
+        assert self.main_page.find_button_toggle()
 
     @pytest.mark.parametrize(
-        'button_locator, sign_opening, expected_url',
+        'open_view, expected_url',
         [
-            pytest.param(MainPageLocators.sidebar_locators.BUTTON_OVERVIEW,
-                         MainPageLocators.sidebar_locators.SIGN_OPENING_OVERVIEW,
+            pytest.param(MainPage.open_overview,
                          'https://ads.vk.com/hq/overview'),
-            pytest.param(MainPageLocators.sidebar_locators.BUTTON_CAMPAIGN,
-                         MainPageLocators.sidebar_locators.SIGN_OPENING_CAMPAIGN,
+            pytest.param(MainPage.open_campaigns,
                          'https://ads.vk.com/hq/dashboard/ad_plans'),
-            pytest.param(MainPageLocators.sidebar_locators.BUTTON_AUDIENCE,
-                         MainPageLocators.sidebar_locators.SIGN_OPENING_AUDIENCE,
+            pytest.param(MainPage.open_audience,
                          'https://ads.vk.com/hq/audience'),
-            pytest.param(MainPageLocators.sidebar_locators.BUTTON_BUDGET,
-                         MainPageLocators.sidebar_locators.SIGN_OPENING_BUDGET,
+            pytest.param(MainPage.open_budget,
                          'https://ads.vk.com/hq/budget/transactions'),
-            pytest.param(MainPageLocators.sidebar_locators.BUTTON_CATALOGS,
-                         MainPageLocators.sidebar_locators.SIGN_OPENING_CATALOGS,
+            pytest.param(MainPage.open_catalogs,
                          'https://ads.vk.com/hq/ecomm/catalogs'),
-            pytest.param(MainPageLocators.sidebar_locators.BUTTON_SITES,
-                         MainPageLocators.sidebar_locators.SIGN_OPENING_SITES,
+            pytest.param(MainPage.open_sites,
                          'https://ads.vk.com/hq/pixels'),
-            pytest.param(MainPageLocators.sidebar_locators.BUTTON_MOBILE_APPS,
-                         MainPageLocators.sidebar_locators.SIGN_OPENING_MOBILE_APPS,
+            pytest.param(MainPage.open_mobile_app,
                          'https://ads.vk.com/hq/apps'),
-            pytest.param(MainPageLocators.sidebar_locators.BUTTON_LEADS,
-                         MainPageLocators.sidebar_locators.SIGN_OPENING_LEADS,
+            pytest.param(MainPage.open_leads,
                          'https://ads.vk.com/hq/leadads/leadforms'),
-            pytest.param(MainPageLocators.sidebar_locators.BUTTON_SETTINGS,
-                         MainPageLocators.sidebar_locators.SIGN_OPENING_SETTINGS,
+            pytest.param(MainPage.open_settings,
                          'https://ads.vk.com/hq/settings'),
         ],
     )
-    def test_opening(self, button_locator, sign_opening, expected_url):
-        self.main_page.click(button_locator)
-        assert self.main_page.find(sign_opening, until_EC=EC.visibility_of_element_located)
-        assert self.main_page.wait(5).until(EC.url_matches(expected_url))
+    def test_opening(self, open_view, expected_url):
+        open_view(self.main_page)
+        assert self.base_page.check_url(expected_url)
 
     def test_toggle(self):
-        self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_TOGGLE)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.SIGN_TOGGLE,
-                                   until_EC=EC.visibility_of_element_located)
+        assert self.main_page.collapse_sidebar()
 
-        self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_TOGGLE)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.SIGN_TOGGLE,
-                                   until_EC=EC.invisibility_of_element_located)
+        assert self.main_page.open_sidebar()
 
     @pytest.fixture(scope='function')
     def setup_help_section(self):
-        self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_HELP)
+        self.main_page.open_help()
 
     def test_help_section_display(self, setup_help_section):
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_HELP_CASES,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_HELP_HELP,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_HELP_IDEAS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.BUTTON_HELP_QUESTION,
-                                   until_EC=EC.visibility_of_element_located)
+        assert self.main_page.find_button_help_cases()
+        assert self.main_page.find_button_help_help()
+        assert self.main_page.find_button_help_ideas()
+        assert self.main_page.find_button_help_question()
 
     def test_help_section_question(self, setup_help_section):
-        self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_HELP_QUESTION)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.SIGN_OPENING_HELP_QUESTION,
-                                   until_EC=EC.visibility_of_element_located)
+        assert self.main_page.open_help_question()
 
-    @pytest.mark.parametrize('button_locator, expected_url',
+    @pytest.mark.parametrize('redirect_by_button, expected_url',
                              [
-                                 pytest.param(MainPageLocators.sidebar_locators.BUTTON_HELP_CASES,
+                                 pytest.param(MainPage.redirect_help_cases,
                                               'https://ads.vk.com/cases'),
-                                 pytest.param(MainPageLocators.sidebar_locators.BUTTON_HELP_HELP,
+                                 pytest.param(MainPage.redirect_help_help,
                                               'https://ads.vk.com/help'),
-                                 pytest.param(MainPageLocators.sidebar_locators.BUTTON_HELP_IDEAS,
+                                 pytest.param(MainPage.redirect_help_ideas,
                                               'https://ads.vk.com/upvote'),
 
                              ])
-    def test_help_section_redirect(self, button_locator, expected_url, setup_help_section):
+    def test_help_section_redirect(self, redirect_by_button, expected_url, setup_help_section):
         page_with_redirect = PageWithRedirectWindow(self.driver)
-        page_with_redirect.redirect_window(button_locator, expected_number_of_windows_to_be=2)
-        assert self.main_page.wait(5).until(EC.url_matches(expected_url))
+        redirect_by_button(self.main_page, page_with_redirect)
+
+        assert self.main_page.check_url(expected_url)
 
     def test_sequential_transition(self):
-        self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_OVERVIEW)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.SIGN_OPENING_OVERVIEW,
-                                   until_EC=EC.visibility_of_element_located)
+        self.main_page.open_overview()
+        assert self.base_page.check_url('https://ads.vk.com/hq/overview')
 
-        self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_CAMPAIGN)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.SIGN_OPENING_CAMPAIGN,
-                                   until_EC=EC.visibility_of_element_located)
+        self.main_page.open_campaigns()
+        assert self.base_page.check_url('https://ads.vk.com/hq/dashboard/ad_plans')
 
-        self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_AUDIENCE)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.SIGN_OPENING_AUDIENCE,
-                                   until_EC=EC.visibility_of_element_located)
+        self.main_page.open_audience()
+        assert self.base_page.check_url('https://ads.vk.com/hq/audience')
 
-        self.main_page.click(self.main_page.locators.sidebar_locators.BUTTON_OVERVIEW)
-        assert self.main_page.find(self.main_page.locators.sidebar_locators.SIGN_OPENING_OVERVIEW,
-                                   until_EC=EC.visibility_of_element_located)
+        self.main_page.open_overview()
+        assert self.base_page.check_url('https://ads.vk.com/hq/overview')
 
 
 class TestNavBarLogged(LoggedCase):
     def test_display(self):
-        assert self.main_page.find(self.main_page.locators.navbar_locators.ADS_LOGO,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.navbar_locators.BUTTON_ACCOUNT_SWITCH,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.navbar_locators.BUTTON_BALANCE,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.navbar_locators.BUTTON_NOTIFICATIONS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.main_page.find(self.main_page.locators.navbar_locators.BUTTON_USER_MENU,
-                                   until_EC=EC.visibility_of_element_located)
+        assert self.main_page.find_ads_logo()
+        assert self.main_page.find_account_switch()
+        assert self.main_page.find_balance()
+        assert self.main_page.find_notifications()
+        assert self.main_page.find_user_menu()
 
     def test_click_logo(self):
-        self.main_page.click(self.main_page.locators.navbar_locators.ADS_LOGO)
-        assert self.main_page.wait(5).until(EC.url_matches('https://ads.vk.com/hq/overview'))
+        self.main_page.click_ads_logo()
+        assert self.main_page.check_url('https://ads.vk.com/hq/overview')
 
-    @pytest.mark.parametrize('button_locator, sign_opening',
+    @pytest.mark.parametrize('open_view',
                              [
-                                 pytest.param(MainPageLocators.navbar_locators.BUTTON_ACCOUNT_SWITCH,
-                                              MainPageLocators.navbar_locators.SIGN_OPENING_ACCOUNT_SWITCH),
-                                 pytest.param(MainPageLocators.navbar_locators.BUTTON_BALANCE,
-                                              MainPageLocators.navbar_locators.SIGN_OPENING_BALANCE),
-                                 pytest.param(MainPageLocators.navbar_locators.BUTTON_NOTIFICATIONS,
-                                              MainPageLocators.navbar_locators.SIGN_OPENING_NOTIFICATIONS),
-                                 pytest.param(MainPageLocators.navbar_locators.BUTTON_USER_MENU,
-                                              MainPageLocators.navbar_locators.SIGN_OPENING_USER_MENU),
+                                 pytest.param(MainPage.open_account_switch),
+                                 pytest.param(MainPage.open_balance),
+                                 pytest.param(MainPage.open_notifications),
+                                 pytest.param(MainPage.open_user_menu),
 
                              ], )
-    def test_navigation_buttons(self, button_locator, sign_opening):
-        self.main_page.click(button_locator)
-        assert self.main_page.find(sign_opening, until_EC=EC.visibility_of_element_located)
+    def test_navigation_buttons(self, open_view):
+        open_view(self.main_page)
 
     @pytest.fixture(scope="function")
     def setup_user_menu(self):
-        self.main_page.click(self.main_page.locators.navbar_locators.BUTTON_USER_MENU)
+        self.main_page.open_user_menu()
 
     def test_user_menu_redirect_account(self, setup_user_menu):
         page_with_redirect = PageWithRedirectWindow(self.driver)
-        page_with_redirect.redirect_window(self.main_page.locators.navbar_locators.BUTTON_USER_MENU_ACCOUNT,
-                                           expected_number_of_windows_to_be=2)
-        assert self.main_page.wait(5).until(EC.url_matches('https://id.vk.com/about/id'))
+        self.main_page.redirect_user_menu_account(page_with_redirect)
+        assert self.main_page.check_url('https://id.vk.com/about/id')
 
     def test_user_menu_logout(self, setup_user_menu):
-        self.main_page.click(self.main_page.locators.navbar_locators.BUTTON_USER_MENU_LOGOUT)
-        assert self.main_page.wait(5).until(EC.url_matches('https://ads.vk.com/'))
+        self.main_page.click_user_menu_logout()
+        assert self.main_page.check_url('https://ads.vk.com/')
