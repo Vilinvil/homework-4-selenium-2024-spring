@@ -19,7 +19,7 @@ class TestPreRegistration(RegisteredUserCase):
 
     def test_display_pre_registration(self):
         assert self.pre_registration_page.find(self.pre_registration_page.locators.CREATE_NEW_CABINET_BUTTON,
-            until_EC=EC.visibility_of_element_located)
+                                               until_EC=EC.visibility_of_element_located)
 
     def test_new_cabinet_button_click(self):
         self.pre_registration_page.click(self.pre_registration_page.locators.CREATE_NEW_CABINET_BUTTON)
@@ -86,7 +86,7 @@ class TestRegistration(RegisteredUserCase):
     def test_change_language(self, locator, expected_text):
         self.registration_page.click(locator)
         assert self.registration_page.find(self.registration_page.locators.REGISTRATION_HEADER_TITLE,
-            until_EC=EC.visibility_of_element_located).text == expected_text
+                                           until_EC=EC.visibility_of_element_located).text == expected_text
 
     def test_country_russia_currency_rub(self):
         self.registration_page.click(self.registration_page.locators.REGISTRATION_COUNTRY_SELECT)
@@ -94,7 +94,7 @@ class TestRegistration(RegisteredUserCase):
         self.registration_page.click(self.registration_page.locators.REGISTRATION_CURRENCY_SELECT)
 
         assert self.registration_page.find(self.registration_page.locators.REGISTRATION_CURRENCY_SELECT_RUB,
-            until_EC=EC.visibility_of_element_located)
+                                           until_EC=EC.visibility_of_element_located)
 
     def test_country_belarus_currency_usd_eur(self):
         self.registration_page.click(self.registration_page.locators.REGISTRATION_COUNTRY_SELECT)
@@ -110,7 +110,7 @@ class TestRegistration(RegisteredUserCase):
             EC.presence_of_element_located(self.registration_page.locators.REGISTRATION_CREATE_BUTTON))
         AC(self.driver).move_to_element(elem).click(elem).perform()
         assert self.registration_page.find(self.registration_page.locators.REGISTRATION_EMAIL_ALERT,
-            until_EC=EC.visibility_of_element_located)
+                                           until_EC=EC.visibility_of_element_located)
 
     def test_create_with_wrong_email(self):
         self.registration_page.write_input(self.registration_page.locators.REGISTRATION_EMAIL_FIELD, "aboba")
@@ -142,11 +142,13 @@ class TestRegistration(RegisteredUserCase):
 
     def test_no_individual_with_agency(self):
         self.registration_page.click(self.registration_page.locators.REGISTRATION_AGENCY_BUTTON)
-        assert self.registration_page.wait(BASIC_TIMEOUT).until(EC.invisibility_of_element(self.registration_page.locators.REGISTRATION_INDIVIDUAL_BUTTON))
+        assert self.registration_page.wait(BASIC_TIMEOUT).until(
+            EC.invisibility_of_element(self.registration_page.locators.REGISTRATION_INDIVIDUAL_BUTTON))
 
     def test_no_inn_with_entity(self):
         self.registration_page.click(self.registration_page.locators.REGISTRATION_ENTITY_BUTTON)
-        assert self.registration_page.wait(BASIC_TIMEOUT).until(EC.invisibility_of_element(self.registration_page.locators.REGISTRATION_INN_FIELD))
+        assert self.registration_page.wait(BASIC_TIMEOUT).until(
+            EC.invisibility_of_element(self.registration_page.locators.REGISTRATION_INN_FIELD))
 
     def test_create_cabinet(self, credentials: Credentials):
         self.registration_page.write_input(
