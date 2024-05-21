@@ -2,9 +2,6 @@ import pytest
 
 from cases import RegisteredUserCase
 from ui.pages.registration_page import PreRegistrationPage, RegistrationPage
-from ui.locators.registration_locators import RegistrationPageLocators
-from ui.locators.main_locators import MainPageLocators
-from ui.locators.settings_locators import SettingsPageLocators
 from utils.timeout import BASIC_TIMEOUT
 from utils.credentials import Credentials
 
@@ -18,108 +15,74 @@ class TestPreRegistration(RegisteredUserCase):
         self.pre_registration_page = PreRegistrationPage(self.driver)
 
     def test_display_pre_registration(self):
-        assert self.pre_registration_page.find(self.pre_registration_page.locators.CREATE_NEW_CABINET_BUTTON,
-                                               until_EC=EC.visibility_of_element_located)
+        assert self.pre_registration_page.display_pre_registration()
 
     def test_new_cabinet_button_click(self):
-        self.pre_registration_page.click(self.pre_registration_page.locators.CREATE_NEW_CABINET_BUTTON)
-        self.pre_registration_page.wait().until(EC.url_to_be("https://ads.vk.com/hq/registration/new"))
+        self.pre_registration_page.open_registration_page()
 
 
 class TestRegistration(RegisteredUserCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup_new_registration_window(self, driver):
         self.pre_registration_page = PreRegistrationPage(self.driver)
-        self.pre_registration_page.click(self.pre_registration_page.locators.CREATE_NEW_CABINET_BUTTON)
+        self.pre_registration_page.open_registration_page()
         self.registration_page = RegistrationPage(self.driver)
 
     def test_display(self):
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_GO_BACK, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_FIO_FIELD, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_INN_FIELD, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_EMAIL_FIELD, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_AGENCY_BUTTON, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_COUNTRY_SELECT, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_ADVERTISER_BUTTON, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_CREATE_BUTTON, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_CURRENCY_SELECT, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_ENGLISH_BUTTON, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_RUSSIAN_BUTTON, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_ENTITY_BUTTON, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_INDIVIDUAL_BUTTON, until_EC=EC.visibility_of_element_located)
+        assert self.registration_page.find_go_back_button()
+        assert self.registration_page.find_fio_field()
+        assert self.registration_page.find_inn_field()
+        assert self.registration_page.find_email_field()
+        assert self.registration_page.find_agency_button()
+        assert self.registration_page.find_country_select()
+        assert self.registration_page.find_advertiser_button()
+        assert self.registration_page.find_create_button()
+        assert self.registration_page.find_currency_select()
+        assert self.registration_page.find_english_button()
+        assert self.registration_page.find_russian_button()
+        assert self.registration_page.find_entity_button()
+        assert self.registration_page.find_individual_button()
 
     def test_create_without_offer(self):
-        elem = self.registration_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(self.registration_page.locators.REGISTRATION_OFFER_CHECK_MARK))
-        AC(self.driver).move_to_element(elem).click(elem).perform()
+        self.registration_page.click_offer_check_mark()
 
-        elem = self.registration_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(self.registration_page.locators.REGISTRATION_CREATE_BUTTON))
-        AC(self.driver).move_to_element(elem).click(elem).perform()
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_NO_OFFER_ALERT, until_EC=EC.visibility_of_element_located)
+        self.registration_page.click_create_button()
+        assert self.registration_page.find_no_offer_alert()
 
     @pytest.mark.parametrize(
-        'locator,expected_text',
+        'button,expected_text',
         [
             pytest.param(
-                RegistrationPageLocators.REGISTRATION_ENGLISH_BUTTON, 'Account registration'
+                RegistrationPage.click_english_button, 'Account registration'
             ),
             pytest.param(
-                RegistrationPageLocators.REGISTRATION_RUSSIAN_BUTTON, 'Регистрация кабинета'
+                RegistrationPage.click_russian_button, 'Регистрация кабинета'
             ),
         ],
     )
-    def test_change_language(self, locator, expected_text):
-        self.registration_page.click(locator)
-        assert self.registration_page.find(self.registration_page.locators.REGISTRATION_HEADER_TITLE,
-                                           until_EC=EC.visibility_of_element_located).text == expected_text
+    def test_change_language(self, button, expected_text):
+        button(self.registration_page)
+        assert self.registration_page.get_header_text() == expected_text
 
     def test_country_russia_currency_rub(self):
-        self.registration_page.click(self.registration_page.locators.REGISTRATION_COUNTRY_SELECT)
-        self.registration_page.click(self.registration_page.locators.REGISTRATION_COUNTRY_SELECT_RUSSIA)
-        self.registration_page.click(self.registration_page.locators.REGISTRATION_CURRENCY_SELECT)
+        self.registration_page.select_country_russia()
 
-        assert self.registration_page.find(self.registration_page.locators.REGISTRATION_CURRENCY_SELECT_RUB,
-                                           until_EC=EC.visibility_of_element_located)
+        assert self.registration_page.find_currency_select_rub()
 
     def test_country_belarus_currency_usd_eur(self):
-        self.registration_page.click(self.registration_page.locators.REGISTRATION_COUNTRY_SELECT)
-        self.registration_page.click(self.registration_page.locators.REGISTRATION_COUNTRY_SELECT_BELARUS)
-        self.registration_page.click(self.registration_page.locators.REGISTRATION_CURRENCY_SELECT)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_CURRENCY_SELECT_USD, until_EC=EC.visibility_of_element_located)
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_CURRENCY_SELECT_EUR, until_EC=EC.visibility_of_element_located)
+        self.registration_page.select_country_belarus()
+
+        assert self.registration_page.find_currency_select_usd_eur()
 
     def test_create_without_email(self):
-        elem = self.registration_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(self.registration_page.locators.REGISTRATION_CREATE_BUTTON))
-        AC(self.driver).move_to_element(elem).click(elem).perform()
-        assert self.registration_page.find(self.registration_page.locators.REGISTRATION_EMAIL_ALERT,
-                                           until_EC=EC.visibility_of_element_located)
+        self.registration_page.click_create_button()
+        assert self.registration_page.find_email_alert()
 
     def test_create_with_wrong_email(self):
-        self.registration_page.write_input(self.registration_page.locators.REGISTRATION_EMAIL_FIELD, "aboba")
+        self.registration_page.write_email("aboba")
 
-        elem = self.registration_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(self.registration_page.locators.REGISTRATION_CREATE_BUTTON))
-        AC(self.driver).move_to_element(elem).click(elem).perform()
-        assert self.registration_page.find(self.registration_page.locators.REGISTRATION_EMAIL_ALERT,
-                                           until_EC=EC.visibility_of_element_located)
+        self.registration_page.click_create_button()
+        assert self.registration_page.find_email_alert()
 
     @pytest.mark.parametrize(
         'inn,expected_text',
@@ -141,31 +104,20 @@ class TestRegistration(RegisteredUserCase):
             self.registration_page.locators.REGISTRATION_INN_ALERT).text == expected_text
 
     def test_no_individual_with_agency(self):
-        self.registration_page.click(self.registration_page.locators.REGISTRATION_AGENCY_BUTTON)
-        assert self.registration_page.wait(BASIC_TIMEOUT).until(
-            EC.invisibility_of_element(self.registration_page.locators.REGISTRATION_INDIVIDUAL_BUTTON))
+        self.registration_page.click_agency_button()
+        assert self.registration_page.is_individual_button_invisible()
 
     def test_no_inn_with_entity(self):
-        self.registration_page.click(self.registration_page.locators.REGISTRATION_ENTITY_BUTTON)
-        assert self.registration_page.wait(BASIC_TIMEOUT).until(
-            EC.invisibility_of_element(self.registration_page.locators.REGISTRATION_INN_FIELD))
+        self.registration_page.click_entity_button()
+        assert self.registration_page.is_inn_field_invisible()
 
     def test_create_cabinet(self, credentials: Credentials):
-        self.registration_page.write_input(
-            self.registration_page.locators.REGISTRATION_EMAIL_FIELD, credentials.login)
-        self.registration_page.write_input(
-            self.registration_page.locators.REGISTRATION_INN_FIELD, "473275643494")
-        self.registration_page.write_input(
-            self.registration_page.locators.REGISTRATION_FIO_FIELD, "Иванов Валерий Ильич")
+        self.registration_page.write_email(credentials.login)
+        self.registration_page.write_inn("473275643494")
+        self.registration_page.write_fio("Иванов Валерий Ильич")
 
-        elem = self.registration_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(self.registration_page.locators.REGISTRATION_CREATE_BUTTON))
-        AC(self.driver).move_to_element(elem).click(elem).perform()
+        self.registration_page.click_create_button()
 
         self.registration_page.wait().until(EC.url_matches("https://ads.vk.com/hq/overview"))
 
-        self.registration_page.click(MainPageLocators.sidebar_locators.BUTTON_SETTINGS)
-        elem = self.registration_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(SettingsPageLocators.SETTINGS_BUTTON_DELETE_CABINET))
-        AC(self.driver).move_to_element(elem).click(elem).perform()
-        self.registration_page.click(SettingsPageLocators.SETTINGS_BUTTON_ACCEPT_DELETE_CABINET)
+        self.registration_page.delete_cabinet()
