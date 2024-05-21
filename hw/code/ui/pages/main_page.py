@@ -11,3 +11,7 @@ class MainPage(BasePage):
     
     def click_redirect_to_site_page(self):
         self.click(self.locators.sidebar_locators.BUTTON_SITES)
+
+
+    def click_redirect_to_lead_forms_page(self):
+        self.click(self.locators.sidebar_locators.BUTTON_LEADS)

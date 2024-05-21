@@ -3,7 +3,7 @@ from ui.pages.site_page import SitePage
 import pytest
 from selenium.webdriver.common.keys import Keys
 import random
-import time
+# import time
 
 class TestSitePage(LoggedCase):
     INVALID_DOMAIN = "INVALID_DOMAIN"
