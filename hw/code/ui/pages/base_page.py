@@ -87,8 +87,56 @@ class BasePage(BasePageFunctionality):
     def find_nav_wrapped_button_certification(self):
         return self.find_with_check_visibility(self.locators.NAV_WRAPPED_BUTTON_CERTIFICATION)
 
+    def find_footer_wrapper_language(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_WRAPPER_LANGUAGE)
+
+    def find_footer_logo_ok(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_LOGO_OK)
+
+    def find_footer_logo_tg(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_LOGO_TG)
+
+    def find_footer_logo_vk(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_LOGO_VK)
+
+    def find_footer_button_cases(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_BUTTON_CASES)
+
+    def find_footer_about_company(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_ABOUT_COMPANY)
+
+    def find_footer_button_cabinet(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_BUTTON_CABINET)
+
+    def find_footer_button_documents(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_BUTTON_DOCUMENTS)
+
+    def find_footer_button_events(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_BUTTON_EVENTS)
+
+    def find_footer_button_experts(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_BUTTON_EXPERTS)
+
+    def find_footer_button_help(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_BUTTON_HELP)
+
+    def find_footer_button_insights(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_BUTTON_INSIGHTS)
+
+    def find_footer_button_monetization(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_BUTTON_MONETIZATION)
+
+    def find_footer_button_news(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_BUTTON_NEWS)
+
+    def find_footer_logo_vk_business(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_LOGO_VK_BUSINESS)
+
     def hover_nav_wrapper_education(self):
         self.hover_wrapper(self.locators.NAV_WRAPPER_EDUCATION)
+
+    def hover_footer(self):
+        self.hover_wrapper(self.locators.FOOTER_LOCATOR)
 
     def click_nav_button_help(self):
         self.click(self.locators.NAV_BUTTON_HELP)
@@ -111,6 +159,40 @@ class BasePage(BasePageFunctionality):
     def click_nav_wrapped_button_events(self):
         self.click(self.locators.NAV_WRAPPED_BUTTON_EVENTS)
 
+    def click_footer_button(self, locator):
+        elem = self.find(locator)
+        AC(self.driver).move_to_element(elem).click(elem).perform()
+
+    def click_footer_button_news(self):
+        self.click_footer_button(self.locators.FOOTER_BUTTON_NEWS)
+
+    def click_footer_button_insights(self):
+        self.click_footer_button(self.locators.FOOTER_BUTTON_INSIGHTS)
+
+    def click_footer_button_events(self):
+        self.click_footer_button(self.locators.FOOTER_BUTTON_EVENTS)
+
+    def click_footer_button_documents(self):
+        self.click_footer_button(self.locators.FOOTER_BUTTON_DOCUMENTS)
+
+    def click_footer_button_cases(self):
+        self.click_footer_button(self.locators.FOOTER_BUTTON_CASES)
+
+    def click_footer_button_help(self):
+        self.click_footer_button(self.locators.FOOTER_BUTTON_HELP)
+
+    def click_footer_button_cabinet(self):
+        self.click_footer_button(self.locators.FOOTER_BUTTON_CABINET)
+
+    def click_footer_wrapper_language(self):
+        self.click_footer_button(self.locators.FOOTER_WRAPPER_LANGUAGE)
+
+    def click_footer_button_language_ru(self):
+        self.click_footer_button(self.locators.FOOTER_LANGUAGE_BUTTON_RUSSIAN)
+
+    def click_footer_button_language_en(self):
+        self.click_footer_button(self.locators.FOOTER_LANGUAGE_BUTTON_ENGLISH)
+
     def redirect_nav_monetization(self, redirect_page):
         redirect_page.redirect_window(self.locators.NAV_BUTTON_MONETIZATION)
 
@@ -119,6 +201,30 @@ class BasePage(BasePageFunctionality):
 
     def redirect_nav_wrapped_button_certification(self, redirect_page):
         redirect_page.redirect_window(self.locators.NAV_WRAPPED_BUTTON_CERTIFICATION)
+
+    def redirect_footer_button_experts(self, redirect_page):
+        redirect_page.redirect_window_with_scroll(self.locators.FOOTER_BUTTON_EXPERTS)
+
+    def redirect_footer_button_monetization(self, redirect_page):
+        redirect_page.redirect_window_with_scroll(self.locators.FOOTER_BUTTON_MONETIZATION)
+
+    def redirect_footer_button_vk_business(self, redirect_page):
+        redirect_page.redirect_window_with_scroll(self.locators.FOOTER_LOGO_VK_BUSINESS)
+
+    def redirect_footer_button_logo_vk(self, redirect_page):
+        redirect_page.redirect_window_with_scroll(self.locators.FOOTER_LOGO_VK)
+
+    def redirect_footer_button_logo_tg(self, redirect_page):
+        redirect_page.redirect_window_with_scroll(self.locators.FOOTER_LOGO_TG)
+
+    def redirect_footer_button_logo_ok(self, redirect_page):
+        redirect_page.redirect_window_with_scroll(self.locators.FOOTER_LOGO_OK)
+
+    def redirect_footer_button_about_company(self, redirect_page):
+        redirect_page.redirect_window_with_scroll(self.locators.FOOTER_ABOUT_COMPANY)
+
+    def get_footer_language(self):
+        return self.find_with_check_visibility(self.locators.FOOTER_WRAPPER_LANGUAGE).text
 
 
 class PageWithView(BasePage):

@@ -1,118 +1,107 @@
 import pytest
 
 from cases import BaseCase
-from ui.pages.base_page import PageWithRedirectWindow
-from ui.locators.basic_locators import BasePageLocators
-
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains as AC
+from ui.pages.base_page import BasePage, PageWithRedirectWindow
 
 
 class TestFooter(BaseCase):
     def test_display(self):
-        self.base_page.hover_wrapper((self.base_page.locators.FOOTER_LOCATOR))
+        self.base_page.hover_footer()
 
-        assert self.base_page.find(self.base_page.locators.FOOTER_WRAPPER_LANGUAGE, until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_OK, until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_TG, until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_VK, until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_CASES,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_ABOUT_COMPANY,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_CABINET,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_DOCUMENTS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_EVENTS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_EXPERTS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_HELP,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_INSIGHTS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_MONETIZATION,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_BUTTON_NEWS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.FOOTER_LOGO_VK_BUSINESS,
-                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find_footer_wrapper_language()
+        assert self.base_page.find_footer_logo_ok()
+        assert self.base_page.find_footer_logo_tg()
+        assert self.base_page.find_footer_logo_vk()
+        assert self.base_page.find_footer_button_cases()
+        assert self.base_page.find_footer_about_company()
+        assert self.base_page.find_footer_button_cabinet()
+        assert self.base_page.find_footer_button_documents()
+        assert self.base_page.find_footer_button_events()
+        assert self.base_page.find_footer_button_experts()
+        assert self.base_page.find_footer_button_help()
+        assert self.base_page.find_footer_button_insights()
+        assert self.base_page.find_footer_button_monetization()
+        assert self.base_page.find_footer_button_news()
+        assert self.base_page.find_footer_logo_vk_business()
 
     @pytest.mark.parametrize(
-        'locator,url,redirect',
+        'click_to,url,redirect',
         [
             pytest.param(
-                BasePageLocators.FOOTER_BUTTON_NEWS, 'https://ads.vk.com/news', False
+                BasePage.click_footer_button_news, 'https://ads.vk.com/news'
             ),
             pytest.param(
-                BasePageLocators.FOOTER_BUTTON_INSIGHTS, 'https://ads.vk.com/insights', False
+                BasePage.click_footer_button_insights, 'https://ads.vk.com/insights'
             ),
             pytest.param(
-                BasePageLocators.FOOTER_BUTTON_EVENTS, 'https://ads.vk.com/events', False
+                BasePage.click_footer_button_events, 'https://ads.vk.com/events'
             ),
             pytest.param(
-                BasePageLocators.FOOTER_BUTTON_DOCUMENTS, 'https://ads.vk.com/documents', False
+                BasePage.click_footer_button_documents, 'https://ads.vk.com/documents'
             ),
             pytest.param(
-                BasePageLocators.FOOTER_BUTTON_EXPERTS, 'https://expert.vk.com/', True
+                BasePage.click_footer_button_cases, 'https://ads.vk.com/cases'
             ),
             pytest.param(
-                BasePageLocators.FOOTER_BUTTON_CASES, 'https://ads.vk.com/cases', False
-            ),
-            pytest.param(
-                BasePageLocators.FOOTER_BUTTON_HELP, 'https://ads.vk.com/help', False
-            ),
-            pytest.param(
-                BasePageLocators.FOOTER_BUTTON_MONETIZATION, 'https://ads.vk.com/partner', True
-            ),
-            pytest.param(
-                BasePageLocators.FOOTER_LOGO_VK_BUSINESS, 'https://vk.company/ru/company/business/', True
-            ),
-            pytest.param(
-                BasePageLocators.FOOTER_LOGO_VK, 'https://vk.com/vk_ads', True
-            ),
-            pytest.param(
-                BasePageLocators.FOOTER_LOGO_OK, 'https://ok.ru/group/64279825940712', True
-            ),
-            pytest.param(
-                BasePageLocators.FOOTER_LOGO_TG, 'https://t.me/vk_ads', True
-            ),
-            pytest.param(
-                BasePageLocators.FOOTER_ABOUT_COMPANY, 'https://vk.company/ru/', True
+                BasePage.click_footer_button_help, 'https://ads.vk.com/help'
             ),
         ],
     )
-    def test_open_pages(self, locator, url, redirect):
-        if redirect:
-            page_with_redirect = PageWithRedirectWindow(self.driver)
-            page_with_redirect.redirect_window_with_scroll(locator)
-        else:
-            elem = self.base_page.find(locator)
-            AC(self.driver).move_to_element(elem).click(elem).perform()
+    def test_open_pages(self, click_to, url):
+        click_to(self.base_page)
 
-        self.base_page.wait().until(EC.url_matches(url))
+        assert self.base_page.check_url(url)
+
+    @pytest.mark.parametrize(
+        'redirect_to,url',
+        [
+            pytest.param(
+                BasePage.redirect_footer_button_experts, 'https://expert.vk.com/'
+            ),
+            pytest.param(
+                BasePage.redirect_footer_button_monetization, 'https://ads.vk.com/partner'
+            ),
+            pytest.param(
+                BasePage.redirect_footer_button_vk_business, 'https://vk.company/ru/company/business/'
+            ),
+            pytest.param(
+                BasePage.redirect_footer_button_logo_vk, 'https://vk.com/vk_ads'
+            ),
+            pytest.param(
+                BasePage.redirect_footer_button_logo_ok, 'https://ok.ru/group/64279825940712'
+            ),
+            pytest.param(
+                BasePage.redirect_footer_button_logo_tg, 'https://t.me/vk_ads'
+            ),
+            pytest.param(
+                BasePage.redirect_footer_button_about_company, 'https://vk.company/ru/'
+            ),
+        ],
+    )
+    def test_open_pages(self, redirect_to, url):
+        page_with_redirect = PageWithRedirectWindow(self.driver)
+        redirect_to(self.base_page, page_with_redirect)
+
+        self.base_page.check_url(url)
 
     def test_open_login_page(self):
-        elem = self.base_page.find(self.base_page.locators.FOOTER_BUTTON_CABINET)
-        AC(self.driver).move_to_element(elem).click(elem).perform()
+        self.base_page.click_footer_button_cabinet()
 
-        self.base_page.wait().until(EC.url_matches("https://id.vk.com/auth"))
+        assert self.base_page.check_url("https://id.vk.com/auth")
 
     @pytest.mark.parametrize(
-        'locator,text_value',
+        'click_language,text_value',
         [
             pytest.param(
-                BasePageLocators.FOOTER_LANGUAGE_BUTTON_RUSSIAN, 'RU'
+                BasePage.click_footer_button_language_ru, 'RU'
             ),
             pytest.param(
-                BasePageLocators.FOOTER_LANGUAGE_BUTTON_ENGLISH, 'EN'
+                BasePage.click_footer_button_language_en, 'EN'
             ),
         ],
     )
-    def test_language_wrapped_buttons(self, locator, text_value):
-        elem = self.base_page.find(self.base_page.locators.FOOTER_WRAPPER_LANGUAGE)
-        AC(self.driver).move_to_element(elem).click(elem).perform()
+    def test_language_wrapped_buttons(self, click_language, text_value):
+        self.base_page.click_footer_wrapper_language()
 
-        self.base_page.click(locator)
-        assert self.base_page.find(self.base_page.locators.FOOTER_WRAPPER_LANGUAGE).text == text_value
+        click_language(self.base_page)
+        assert self.base_page.get_footer_language() == text_value
