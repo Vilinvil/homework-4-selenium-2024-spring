@@ -54,8 +54,71 @@ class BasePage(BasePageFunctionality):
     locators = basic_locators.BasePageLocators()
     url = 'https://ads.vk.com/'
 
+    def find_nav_button_help(self):
+        return self.find_with_check_visibility(self.locators.NAV_BUTTON_HELP)
+
+    def find_nav_button_monetization(self):
+        return self.find_with_check_visibility(self.locators.NAV_BUTTON_MONETIZATION)
+
+    def find_nav_button_ideas(self):
+        return self.find_with_check_visibility(self.locators.NAV_BUTTON_IDEAS)
+
+    def find_nav_button_cases(self):
+        return self.find_with_check_visibility(self.locators.NAV_BUTTON_CASES)
+
+    def find_nav_button_news(self):
+        return self.find_with_check_visibility(self.locators.NAV_BUTTON_NEWS)
+
+    def find_nav_button_cabinet(self):
+        return self.find_with_check_visibility(self.locators.NAV_BUTTON_CABINET_LOCATOR)
+
+    def find_nav_wrapper_education(self):
+        return self.find_with_check_visibility(self.locators.NAV_WRAPPER_EDUCATION)
+
+    def find_nav_wrapped_button_insights(self):
+        return self.find_with_check_visibility(self.locators.NAV_WRAPPED_BUTTON_INSIGHTS)
+
+    def find_nav_wrapped_button_events(self):
+        return self.find_with_check_visibility(self.locators.NAV_WRAPPED_BUTTON_EVENTS)
+
+    def find_nav_wrapped_button_video_courses(self):
+        return self.find_with_check_visibility(self.locators.NAV_WRAPPED_BUTTON_VIDEO_COURSES)
+
+    def find_nav_wrapped_button_certification(self):
+        return self.find_with_check_visibility(self.locators.NAV_WRAPPED_BUTTON_CERTIFICATION)
+
+    def hover_nav_wrapper_education(self):
+        self.hover_wrapper(self.locators.NAV_WRAPPER_EDUCATION)
+
     def click_nav_button_help(self):
         self.click(self.locators.NAV_BUTTON_HELP)
+
+    def click_nav_button_ideas(self):
+        self.click(self.locators.NAV_BUTTON_IDEAS)
+
+    def click_nav_button_cases(self):
+        self.click(self.locators.NAV_BUTTON_CASES)
+
+    def click_nav_button_news(self):
+        self.click(self.locators.NAV_BUTTON_NEWS)
+
+    def click_nav_button_cabinet(self):
+        self.click(self.locators.NAV_BUTTON_CABINET_LOCATOR)
+
+    def click_nav_wrapped_button_insights(self):
+        self.click(self.locators.NAV_WRAPPED_BUTTON_INSIGHTS)
+
+    def click_nav_wrapped_button_events(self):
+        self.click(self.locators.NAV_WRAPPED_BUTTON_EVENTS)
+
+    def redirect_nav_monetization(self, redirect_page):
+        redirect_page.redirect_window(self.locators.NAV_BUTTON_MONETIZATION)
+
+    def redirect_nav_wrapped_button_video_courses(self, redirect_page):
+        redirect_page.redirect_window(self.locators.NAV_WRAPPED_BUTTON_VIDEO_COURSES)
+
+    def redirect_nav_wrapped_button_certification(self, redirect_page):
+        redirect_page.redirect_window(self.locators.NAV_WRAPPED_BUTTON_CERTIFICATION)
 
 
 class PageWithView(BasePage):

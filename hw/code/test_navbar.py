@@ -1,10 +1,7 @@
 import pytest
 
 from cases import BaseCase
-from ui.locators.basic_locators import BasePageLocators
-from ui.pages.base_page import PageWithRedirectWindow
-
-from selenium.webdriver.support import expected_conditions as EC
+from ui.pages.base_page import BasePage, PageWithRedirectWindow
 
 
 class TestNavbar(BaseCase):
@@ -13,99 +10,106 @@ class TestNavbar(BaseCase):
         self.redirect_page = PageWithRedirectWindow(self.driver)
 
     def test_display(self):
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_HELP,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_MONETIZATION,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_IDEAS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_CASES,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_NEWS,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.NAV_BUTTON_CABINET_LOCATOR,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.NAV_WRAPPER_EDUCATION,
-                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find_nav_button_help()
+        assert self.base_page.find_nav_button_monetization()
+        assert self.base_page.find_nav_button_ideas()
+        assert self.base_page.find_nav_button_cases()
+        assert self.base_page.find_nav_button_news()
+        assert self.base_page.find_nav_button_cabinet()
+        assert self.base_page.find_nav_wrapper_education()
 
     @pytest.mark.parametrize(
-        'locator,url,redirect',
+        'click_to_nav_button,url',
         [
             pytest.param(
-                BasePageLocators.NAV_BUTTON_HELP, 'https://ads.vk.com/help', False
+                BasePage.click_nav_button_help, 'https://ads.vk.com/help'
             ),
             pytest.param(
-                BasePageLocators.NAV_BUTTON_MONETIZATION, 'https://ads.vk.com/partner', True
+                BasePage.click_nav_button_ideas, 'https://ads.vk.com/upvote'
             ),
             pytest.param(
-                BasePageLocators.NAV_BUTTON_IDEAS, 'https://ads.vk.com/upvote', False
+                BasePage.click_nav_button_cases, 'https://ads.vk.com/cases'
             ),
             pytest.param(
-                BasePageLocators.NAV_BUTTON_CASES, 'https://ads.vk.com/cases', False
-            ),
-            pytest.param(
-                BasePageLocators.NAV_BUTTON_NEWS, 'https://ads.vk.com/news', False
+                BasePage.click_nav_button_news, 'https://ads.vk.com/news'
             ),
         ],
     )
-    def test_open_pages(self, locator, url, redirect):
-        if redirect:
-            self.redirect_page.redirect_window(locator)
-        else:
-            self.base_page.click(locator)
+    def test_open_pages(self, click_to_nav_button, url):
+        click_to_nav_button(self.base_page)
 
-        self.base_page.wait().until(EC.url_to_be(url))
+        assert self.base_page.check_url(url)
+
+    @pytest.mark.parametrize(
+        'redirect_to_page,url',
+        [
+            pytest.param(
+                BasePage.redirect_nav_monetization, 'https://ads.vk.com/partner'
+            ),
+        ],
+    )
+    def test_open_pages_with_redirect(self, redirect_to_page, url):
+        redirect_to_page(self.base_page, self.redirect_page)
+
+        assert self.base_page.check_url(url)
 
     def test_education_dropdown_display(self):
-        self.base_page.hover_wrapper(self.base_page.locators.NAV_WRAPPER_EDUCATION)
+        self.base_page.hover_nav_wrapper_education()
 
-        assert self.base_page.find(self.base_page.locators.NAV_WRAPPED_BUTTON_INSIGHTS, until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.NAV_WRAPPED_BUTTON_EVENTS, until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.NAV_WRAPPED_BUTTON_VIDEO_COURSES,
-                                   until_EC=EC.visibility_of_element_located)
-        assert self.base_page.find(self.base_page.locators.NAV_WRAPPED_BUTTON_CERTIFICATION,
-                                   until_EC=EC.visibility_of_element_located)
+        assert self.base_page.find_nav_wrapped_button_insights()
+        assert self.base_page.find_nav_wrapped_button_events()
+        assert self.base_page.find_nav_wrapped_button_video_courses()
+        assert self.base_page.find_nav_wrapped_button_certification()
 
     @pytest.mark.parametrize(
-        'locator,url,redirect',
+        'click_to,url',
         [
             pytest.param(
-                BasePageLocators.NAV_WRAPPED_BUTTON_INSIGHTS, 'https://ads.vk.com/insights', False
+                BasePage.click_nav_wrapped_button_insights, 'https://ads.vk.com/insights'
             ),
             pytest.param(
-                BasePageLocators.NAV_WRAPPED_BUTTON_EVENTS, 'https://ads.vk.com/events', False
-            ),
-            pytest.param(
-                BasePageLocators.NAV_WRAPPED_BUTTON_VIDEO_COURSES, 'https://expert.vk.com/catalog/courses/', True
-            ),
-            pytest.param(
-                BasePageLocators.NAV_WRAPPED_BUTTON_CERTIFICATION, 'https://expert.vk.com/certification/', True
+                BasePage.click_nav_wrapped_button_events, 'https://ads.vk.com/events'
             ),
         ],
     )
-    def test_education_dropdown_buttons_open_pages(self, locator, url, redirect):
+    def test_education_dropdown_buttons_open_pages(self, click_to, url):
+        self.base_page.hover_nav_wrapper_education()
+
+        click_to(self.base_page)
+
+        self.base_page.check_url(url)
+
+    @pytest.mark.parametrize(
+        'redirect_to,url',
+        [
+            pytest.param(
+                BasePage.redirect_nav_wrapped_button_video_courses, 'https://expert.vk.com/catalog/courses/'
+            ),
+            pytest.param(
+                BasePage.redirect_nav_wrapped_button_certification, 'https://expert.vk.com/certification/'
+            ),
+        ],
+    )
+    def test_education_dropdown_buttons_open_pages_with_redirect(self, redirect_to, url):
         self.base_page.hover_wrapper(self.base_page.locators.NAV_WRAPPER_EDUCATION)
 
-        if redirect:
-            self.redirect_page.redirect_window(locator)
-        else:
-            self.base_page.click(locator)
+        redirect_to(self.base_page, self.redirect_page)
 
-        self.base_page.wait().until(EC.url_to_be(url))
+        self.base_page.check_url(url)
 
     def test_sequential_transition(self):
-        self.base_page.click(self.base_page.locators.NAV_BUTTON_CASES)
-        self.base_page.wait().until(EC.url_matches("https://ads.vk.com/cases"))
+        self.base_page.click_nav_button_cases()
+        self.base_page.check_url("https://ads.vk.com/cases")
 
-        self.base_page.click(self.base_page.locators.NAV_BUTTON_IDEAS)
-        self.base_page.wait().until(EC.url_matches("https://ads.vk.com/upvote"))
+        self.base_page.click_nav_button_ideas()
+        self.base_page.check_url("https://ads.vk.com/upvote")
 
-        self.base_page.click(self.base_page.locators.NAV_BUTTON_NEWS)
-        self.base_page.wait().until(EC.url_matches("https://ads.vk.com/news"))
+        self.base_page.click_nav_button_news()
+        self.base_page.check_url("https://ads.vk.com/news")
 
-        self.base_page.click(self.base_page.locators.NAV_BUTTON_CASES)
-        self.base_page.wait().until(EC.url_matches("https://ads.vk.com/cases"))
+        self.base_page.click_nav_button_cases()
+        self.base_page.check_url("https://ads.vk.com/cases")
 
     def test_open_login_page(self):
-        self.base_page.click(self.base_page.locators.NAV_BUTTON_CABINET_LOCATOR)
-        self.base_page.wait().until(EC.url_matches("https://id.vk.com/auth"))
+        self.base_page.click_nav_button_cabinet()
+        self.base_page.check_url("https://id.vk.com/auth")
