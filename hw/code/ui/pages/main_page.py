@@ -7,3 +7,7 @@ URL_MAIN_PAGE = 'https://ads.vk.com/hq/overview'
 class MainPage(BasePage):
     url = URL_MAIN_PAGE
     locators = MainPageLocators()
+
+    
+    def click_redirect_to_site_page(self):
+        self.click(self.locators.sidebar_locators.BUTTON_SITES)

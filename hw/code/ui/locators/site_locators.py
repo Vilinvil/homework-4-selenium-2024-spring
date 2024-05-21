@@ -21,8 +21,10 @@ class SitePageLocators:
     BUTTON_ADD_PIXEL = (By.XPATH, "//button[contains(@class, 'vkuiButton')]")
     BUTTON_CREATE_NEW_PIXEL = (By.XPATH, "//span[text()='Добавить пиксель']")
     BUTTON_SUBMIT_UPDATE = (By.XPATH, '//button[@data-testid="submit"]')
+    BUTTON_UPDATE = (By.XPATH, '//span[text()="Изменить"]')
     BUTTON_CLOSE_MODAL = (By.XPATH, '//div[@aria-label="Закрыть"]')
     BUTTON_DELETE_CONFIRM = (By.XPATH, '//div[contains(@class, "vkuiButtonGroup")]//button[last()]')
+    BUTTON_CREATE_COPY_PIXEL = (By.XPATH, '//span[text()="Создать новый пиксель"]')
     
     TEXT_ADD_PIXEL_HEADER = (By.XPATH, '//*[text()="Добавление пикселя"]')
     TEXT_CREATE_PIXEL_ID_CONFIRM = (By.XPATH, '//h2[text()="Создан ID пикселя"]')
