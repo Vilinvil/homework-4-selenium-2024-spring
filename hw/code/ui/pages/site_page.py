@@ -1,7 +1,7 @@
-from ui.pages.base_page import BasePage
+from ui.pages.base_page import PageWithModalView, PageWithRedirectWindow
 from ui.locators.site_locators import SitePageLocators
 
-class SitePage(BasePage):
+class SitePage(PageWithModalView, PageWithRedirectWindow):
     url = "https://ads.vk.com/hq/pixels"
     locators = SitePageLocators()
 
@@ -30,7 +30,8 @@ class SitePage(BasePage):
         return self.find(self.locators.TEXT_ADD_PIXEL_HEADER).text
 
     def open_more_menu(self):
-        self.scroll_and_click(self.locators.BUTTON_MENU_MORE)
+        self.hover_wrapper(self.locators.BUTTON_MENU_MORE)
+        self.click(self.locators.BUTTON_MENU_MORE)
 
     def submit_update_button(self):
         self.click(self.locators.BUTTON_SUBMIT_UPDATE)
@@ -65,9 +66,6 @@ class SitePage(BasePage):
 
     def search_for_pixel(self, domain_name):
         return self.find(self.locators.find_element(domain_name))
-
-    def verify_update_successful(self):
-        return self.find(self.locators.TEXT_UPDATE_CONFIRM).text
 
     def verify_nothing_found(self):
         return self.find(self.locators.TEXT_NOTHING_FOUND).text
