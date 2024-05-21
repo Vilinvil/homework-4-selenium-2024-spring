@@ -176,7 +176,7 @@ class TestSettings(LoggedCase):
             self.settings_page.locators.SETTINGS_NOTIFICATIONS_EVENTS_CHECKBOX, until_EC=EC.visibility_of_element_located)
 
     def test_new_buttons_after_change_notification(self, setup_notifications):
-        self.settings_page.click(self.settings_page.locators.SETTINGS_NOTIFICATIONS_FINANCE_CHECKBOX)
+        self.settings_page.click(self.settings_page.locators.SETTINGS_NOTIFICATIONS_EMAIL_SWITCH)
         assert self.settings_page.find(
             self.settings_page.locators.SETTINGS_SAVE_BUTTON, until_EC=EC.visibility_of_element_located)
         assert self.settings_page.find(
