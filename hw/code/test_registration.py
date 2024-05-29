@@ -96,12 +96,10 @@ class TestRegistration(RegisteredUserCase):
         ],
     )
     def test_long_short_inn(self, inn, expected_text):
-        self.registration_page.write_input(self.registration_page.locators.REGISTRATION_INN_FIELD, inn)
-        elem = self.registration_page.wait(BASIC_TIMEOUT).until(
-            EC.presence_of_element_located(self.registration_page.locators.REGISTRATION_CREATE_BUTTON))
+        self.registration_page.write_inn(inn)
+        elem = self.registration_page.find_create_button()
         AC(self.driver).move_to_element(elem).click(elem).perform()
-        assert self.registration_page.find(
-            self.registration_page.locators.REGISTRATION_INN_ALERT).text == expected_text
+        assert self.registration_page.find_inn_alert().text == expected_text
 
     def test_no_individual_with_agency(self):
         self.registration_page.click_agency_button()

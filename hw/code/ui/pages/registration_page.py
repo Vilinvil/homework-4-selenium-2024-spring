@@ -29,6 +29,9 @@ class RegistrationPage(BasePage):
     def find_go_back_button(self):
         return self.find_with_check_visibility(self.locators.REGISTRATION_GO_BACK)
 
+    def find_inn_alert(self):
+        return self.find_with_check_visibility(self.locators.REGISTRATION_INN_ALERT)
+
     def find_fio_field(self):
         return self.find_with_check_visibility(self.locators.REGISTRATION_FIO_FIELD)
 
