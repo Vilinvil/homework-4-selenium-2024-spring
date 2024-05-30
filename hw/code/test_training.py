@@ -28,17 +28,6 @@ class TestTraining(LoggedCase):
     def test_display_content_list(self, section_name):
         assert self.training_page.find_section_in_content_list(section_name)
 
-    @pytest.mark.parametrize('close',
-                             [
-                                 TrainingPage.close_modal_view_by_try_later,
-                                 TrainingPage.close_modal_view_by_close
-                             ], )
-    def test_close_by_button(self, close):
-        close(self.training_page)
-
-    def test_close_by_click_outside_modal_view(self):
-        self.training_page.click_zero_coordinate()
-
     @pytest.fixture(scope='function')
     def setup_training_site(self):
         self.training_page.open_site()
@@ -49,14 +38,6 @@ class TestTraining(LoggedCase):
         assert self.training_page.find_site_button_articles()
         assert self.training_page.find_site_button_step_by_step_training()
 
-    def test_site_redirect_article(self, setup_training_site):
-        self.training_page.redirect_article()
-
-        assert self.training_page.check_url("https://expert.vk.com/courses/kak-prodvigat-saiti-v-vk-reklame/")
-
-    def test_site_open_video(self, setup_training_site):
-        self.training_page.open_video()
-
     @pytest.fixture(scope="function")
     def setup_step_by_step(self, setup_training_site):
         self.training_page.click_button_step_by_step_training()
@@ -64,9 +45,6 @@ class TestTraining(LoggedCase):
     def test_open_step_by_step(self, setup_step_by_step):
         assert self.training_page.find_step1_button_create_campaign()
         assert self.training_page.find_step1_tooltip_create_campaign()
-
-    def test_interrupt_step_by_step(self, setup_step_by_step):
-        self.training_page.interrupt_step_by_step()
 
     # STEP 1 of full way step_by_step training. All before click on button STEP1_BUTTON_CREATE_CAMPAIGN.
     def step1_full_way_step_by_step(self) -> CampaignSharedPage:

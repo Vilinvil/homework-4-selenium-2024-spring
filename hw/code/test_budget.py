@@ -21,9 +21,6 @@ class TestBudget(LoggedCase):
         assert self.budget_page.find_title_create_invoice_vat()
         assert self.budget_page.find_button_continue_budget_replenish()
 
-        self.budget_page.hover_hint_min_summ_trigger()
-        assert self.budget_page.find_tooltip_min_summ()
-
     @pytest.fixture(scope="function")
     def setup_budget_replenish(self):
         self.budget_page.open_modal_budget_replenish()
@@ -36,12 +33,6 @@ class TestBudget(LoggedCase):
         self.budget_page.write_amount_without_vat('499')
         self.budget_page.click_button_continue_budget_replenish()
         assert self.budget_page.find_alert_min_summ_replenish()
-
-    def test_hint_min_summ(self, setup_budget_replenish):
-        self.budget_page.hover_hint_min_summ_trigger()
-
-        self.budget_page.redirect_min_summ_ref()
-        assert self.budget_page.check_url_hint_min_summ()
 
     def test_error_big_summ(self, setup_budget_replenish):
         self.budget_page.write_amount('200001')

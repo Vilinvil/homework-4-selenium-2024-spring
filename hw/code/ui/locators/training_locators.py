@@ -33,8 +33,6 @@ class TrainingPageStepByStepLocators:
 
     STEP1_BUTTON_TOOLTIP_CLOSE = (By.XPATH, '//*[contains(@class, "RichTooltop_wrapper")]'
                                             '//*[contains(@class, "RichTooltop_closeBtn")]')
-    STEP1_BUTTON_CLOSE_TRAINING = (By.XPATH, '//*[contains(@class, "StopOnboardingModal_content")]'
-                                             '//button//*[contains(text(), "Прервать")]')
 
     STEP1_BUTTON_CONTINUE_TRAINING = (By.XPATH, '//*[contains(@class, "StopOnboardingModal_content")]'
                                                 '//button//*[contains(text(), "Отмена")]')

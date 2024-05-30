@@ -8,8 +8,6 @@ class OverviewNewUserPageLocators:
 
     BUTTON_CREATE_CAMPAIGN = \
         (By.XPATH, '//*[contains(@class, "StartAction_wrapper")]//button//*[contains(text(),"Создать вручную")]')
-    BUTTON_START_TRAINING = \
-        (By.XPATH, '//*[contains(@class, "StartAction_wrapper")]//button//*[contains(text(),"Пройти обучение")]')
 
 
 class OverviewPageChooseDateLocators:
@@ -71,18 +69,10 @@ class OverviewPageSettingsGraphLocators:
                              ' contains(text(), "Применить")]')
 
 
-class OverviewPageUsefulArticlesLocators:
-    USEFUL_ARTICLES = (By.XPATH, '//*[contains(@class, "UsefulArticlesWidget_wrapper")]'
-                                 '//*[contains(@class, "vkuiBaseGallery__viewport")]')
-    BUTTON_CASES = (By.XPATH, '//*[@class="vkuiSegmentedControl__in"]//*[contains(text(), "Кейсы")]')
-    BUTTON_NEWS = (By.XPATH, '//*[@class="vkuiSegmentedControl__in"]//*[contains(text(), "Новости")]')
-
-
 class OverviewPageLocators:
     choose_date_locators = OverviewPageChooseDateLocators()
     choose_campaign_locators = OverviewPageChooseCampaignLocators()
     settings_graph_locators = OverviewPageSettingsGraphLocators()
-    useful_articles_locators = OverviewPageUsefulArticlesLocators()
 
     WIDGET_CAMPAIGNS = \
         (By.XPATH, '//*[contains(@class, "FeedWidgetWrapper_wrapper")]//*[contains(text(), "Кампании")]')

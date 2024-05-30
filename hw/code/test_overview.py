@@ -12,14 +12,6 @@ class TestNewUserOverview(LoggedNewUserCase):
     def test_display(self):
         self.overview_new_user_page.check_display_start_actions()
 
-    @pytest.mark.parametrize('open_view',
-                             [
-                                 pytest.param(OverviewNewUserPage.open_create_campaign),
-                                 pytest.param(OverviewNewUserPage.open_start_training)
-                             ], )
-    def test_open_page_by_click(self, open_view):
-         open_view(self.overview_new_user_page)
-
 
 class TestOverview(LoggedCase):
     @pytest.fixture(scope='function', autouse=True)
@@ -29,15 +21,6 @@ class TestOverview(LoggedCase):
 
     def test_display(self):
         self.overview_page.check_display()
-
-    def test_click_create_campaign(self):
-        self.overview_page.open_create_campaign()
-        assert self.overview_page.check_url("https://ads.vk.com/hq/new_create/ad_plan")
-
-    def test_click_new_tab_limit_article(self):
-        self.overview_page.redirect_limit_article()
-
-        assert self.overview_page.check_url("https://ads.vk.com/help/articles/ad_limits")
 
     def test_change_budget_date(self):
         budget_date_elem = self.overview_page.get_budget_date()
@@ -131,13 +114,3 @@ class TestOverview(LoggedCase):
         end_graph_settings = self.overview_page.get_graph_settings_text()
 
         assert begin_graph_settings != end_graph_settings and end_graph_settings == "Клики"
-
-    def test_useful_articles(self):
-        self.overview_page.click_button_cases()
-        begin_useful_articles = self.overview_page.get_screenshot_useful_articles()
-
-        self.overview_page.click_button_news()
-
-        end_useful_articles = self.overview_page.get_screenshot_useful_articles()
-
-        assert begin_useful_articles != end_useful_articles

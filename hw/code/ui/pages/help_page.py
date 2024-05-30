@@ -30,17 +30,11 @@ class HelpPage(BasePage):
     def find_sign_not_found_result(self):
         return self.find_with_check_visibility(self.locators.SIGN_SEARCH_NOT_FOUND_RESULTS)
 
-    def find_list_articles(self):
-        return self.find_with_check_visibility(self.locators.LIST_ARTICLES)
-
     def find_sidebar_articles_search(self):
         sidebar_articles = self.find(self.locators.SIDEBAR_ARTICLES)
 
         search_elem = sidebar_articles.find_element(*self.locators.SEARCH_IN_SIDEBAR_ARTICLES)
         return self.wait().until(EC.visibility_of(search_elem))
-
-    def find_article_page(self):
-        return self.find_with_check_visibility(self.locators.ARTICLE_PAGE)
 
     def find_sidebar_articles_categories(self):
         sidebar_articles = self.find(self.locators.SIDEBAR_ARTICLES)
@@ -57,10 +51,6 @@ class HelpPage(BasePage):
 
     def click_to_card_general(self):
         self.click_to_card(self.locators.CARD_GENERAL)
-
-    def click_href_in_list_articles(self, list_articles):
-        href_article = list_articles.find_element(*self.locators.ARTICLE_HREF_IN_PAGE)
-        href_article.click()
 
     def get_title_articles(self):
         return self.find_with_check_visibility(self.locators.TITLE_ARTICLES)

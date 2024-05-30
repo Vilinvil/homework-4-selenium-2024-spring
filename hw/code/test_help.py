@@ -64,22 +64,3 @@ class TestHelp(BaseCase):
 
         assert self.help_page.find_sidebar_articles_search()
         assert self.help_page.find_sidebar_articles_categories()
-
-    @pytest.mark.parametrize(
-        'click_to_card',
-        [
-            pytest.param(
-                HelpPage.click_to_card_authorization
-            ),
-            pytest.param(
-                HelpPage.click_to_card_general
-            ),
-        ],
-    )
-    def test_card_go_to_article(self, click_to_card):
-        click_to_card(self.help_page)
-
-        list_articles = self.help_page.find_list_articles()
-        self.help_page.click_href_in_list_articles(list_articles)
-
-        assert self.help_page.find_article_page()

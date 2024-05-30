@@ -16,6 +16,3 @@ class HelpPageLocators:
     SIDEBAR_ARTICLES = (By.CSS_SELECTOR, '[data-test-id="layout-sidebar-vkads"]')
     SEARCH_IN_SIDEBAR_ARTICLES = (By.XPATH, './/input')
     CATEGORIES_IN_SIDEBAR_ARTICLES = (By.CSS_SELECTOR, '[data-test-id="navigation-help-sidebar-ads"]')
-
-    ARTICLE_PAGE = (By.CSS_SELECTOR, '[data-test-id="article-page-vkads"]')
-    ARTICLE_HREF_IN_PAGE = (By.XPATH, './/a[contains(@href, "/help/articles/")]')

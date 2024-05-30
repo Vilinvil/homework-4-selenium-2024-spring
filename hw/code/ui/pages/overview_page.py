@@ -24,14 +24,6 @@ class OverviewNewUserPage(BasePage):
             elem = start_action.find_element(By.XPATH, './/button')
             self.wait().until(EC.visibility_of(elem))
 
-    def open_create_campaign(self):
-        self.click(self.locators.BUTTON_CREATE_CAMPAIGN)
-        self.find_with_check_visibility(self.locators_campaigns.STEP1_SIGN_NEW_AD_CREATE)
-
-    def open_start_training(self):
-        self.click(self.locators.BUTTON_START_TRAINING)
-        self.find_with_check_visibility(self.locators_training.SIGN_OPENING_MODAL_VIEW)
-
 
 class OverviewPage(PageWithView, PageWithRedirectWindow):
     url = "https://ads.vk.com/hq/overview"
@@ -71,10 +63,6 @@ class OverviewPage(PageWithView, PageWithRedirectWindow):
     def find_tooltip_max_choose_campaign(self):
         return self.find_with_check_visibility(self.locators.choose_campaign_locators.TOOLTIP_MAX_COUNT_CHOOSE_CAMPAIGN)
 
-    def open_create_campaign(self):
-        self.click(self.locators.BUTTON_CREATE_CAMPAIGN)
-        self.find_with_check_visibility(self.locators_campaigns.STEP1_SIGN_NEW_AD_CREATE)
-
     def open_budget_replenish(self):
         self.open_view(self.locators.BUTTON_BUDGET_REPLENISH,
                        self.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
@@ -106,9 +94,6 @@ class OverviewPage(PageWithView, PageWithRedirectWindow):
     def close_budget_replenish(self):
         self.close_view(self.locators.BUTTON_CLOSE_MODAL_PAGE_BUDGET,
                         self.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
-
-    def redirect_limit_article(self):
-        self.redirect_window(self.locators.BUTTON_LIMIT_ARTICLE)
 
     def hover_checkbox_choose_campaign(self):
         self.hover_wrapper(self.locators.choose_campaign_locators.CHECKBOX_CHOOSE_CAMPAIGN_FOR_TOOLTIP)

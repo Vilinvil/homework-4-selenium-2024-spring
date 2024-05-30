@@ -1,9 +1,6 @@
 from selenium.webdriver.common.by import By
 
 
-HINT_MIN_SUMM_URL = "https://ads.vk.com/help/articles/billing#min"
-
-
 class BudgetPageLocators:
     BUTTON_BUDGET_SECTION = (By.CSS_SELECTOR, '[data-entityid="budget"]')
     TITLE = (By.XPATH, '//*[@id="budget"]//*[contains(text(), "Транзакций пока нет")]')
@@ -28,11 +25,8 @@ class BudgetPageLocators:
     ALERT_MIN_SUMM_REPLENISH = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
                                           '//*[@role="alert" and contains(text(), "Минимальная сумма 600,00")]')
 
-    HINT_MIN_SUMM_TRIGGER = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
-                                       '//*[contains(@class, "Hint_hintTrigger")]')
     TOOLTIP_MIN_SUMM = (By.XPATH, '//*[contains(@class, "Tooltip_tooltipContainer")]'
                                   '//*[contains(text(), "Сумма к оплате")]')
-    HINT_MIN_SUMM_REF = (By.CSS_SELECTOR, f'[href="{HINT_MIN_SUMM_URL}"]')
 
     ALERT_MAX_SUMM_REPLENISH = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
                                           '//*[@role="alert" and contains(text(), "уменьшите сумму")]')
