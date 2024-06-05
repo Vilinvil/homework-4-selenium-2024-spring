@@ -1,53 +1,9 @@
-import time
-
 from ui.locators import basic_locators
+from ui.pages.base_page_functionality import BasePageFunctionality
 from utils.timeout import BASIC_TIMEOUT
 
 from selenium.webdriver.common.action_chains import ActionChains as AC
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
-
-class PageNotOpenedException(Exception):
-    pass
-
-
-class BasePageFunctionality(object):
-    def is_opened(self, timeout=BASIC_TIMEOUT):
-        started = time.time()
-        while time.time() - started < timeout:
-            if self.driver.current_url.find(self.url) >= 0:
-                return True
-        raise PageNotOpenedException(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
-
-    def __init__(self, driver):
-        self.driver = driver
-        self.is_opened()
-
-    def wait(self, timeout=BASIC_TIMEOUT):
-        return WebDriverWait(self.driver, timeout=timeout)
-
-    def find(self, locator, timeout=BASIC_TIMEOUT, until_EC=EC.presence_of_element_located):
-        return self.wait(timeout).until(until_EC(locator))
-
-    def find_with_check_visibility(self, locator, timeout=BASIC_TIMEOUT):
-        return self.find(locator, timeout, until_EC=EC.visibility_of_element_located)
-
-    def click(self, locator, timeout=BASIC_TIMEOUT):
-        elem = self.find(locator, timeout=timeout, until_EC=EC.element_to_be_clickable)
-        elem.click()
-
-    def hover_wrapper(self, locator, timeout=BASIC_TIMEOUT):
-        elem = self.find(locator, timeout=timeout)
-        AC(self.driver).move_to_element(elem).perform()
-
-    def write_input(self, locator, message, timeout=BASIC_TIMEOUT):
-        input_element = self.find_with_check_visibility(locator, timeout)
-        input_element.clear()
-        input_element.send_keys(message)
-
-    def check_url(self, expected_url, timeout=BASIC_TIMEOUT):
-        return self.wait(timeout).until(EC.url_matches(expected_url))
 
 
 class BasePage(BasePageFunctionality):
