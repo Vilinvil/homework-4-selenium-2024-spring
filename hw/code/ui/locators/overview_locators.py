@@ -11,7 +11,7 @@ class OverviewNewUserPageLocators:
 
 
 class OverviewPageChooseDateLocators:
-    BUTTON_OPEN_DATE_CHOOSE = (By.XPATH, '//*[contains(@class, "DatePicker_datePickerButton")]')
+    BUTTON_OPEN_DATE_CHOOSE = (By.XPATH, '//*[contains(@class, "DatePicker_datePicker")]')
     SIGN_OPENING_DATE_CHOOSE = (By.XPATH, '//*[contains(@class, "RangeDatePicker_layout")]')
     BUTTON_CLOSE_DATE_CHOOSE = (By.XPATH, '//*[contains(@class, "RangeDatePicker_layout")]'
                                           '//button//*[contains(text(), "Отменить")]')

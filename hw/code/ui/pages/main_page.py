@@ -49,3 +49,6 @@ class MainPage(PageWithView):
 
     def open_help(self):
         self.open_view(self.locators.sidebar_locators.BUTTON_HELP, self.locators.sidebar_locators.SIGN_OPENING_HELP)
+
+    def open_training(self):
+        self.open_view(self.locators.sidebar_locators.BUTTON_TRAINING, self.training_locators.SIGN_OPENING_MODAL_VIEW)

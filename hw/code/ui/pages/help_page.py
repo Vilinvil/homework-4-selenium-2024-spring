@@ -30,6 +30,9 @@ class HelpPage(BasePage):
     def find_sign_not_found_result(self):
         return self.find_with_check_visibility(self.locators.SIGN_SEARCH_NOT_FOUND_RESULTS)
 
+    def find_list_articles(self):
+        return self.find_with_check_visibility(self.locators.LIST_ARTICLES)
+
     def find_sidebar_articles_search(self):
         sidebar_articles = self.find(self.locators.SIDEBAR_ARTICLES)
 
