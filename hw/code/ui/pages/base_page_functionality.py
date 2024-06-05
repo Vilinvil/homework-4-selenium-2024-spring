@@ -73,7 +73,7 @@ def add_write(locator):
     def add_write_decorator(input_field_getter):
         @wraps(input_field_getter)
         def functionality(self, timeout=BASIC_TIMEOUT):
-            def write(message):
+            def write(message, timeout=timeout):
                 return self.write_input(locator=locator, message=message, timeout=timeout)
 
             input_field_result = input_field_getter(self)

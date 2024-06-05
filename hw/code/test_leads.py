@@ -1,5 +1,3 @@
-import time
-
 import pytest
 
 from cases import LoggedCase
@@ -16,4 +14,4 @@ class TestLeads(LoggedCase):
         self.leads_page.BUTTON_CREATE_LEAD_FORM.click(timeout=5)
 
         name_lead_form = "Лид-форма Лидер"
-        self.leads_page.INPUT_LEAD_NAME.write(name_lead_form)
+        self.leads_page.INPUT_LEAD_NAME.write(name_lead_form, timeout=5)
