@@ -53,6 +53,9 @@ class BasePageFunctionality(object):
 
         return input_element
 
+    def get_value(self, locator, timeout=BASIC_TIMEOUT):
+        return self.find(locator, timeout).get_attribute('value')
+
     def check_url(self, expected_url, timeout=BASIC_TIMEOUT):
         return self.wait(timeout).until(EC.url_matches(expected_url))
 
@@ -109,3 +112,21 @@ def add_hover(locator):
         return functionality
 
     return add_hover_decorator
+
+
+# add_get_value add method get_value() to element by locator
+def add_get_value(locator):
+    def add_get_value_decorator(elem_getter):
+        @wraps(elem_getter)
+        def functionality(self, timeout=BASIC_TIMEOUT):
+            def get_value(timeout=timeout):
+                return self.get_value(locator=locator, timeout=timeout)
+
+            value_elem_result = elem_getter(self)
+            value_elem_result.get_value = get_value
+
+            return value_elem_result
+
+        return functionality
+
+    return add_get_value_decorator

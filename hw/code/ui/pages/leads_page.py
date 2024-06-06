@@ -1,5 +1,7 @@
-from ui.pages.base_page_functionality import BasePageFunctionality, add_click, add_write, add_hover
+from ui.pages.base_page_functionality import BasePageFunctionality, add_click, add_write, add_get_value
 from ui.locators.leads_locators import LeadsPageLocators, LeadsPageDesignLocators
+
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class LeadsPageDesign(BasePageFunctionality):
@@ -12,6 +14,7 @@ class LeadsPageDesign(BasePageFunctionality):
 
     @property
     @add_write(locators.INPUT_LEAD_NAME)
+    @add_get_value(locators.INPUT_LEAD_NAME)
     def INPUT_LEAD_NAME(self):
         return self.find_with_check_visibility(self.locators.INPUT_LEAD_NAME)
 
@@ -48,6 +51,47 @@ class LeadsPageDesign(BasePageFunctionality):
     @add_click(locators.BUTTON_SET_MAIN_IMAGE)
     def BUTTON_SET_MAIN_IMAGE(self):
         return self.find_with_check_visibility(self.locators.BUTTON_SET_MAIN_IMAGE)
+
+    @property
+    def PREVIEW_CONTAINER(self):
+        return self.find_with_check_visibility(self.locators.PREVIEW_CONTAINER)
+
+    @property
+    def PREVIEW_TITLE_CONTACT_DETAILS(self):
+        return self.find_with_check_visibility(self.locators.PREVIEW_TITLE_CONTACT_DETAILS)
+
+    @property
+    def MEDIA_HEADER(self):
+        return self.find_with_check_visibility(self.locators.MEDIA_HEADER)
+
+    @property
+    def MEDIA_UPLOAD(self):
+        return self.find_with_check_visibility(self.locators.MEDIA_UPLOAD)
+
+    @property
+    @add_click(locators.MEDIA_DEFAULT_IMAGE)
+    def MEDIA_DEFAULT_IMAGE(self):
+        return self.find_with_check_visibility(self.locators.MEDIA_DEFAULT_IMAGE)
+
+    @property
+    def PREVIEW_LOGO(self):
+        return self.find_with_check_visibility(self.locators.PREVIEW_LOGO)
+
+    @property
+    def PREVIEW_TOP_PART_TITLE(self):
+        return self.find_with_check_visibility(self.locators.PREVIEW_TOP_PART_TITLE)
+
+    @property
+    @add_click(locators.RADIOGROUP_BUTTON_MORE_TEXT)
+    def RADIOGROUP_BUTTON_MORE_TEXT(self):
+        return self.find_with_check_visibility(self.locators.RADIOGROUP_BUTTON_MORE_TEXT)
+
+    def check_active_RADIOGROUP_BUTTON_MORE_TEXT(self):
+        assert self.find(self.locators.INPUT_SHORT_DESCRIPTION, until_EC=EC.invisibility_of_element_located)
+        assert self.find_with_check_visibility(self.locators.INPUT_MORE_TEXT)
+
+    def check_HEADER_LEAD_FORM_TITLE(self, title):
+        assert self.find_with_check_visibility(self.locators.HEADER_LEAD_FORM_TITLE(title))
 
 
 class LeadsPage(BasePageFunctionality):
