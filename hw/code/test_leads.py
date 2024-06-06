@@ -28,6 +28,12 @@ class TestLeads(LoggedCase):
         assert self.leads_page.design_page.MEDIA_UPLOAD
         assert self.leads_page.design_page.MEDIA_DEFAULT_IMAGE
 
+    def check_question_display(self):
+        assert self.leads_page.question_page.TITLE_QUESTION
+        assert self.leads_page.question_page.BUTTON_ADD_QUESTION
+        assert self.leads_page.question_page.TITLE_CONTACT_INFO
+        assert self.leads_page.question_page.BUTTON_ADD_CONTACT_INFO
+
     def test_more_text(self, setup_create_leads):
         self.leads_page.BUTTON_CREATE_LEAD_FORM.click(timeout=5)
 
@@ -51,6 +57,16 @@ class TestLeads(LoggedCase):
 
         title = 'Как вы оцениваете нашу работу?'
         self.leads_page.design_page.INPUT_TITLE.write(title)
-        self.leads_page.design_page.check_HEADER_LEAD_FORM_TITLE(title)
+        self.leads_page.design_page.check_PREVIEW_LEAD_FORM_TITLE(title)
 
         more_text = 'Ответьте, пожалуйста, на пару вопросов, так вы помогаете нам стать лучше.'
+        self.leads_page.design_page.INPUT_MORE_TEXT.write(more_text)
+        assert self.leads_page.design_page.PREVIEW_LONG_DESCRIPTION.text == more_text
+
+        gradient = '#800080'
+        self.leads_page.design_page.choose_gradient(gradient)
+        self.leads_page.design_page.check_pipette_gradient_result(gradient)
+
+        self.leads_page.BUTTON_SUBMIT.click()
+
+        self.check_question_display()
