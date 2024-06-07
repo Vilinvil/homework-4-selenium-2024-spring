@@ -5,10 +5,53 @@ class LeadsPageQuestionsLocators:
     TITLE_QUESTION = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]//h4[contains(text(), "Вопросы")]')
     BUTTON_ADD_QUESTION = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
                                      '//button//*[contains(text(), "Добавить вопрос")]')
+
+    @staticmethod
+    def ADD_QUESTION_CONTAINER(number):
+        return By.XPATH, f'//*[contains(@class, "Question_question_") and .//*[contains(text(), "Вопрос № {number}")]]'
+
+    ADD_QUESTION_INPUT_TITLE = (By.XPATH, './/*[@placeholder="Напишите вопрос"]')
+    ADD_QUESTION_SELECTOR_TYPE = (By.XPATH, './/*[contains(@class, "HintSelector_hintSelectorButton")]')
+    ADD_QUESTION_SELECT_SEVERAL_ANSWERS = (By.XPATH, '//*[contains(@class, "HintSelector_list")]'
+                                                     '//*[contains(text(), "Выбор нескольких ответов")]')
+    ADD_QUESTION_SELECT_ANY_FORM_ANSWER = (By.XPATH, '//*[contains(@class, "HintSelector_list")]'
+                                                     '//*[contains(text(), "Ответ в произвольной форме")]')
+    ADD_QUESTION_INPUT_ANSWER = (By.XPATH, './/input[contains(@placeholder, "Введите ответ")]')
+    ADD_QUESTION_BUTTON_ADD_ANSWER = (By.XPATH, './/button[.//*[contains(text(), "Добавить ответ")]]')
+    ADD_QUESTION_BUTTON_ADD_MORE = (By.XPATH, './/button[contains(@class, "Question_buttonAddMore")]')
+    ADD_QUESTION_BUTTON_ADD_MORE_OTHER = (By.XPATH, '//*[contains(@class, "Tooltip_tooltipContainer")]'
+                                                    '//*[contains(text(), "Другое")]')
+
+    @staticmethod
+    def PREVIEW_TITLE_QUESTION(title):
+        return By.XPATH, f'//*[contains(@class, "OnePageContentBlock-module_titleWrap") and .//*[contains(text(), "{title}")]]'
+
+    @staticmethod
+    def PREVIEW_QUESTION_BY_TITLE(title):
+        return By.XPATH, f'//*[contains(@class, "OnePageContentBlock-module_wrap") and .//*[contains(text(), "{title}")]]'
+
+    PREVIEW_ANSWERS_SIGN_RADIOGROUP = (By.XPATH, './/*[contains(@class, "vkuiRadioGroup")]')
+    PREVIEW_ANSWERS_SIGN_CHECKBOX = (By.XPATH, './/*[contains(@class, "vkuiCheckbox")]')
+    PREVIEW_ANSWERS_SIGN_ANY_FORM = (By.XPATH, './/*[contains(@placeholder, "Введите текст")]')
+
+    @staticmethod
+    def CHECKBOX_CONTENT(text):
+        return By.XPATH, f'.//*[contains(@class, "vkuiCheckbox__content") and .//*[contains(text(), "{text}")]]'
+
     TITLE_CONTACT_INFO = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
                                     '//h4[contains(text(), "Контактная информация")]')
     BUTTON_ADD_CONTACT_INFO = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
                                          '//button//*[contains(text(), "Добавить контактные данные")]')
+
+    BUTTON_DELETE_CONTACT_INFO_PHONE = (By.CSS_SELECTOR, '[data-id="phone"]')
+
+    MODAL_VIEW_CONTACT_INFO = (By.XPATH, '//*[contains(@class, "ModalRoot_componentWrapper") and '
+                                         './/h2[contains(text(), "Контактная информация")]]')
+    MODAL_VIEW_CONTACT_INFO_BUTTON_SUBMIT = (By.XPATH, './/button[.//*[contains(text(), "Добавить")]]')
+
+    @staticmethod
+    def PREVIEW_ANSWER_CONTACT_INFO(answer):
+        return (By.XPATH, f'.//*[contains(@placeholder, "{answer}")]')
 
 
 class LeadsPageDesignLocators:
@@ -47,10 +90,12 @@ class LeadsPageDesignLocators:
 
     INPUT_MORE_TEXT = (By.CSS_SELECTOR, '[placeholder="Расскажите о вашем опросе или предложении"]')
 
-    def PREVIEW_LEAD_FORM_TITLE(self, title):
+    @staticmethod
+    def PREVIEW_LEAD_FORM_TITLE(title):
         return By.XPATH, f'//*[contains(@class, "OnePageContentBlock-module_wrap")]//h2[contains(text(), "{title}")]'
 
     PREVIEW_LONG_DESCRIPTION = (By.XPATH, '//*[contains(@class, "LeadForm-module_long_description")]')
+
 
 class LeadsPageLocators:
     BUTTON_CREATE_LEAD_FORM = (By.CSS_SELECTOR, '[test-id="create-leadform-button"]')

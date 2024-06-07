@@ -40,93 +40,83 @@ class BasePageFunctionality(object):
 
         return elem
 
+    def hover_to_element(self, element):
+        AC(self.driver).move_to_element(element).perform()
+
+        return element
+
     def hover_wrapper(self, locator, timeout=BASIC_TIMEOUT) -> WebElement:
         elem = self.find(locator, timeout=timeout)
-        AC(self.driver).move_to_element(elem).perform()
 
-        return elem
+        return self.hover_to_element(elem)
+
+    @staticmethod
+    def write_input_to_element(element, message) -> WebElement:
+        element.clear()
+        element.send_keys(message)
+
+        return element
 
     def write_input(self, locator, message, timeout=BASIC_TIMEOUT) -> WebElement:
         input_element = self.find_with_check_visibility(locator, timeout)
-        input_element.clear()
-        input_element.send_keys(message)
+        return self.write_input_to_element(input_element, message)
 
-        return input_element
+    @staticmethod
+    def get_value_from_elem(element):
+        return element.get_attribute('value')
 
     def get_value(self, locator, timeout=BASIC_TIMEOUT):
-        return self.find(locator, timeout).get_attribute('value')
+        element = self.find(locator, timeout)
+
+        return self.get_value_from_elem(element)
 
     def check_url(self, expected_url, timeout=BASIC_TIMEOUT):
         return self.wait(timeout).until(EC.url_matches(expected_url))
 
 
-# add_click add method click() to button by locator
-def add_click(locator):
-    def add_click_decorator(button_getter):
-        @wraps(button_getter)
-        def functionality(self, timeout=BASIC_TIMEOUT):
-            def click(locator=locator, timeout=timeout):
-                return self.click(locator=locator, timeout=timeout)
+# add_write add method write() to input field
+def add_write(input_field_getter):
+    @wraps(input_field_getter)
+    def functionality(self, *args, **kwargs):
+        input_field_result = input_field_getter(self, *args, **kwargs)
 
-            button_result = button_getter(self)
-            button_result.click = click
+        def write(message):
+            return self.write_input_to_element(input_field_result, message=message)
 
-            return button_result
+        input_field_result.write = write
 
-        return functionality
+        return input_field_result
 
-    return add_click_decorator
+    return functionality
 
 
-# add_write add method write() to input field by locator
-def add_write(locator):
-    def add_write_decorator(input_field_getter):
-        @wraps(input_field_getter)
-        def functionality(self, timeout=BASIC_TIMEOUT):
-            def write(message, timeout=timeout):
-                return self.write_input(locator=locator, message=message, timeout=timeout)
+# add_hover add method hover() to element
+def add_hover(elem_getter):
+    @wraps(elem_getter)
+    def functionality(self, *args, **kwargs):
+        hoverable_elem_result = elem_getter(self, *args, **kwargs)
 
-            input_field_result = input_field_getter(self)
-            input_field_result.write = write
+        def hover():
+            return self.hover_to_element(hoverable_elem_result)
 
-            return input_field_result
+        hoverable_elem_result.hover = hover
 
-        return functionality
+        return hoverable_elem_result
 
-    return add_write_decorator
+    return functionality
 
 
-# add_hover add method hover() to element by locator
-def add_hover(locator):
-    def add_hover_decorator(elem_getter):
-        @wraps(elem_getter)
-        def functionality(self, timeout=BASIC_TIMEOUT):
-            def hover(timeout=timeout):
-                return self.hover_wrapper(locator=locator, timeout=timeout)
+# add_get_value add method get_value() to element
+def add_get_value(elem_getter):
+    @wraps(elem_getter)
+    def functionality(self, timeout=BASIC_TIMEOUT, *args, **kwargs):
+        value_elem_result = elem_getter(self, *args, **kwargs)
 
-            hoverable_elem_result = elem_getter(self)
-            hoverable_elem_result.hover = hover
+        def get_value():
+            return self.get_value_from_elem(value_elem_result)
 
-            return hoverable_elem_result
+        value_elem_result.get_value = get_value
 
-        return functionality
+        return value_elem_result
 
-    return add_hover_decorator
-
-
-# add_get_value add method get_value() to element by locator
-def add_get_value(locator):
-    def add_get_value_decorator(elem_getter):
-        @wraps(elem_getter)
-        def functionality(self, timeout=BASIC_TIMEOUT):
-            def get_value(timeout=timeout):
-                return self.get_value(locator=locator, timeout=timeout)
-
-            value_elem_result = elem_getter(self)
-            value_elem_result.get_value = get_value
-
-            return value_elem_result
-
-        return functionality
-
-    return add_get_value_decorator
+    return functionality

@@ -196,15 +196,16 @@ class PageWithView(BasePage):
 
 
 # add_open_view add method open_view() to button by locator
-def add_open_view(button_open_locator, sign_opening_locator):
+def add_open_view(sign_opening_locator):
     def add_open_view_decorator(elem_getter):
         @wraps(elem_getter)
-        def functionality(self):
+        def functionality(self, *args, **kwargs):
+            openable_elem_result = elem_getter(self, *args, **kwargs)
+
             def open_view():
-                return self.open_view(button_open_locator=button_open_locator,
+                return self.open_view(openable_elem_result,
                                       sign_opening_locator=sign_opening_locator)
 
-            openable_elem_result = elem_getter(self)
             openable_elem_result.open_view = open_view
 
             return openable_elem_result
@@ -215,15 +216,16 @@ def add_open_view(button_open_locator, sign_opening_locator):
 
 
 # add_close_view add method close_view() to button by locator
-def add_close_view(button_open_locator, sign_opening_locator):
+def add_close_view(sign_opening_locator):
     def add_close_view_decorator(elem_getter):
         @wraps(elem_getter)
-        def functionality(self):
+        def functionality(self, *args, **kwargs):
+            closable_elem_result = elem_getter(self, *args, **kwargs)
+
             def close_view():
-                return self.close_view(button_open_locator=button_open_locator,
+                return self.close_view(closable_elem_result,
                                        sign_opening_locator=sign_opening_locator)
 
-            closable_elem_result = elem_getter(self)
             closable_elem_result.close_view = close_view
 
             return closable_elem_result
@@ -234,9 +236,26 @@ def add_close_view(button_open_locator, sign_opening_locator):
 
 
 class PageWithRedirectWindow(BasePage):
-    def redirect_window(self, redirect_button_locator, expected_number_of_windows_to_be=2):
+    def redirect_window_by_element(self, element, expected_number_of_windows_to_be=2):
         original_window = self.driver.current_window_handle
-        self.click(redirect_button_locator)
+        self.click(element)
+
+        self.wait().until(EC.number_of_windows_to_be(expected_number_of_windows_to_be))
+
+        new_window = self.driver.window_handles[-1]
+        self.driver.switch_to.window(new_window)
+
+        return original_window
+
+    def redirect_window(self, redirect_button_locator, expected_number_of_windows_to_be=2):
+        element = self.find(redirect_button_locator, EC.element_to_be_clickable)
+
+        return self.redirect_window_by_element(element,
+                                               expected_number_of_windows_to_be=expected_number_of_windows_to_be)
+
+    def redirect_window_with_scroll_by_element(self, element, expected_number_of_windows_to_be=2):
+        original_window = self.driver.current_window_handle
+        AC(self.driver).move_to_element(element).click(element).perform()
 
         self.wait().until(EC.number_of_windows_to_be(expected_number_of_windows_to_be))
 
@@ -246,52 +265,41 @@ class PageWithRedirectWindow(BasePage):
         return original_window
 
     def redirect_window_with_scroll(self, redirect_button_locator, expected_number_of_windows_to_be=2):
-        original_window = self.driver.current_window_handle
-        elem = self.wait(BASIC_TIMEOUT).until(EC.presence_of_element_located(redirect_button_locator))
-        AC(self.driver).move_to_element(elem).click(elem).perform()
-
-        self.wait().until(EC.number_of_windows_to_be(expected_number_of_windows_to_be))
-
-        new_window = self.driver.window_handles[-1]
-        self.driver.switch_to.window(new_window)
-
-        return original_window
+        element = self.find(redirect_button_locator)
+        return self.redirect_window_with_scroll_by_element(element, expected_number_of_windows_to_be)
 
 
-# add_redirect add method redirect() to button by locator
-def add_redirect(redirect_button_locator):
-    def add_redirect_decorator(elem_getter):
-        @wraps(elem_getter)
-        def functionality(self, expected_number_of_windows_to_be=2):
-            def redirect(expected_number_of_windows_to_be=expected_number_of_windows_to_be):
-                return self.redirect_window(redirect_button_locator=redirect_button_locator,
-                                            expected_number_of_windows_to_be=expected_number_of_windows_to_be)
+# add_redirect add method redirect() to button
+def add_redirect(elem_getter):
+    @wraps(elem_getter)
+    def functionality(self, expected_number_of_windows_to_be=2, *args, **kwargs):
+        redirectable_elem_result = elem_getter(self, *args, **kwargs)
 
-            redirectable_elem_result = elem_getter(self)
-            redirectable_elem_result.redirect = redirect
+        def redirect(expected_number_of_windows_to_be=expected_number_of_windows_to_be):
+            return self.redirect_window_by_element(redirectable_elem_result,
+                                                   expected_number_of_windows_to_be=
+                                                   expected_number_of_windows_to_be)
 
-            return redirectable_elem_result
+        redirectable_elem_result.redirect = redirect
 
-        return functionality
+        return redirectable_elem_result
 
-    return add_redirect_decorator
+    return functionality
 
 
-# add_redirect_with_scroll add method redirect_with_scroll() to button by locator
-def add_redirect_with_scroll(redirect_button_locator):
-    def add_redirect_with_scroll_decorator(elem_getter):
-        @wraps(elem_getter)
-        def functionality(self, expected_number_of_windows_to_be=2):
-            def redirect_with_scroll(expected_number_of_windows_to_be=expected_number_of_windows_to_be):
-                return self.redirect_window_with_scroll(redirect_button_locator=redirect_button_locator,
-                                                        expected_number_of_windows_to_be=
-                                                        expected_number_of_windows_to_be)
+# add_redirect_with_scroll add method redirect_with_scroll() to button
+def add_redirect_with_scroll(elem_getter):
+    @wraps(elem_getter)
+    def functionality(self, expected_number_of_windows_to_be=2, *args, **kwargs):
+        redirectable_elem_result = elem_getter(self, *args, **kwargs)
 
-            redirectable_elem_result = elem_getter(self)
-            redirectable_elem_result.redirect_with_scroll = redirect_with_scroll
+        def redirect_with_scroll(expected_number_of_windows_to_be=expected_number_of_windows_to_be):
+            return self.redirect_window_with_scroll_by_element(redirectable_elem_result,
+                                                               expected_number_of_windows_to_be=
+                                                               expected_number_of_windows_to_be)
 
-            return redirectable_elem_result
+        redirectable_elem_result.redirect_with_scroll = redirect_with_scroll
 
-        return functionality
+        return redirectable_elem_result
 
-    return add_redirect_with_scroll_decorator
+    return functionality
