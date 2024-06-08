@@ -147,6 +147,11 @@ class LeadsPageDesign(BasePageFunctionality):
 
     @property
     @add_write
+    def INPUT_SHORT_DESCRIPTION(self):
+        return self.find_with_check_visibility(self.locators.INPUT_SHORT_DESCRIPTION)
+
+    @property
+    @add_write
     def INPUT_MORE_TEXT(self):
         return self.find_with_check_visibility(self.locators.INPUT_MORE_TEXT)
 
@@ -203,6 +208,19 @@ class LeadsPageDesign(BasePageFunctionality):
         self.check_pipette_gradient_result(gradient)
 
         return LeadsFormDesign(lead_name, self.PREVIEW_LOGO, organization, title, more_text, gradient)
+
+    def fill_minimum(self):
+        self.BUTTON_SET_GLOBAL_IMAGE.click()
+        self.MEDIA_DEFAULT_IMAGE.click()
+
+        organization = 'OOO Minimum'
+        self.INPUT_ORGANIZATION.write(organization)
+
+        title = 'Ответьте, пожалуйста, на пару вопросов'
+        self.INPUT_TITLE.write(title)
+
+        text = 'Этим вы помогаете нам стать лучше'
+        self.INPUT_SHORT_DESCRIPTION.write(text)
 
 
 class LeadsFormQuestions:
@@ -340,6 +358,26 @@ class LeadsPageQuestions(BasePageFunctionality):
 
     def click_checkbox_contact_info_by_title(self, title):
         self.click(self.locators.CHECKBOX_CONTENT(title))
+
+    @property
+    @add_hover
+    def ERROR_QUESTION_ICON(self):
+        return self.find_with_check_visibility(self.locators.ERROR_QUESTION_ICON)
+
+    @property
+    def ERROR_QUESTION_MESSAGE(self):
+        return self.find_with_check_visibility(self.locators.ERROR_QUESTION_MESSAGE)
+
+    def check_error_question(self):
+        assert self.ERROR_QUESTION_ICON
+        self.ERROR_QUESTION_ICON.hover()
+        assert self.ERROR_QUESTION_MESSAGE
+
+    def fill_minimum_first_question(self):
+        self.ADD_QUESTION_INPUT_TITLE(1).write('Вам понравилось использовать наш продукт?')
+        answers = self.ADD_QUESTION_INPUTS_ANSWER(1)
+        self.write_input_to_element(answers[0], 'Скорее да')
+        self.write_input_to_element(answers[1], 'Скорее нет')
 
     def check_first_display(self):
         assert self.TITLE_QUESTION
@@ -492,6 +530,11 @@ class LeadsPageResult(BasePageFunctionality):
         return self.find_with_check_visibility(self.locators.INPUT_PROMO_CODE)
 
     @property
+    @add_write
+    def INPUT_PHONE(self):
+        return self.find_with_check_visibility(self.locators.INPUT_PHONE)
+
+    @property
     def BUTTON_ADD_SITE(self):
         return self.find_with_check_visibility(self.locators.BUTTON_ADD_SITE)
 
@@ -554,6 +597,15 @@ class LeadsPageResult(BasePageFunctionality):
         assert self.PREVIEW_PROMO_CODE(promo_code)
 
         return LeadsFormResult(title, description, site_url, promo_code)
+
+    def fill_minimum_title_site_phone(self):
+        self.INPUT_TITLE.write('Спасибо вам!')
+
+        self.INPUT_SITE.write("https://goods-galaxy.ru")
+        self.wait().until(EC.text_to_be_present_in_element_attribute(self.locators.INPUT_SITE,
+                                                                     'value', "https://goods-galaxy.ru"))
+
+        self.INPUT_PHONE.write("+79809809898")
 
 
 class LeadsFormSettings:
@@ -686,3 +738,12 @@ class LeadsPage(BasePageFunctionality):
     @property
     def HEADER_EDIT(self):
         return self.find_with_check_visibility(self.locators.HEADER_EDIT)
+
+    def ERROR_BY_TITLE_ITEM(self, title, error_message):
+        return self.find_with_check_visibility(self.locators.ERROR_BY_TITLE_ITEM(title, error_message))
+
+    def ERROR_REQUIRED_FIELD_BY_TITLE_ITEM(self, title):
+        return self.ERROR_BY_TITLE_ITEM(title, 'Обязательное поле')
+
+    def check_invisibility_any_error(self):
+        assert self.wait().until(EC.invisibility_of_element(self.locators.ANY_ERROR))

@@ -96,6 +96,11 @@ class LeadsPageQuestionsLocators:
     def PREVIEW_ANSWER_CONTACT_INFO(answer):
         return By.XPATH, f'.//*[contains(@placeholder, "{answer}")]'
 
+    ERROR_QUESTION_ICON = (By.XPATH, ('//*[contains(@class, "Question_questionHeader")]'
+                                      '//*[contains(@class, "Question_errorIcon_")]'))
+    ERROR_QUESTION_MESSAGE = (By.XPATH, '//*[contains(text(), '
+                                        '"Вопрос должен быть не пустым и содержать минимум 2 ответа")]')
+
 
 class LeadsPageResultLocators:
     HEADER_RESULT = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
@@ -111,6 +116,10 @@ class LeadsPageResultLocators:
     INPUT_PROMO_CODE = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
                                   '//*[contains(@class, "vkuiFormItem") and'
                                   ' .//*[contains(text(), "Промокод")]]//input')
+    INPUT_PHONE = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
+                             '//*[contains(@class, "vkuiFormItem") and'
+                             ' .//*[contains(text(), "Телефон для заказа")]]//input')
+
     BUTTON_ADD_SITE = (By.CSS_SELECTOR, '[data-testid="add-site-btn"]')
     BUTTON_ADD_PHONE = (By.CSS_SELECTOR, '[data-testid="add-phone-btn"]')
     BUTTON_ADD_PROMO_CODE = (By.CSS_SELECTOR, '[data-testid="add-promo-code-btn"]')
@@ -166,3 +175,12 @@ class LeadsPageLocators:
 
     HEADER_EDIT = (By.XPATH, ('//*[contains(@class, "ModalSidebarPage_header")]'
                               '//*[contains(text(), "Редактирование лид-формы")]'))
+
+    @staticmethod
+    def ERROR_BY_TITLE_ITEM(title, error_message):
+        return By.XPATH, (f'//*[contains(@class, "ModalSidebarPage_content")]'
+                          f'//*[contains(@class, "vkuiFormItem") and '
+                          f'.//*[contains(text(), "{title}")]]'
+                          f'//*[contains(text(), "{error_message}")]')
+
+    ANY_ERROR = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]//*[@role="alert"]')
