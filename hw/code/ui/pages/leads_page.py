@@ -1,10 +1,22 @@
-from ui.pages.base_page_functionality import BasePageFunctionality, add_write, add_get_value
-from ui.locators.leads_locators import (
-    LeadsPageLocators, LeadsPageDesignLocators, LeadsPageQuestionsLocators, LeadsPageResultLocators)
+from selenium.common import TimeoutException
+from ui.pages.base_page_functionality import BasePageFunctionality, add_write, add_get_value, add_hover
+from ui.locators.leads_locators import (LeadsPageLocators, LeadsPageDesignLocators, LeadsPageQuestionsLocators,
+                                        LeadsPageResultLocators, LeadsPageSettingsLocators)
 from utils.expected_conditions import element_has_background
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.alert import Alert
+
+
+class LeadsFormDesign:
+    def __init__(self, lead_name, logo, organization, title, more_text, gradient):
+        self.lead_name = lead_name
+        self.logo = logo
+        self.organization = organization
+        self.title = title
+        self.more_text = more_text
+        self.gradient = gradient
 
 
 class LeadsPageDesign(BasePageFunctionality):
@@ -81,10 +93,11 @@ class LeadsPageDesign(BasePageFunctionality):
     def PIPETTE_GRADIENT_RESULT(self):
         return self.find_with_check_visibility(self.locators.PIPETTE_GRADIENT_RESULT)
 
-    def rgb_from_hex(self, hex_code) -> str:
-        red = int(hex_code[1:2])*16 + int(hex_code[2:3])
-        green = int(hex_code[3:4])*16 + int(hex_code[4:5])
-        blue = int(hex_code[5:6])*16 + int(hex_code[6:7])
+    @staticmethod
+    def rgb_from_hex(hex_code) -> str:
+        red = int(hex_code[1:2]) * 16 + int(hex_code[2:3])
+        green = int(hex_code[3:4]) * 16 + int(hex_code[4:5])
+        blue = int(hex_code[5:6]) * 16 + int(hex_code[6:7])
 
         return f'rgb({red}, {green}, {blue})'
 
@@ -150,7 +163,15 @@ class LeadsPageDesign(BasePageFunctionality):
         assert self.PREVIEW_CONTAINER
         assert self.PREVIEW_TITLE_CONTACT_DETAILS
 
-    def check_more_text(self):
+    def check_leads_form(self, leads_form_design: LeadsFormDesign):
+        assert self.INPUT_LEAD_NAME.get_value() == leads_form_design.lead_name
+        assert leads_form_design.logo
+        assert self.PREVIEW_TOP_PART_TITLE.text == leads_form_design.organization
+        self.check_PREVIEW_LEAD_FORM_TITLE(leads_form_design.title)
+        assert self.PREVIEW_LONG_DESCRIPTION.text == leads_form_design.more_text
+        self.check_pipette_gradient_result(leads_form_design.gradient)
+
+    def check_more_text(self) -> LeadsFormDesign:
         self.check_first_display()
 
         lead_name = 'Лид-форма Лидер'
@@ -180,6 +201,23 @@ class LeadsPageDesign(BasePageFunctionality):
         gradient = '#800080'
         self.choose_gradient(gradient)
         self.check_pipette_gradient_result(gradient)
+
+        return LeadsFormDesign(lead_name, self.PREVIEW_LOGO, organization, title, more_text, gradient)
+
+
+class LeadsFormQuestions:
+    def __init__(self, first_question_title, first_question_first_answer, first_question_second_answer,
+                 first_question_third_answer, second_question_title, contact_info_title,
+                 name_contact_info, phone_contact_info, city_contact_info):
+        self.first_question_title = first_question_title
+        self.first_question_first_answer = first_question_first_answer
+        self.first_question_second_answer = first_question_second_answer
+        self.first_question_third_answer = first_question_third_answer
+        self.second_question_title = second_question_title
+        self.contact_info_title = contact_info_title
+        self.name_contact_info = name_contact_info
+        self.phone_contact_info = phone_contact_info
+        self.city_contact_info = city_contact_info
 
 
 class LeadsPageQuestions(BasePageFunctionality):
@@ -250,7 +288,7 @@ class LeadsPageQuestions(BasePageFunctionality):
         return self.find_with_check_visibility(self.locators.BUTTON_ADD_CONTACT_INFO)
 
     def PREVIEW_TITLE_QUESTION(self, title):
-        assert self.find_with_check_visibility(self.locators.PREVIEW_TITLE_QUESTION(title))
+        return self.find_with_check_visibility(self.locators.PREVIEW_TITLE_QUESTION(title))
 
     def PREVIEW_QUESTION_BY_TITLE(self, title):
         return self.find_with_check_visibility(self.locators.PREVIEW_QUESTION_BY_TITLE(title))
@@ -309,7 +347,28 @@ class LeadsPageQuestions(BasePageFunctionality):
         assert self.TITLE_CONTACT_INFO
         assert self.BUTTON_ADD_CONTACT_INFO
 
-    def check_more_text(self):
+    def check_leads_form(self, leads_form: LeadsFormQuestions):
+        assert self.PREVIEW_TITLE_QUESTION(leads_form.first_question_title)
+        self.check_preview_checkbox_answer_in_question_by_title(
+            leads_form.first_question_title, leads_form.first_question_first_answer)
+        self.check_preview_checkbox_answer_in_question_by_title(
+            leads_form.first_question_title, leads_form.first_question_second_answer)
+        self.check_preview_checkbox_answer_in_question_by_title(
+            leads_form.first_question_title, leads_form.first_question_third_answer)
+
+        assert self.PREVIEW_TITLE_QUESTION(leads_form.second_question_title)
+        second_question_any_form = self.get_preview_any_form_answer_by_title_question(leads_form.second_question_title)
+        self.check_preview_visibility_any_form_answer(second_question_any_form)
+
+        assert self.PREVIEW_QUESTION_BY_TITLE(leads_form.contact_info_title)
+        assert self.get_preview_contact_info_by_question_title(
+            leads_form.contact_info_title, leads_form.name_contact_info)
+        assert self.get_preview_contact_info_by_question_title(
+            leads_form.contact_info_title, leads_form.phone_contact_info)
+        assert self.get_preview_contact_info_by_question_title(
+            leads_form.contact_info_title, leads_form.city_contact_info)
+
+    def check_more_text(self) -> LeadsFormQuestions:
         self.check_first_display()
 
         self.BUTTON_ADD_QUESTION.click()
@@ -318,7 +377,7 @@ class LeadsPageQuestions(BasePageFunctionality):
 
         first_question_title = 'Что вам понравилось?'
         self.ADD_QUESTION_INPUT_TITLE(first_question_num).write(first_question_title)
-        self.PREVIEW_TITLE_QUESTION(first_question_title)
+        assert self.PREVIEW_TITLE_QUESTION(first_question_title)
 
         first_question_radiogroup = self.get_preview_radiogroup_by_title_question(first_question_title)
         self.ADD_QUESTION_SELECTOR_TYPE(first_question_num).click()
@@ -360,7 +419,7 @@ class LeadsPageQuestions(BasePageFunctionality):
 
         second_question_title = 'Что вам не понравилось в нашей работе?'
         self.ADD_QUESTION_INPUT_TITLE(second_question_num).write(second_question_title)
-        self.PREVIEW_TITLE_QUESTION(second_question_title)
+        assert self.PREVIEW_TITLE_QUESTION(second_question_title)
 
         second_question_radiogroup = self.get_preview_radiogroup_by_title_question(second_question_title)
         self.ADD_QUESTION_SELECTOR_TYPE(second_question_num).click()
@@ -390,6 +449,18 @@ class LeadsPageQuestions(BasePageFunctionality):
         assert self.get_preview_contact_info_by_question_title(contact_info_title, name_contact_info)
         assert self.get_preview_contact_info_by_question_title(contact_info_title, phone_contact_info)
         assert self.get_preview_contact_info_by_question_title(contact_info_title, city_contact_info)
+
+        return LeadsFormQuestions(first_question_title, first_question_first_answer, first_question_second_answer,
+                                  first_question_third_answer, second_question_title,
+                                  contact_info_title, name_contact_info, phone_contact_info, city_contact_info)
+
+
+class LeadsFormResult:
+    def __init__(self, title, description, site_url, promo_code):
+        self.title = title
+        self.description = description
+        self.site_url = site_url
+        self.promo_code = promo_code
 
 
 class LeadsPageResult(BasePageFunctionality):
@@ -449,7 +520,13 @@ class LeadsPageResult(BasePageFunctionality):
         assert self.BUTTON_ADD_PHONE
         assert self.BUTTON_ADD_PROMO_CODE
 
-    def check_more_text(self):
+    def check_leads_form(self, leads_form: LeadsFormResult):
+        assert self.PREVIEW_TEXT(leads_form.title)
+        assert self.PREVIEW_TEXT(leads_form.description)
+        assert self.PREVIEW_SITE(leads_form.site_url)
+        assert self.PREVIEW_PROMO_CODE(leads_form.promo_code)
+
+    def check_more_text(self) -> LeadsFormResult:
         self.check_first_display()
 
         title = 'Спасибо вам!'
@@ -464,8 +541,10 @@ class LeadsPageResult(BasePageFunctionality):
         assert self.INPUT_SITE
 
         site_url = "goods-galaxy.ru"
-        self.INPUT_SITE.write(site_url)
+        self.INPUT_SITE.write("https://" + site_url)
         assert self.PREVIEW_SITE(site_url)
+        self.wait().until(EC.text_to_be_present_in_element_attribute(self.locators.INPUT_SITE,
+                                                                     'value', "https://" + site_url))
 
         self.click(self.BUTTON_ADD_PROMO_CODE)
         assert self.INPUT_PROMO_CODE
@@ -473,6 +552,87 @@ class LeadsPageResult(BasePageFunctionality):
         promo_code = "AWESOME845"
         self.INPUT_PROMO_CODE.write(promo_code)
         assert self.PREVIEW_PROMO_CODE(promo_code)
+
+        return LeadsFormResult(title, description, site_url, promo_code)
+
+
+class LeadsFormSettings:
+    def __init__(self, full_name, address, email):
+        self.full_name = full_name
+        self.address = address
+        self.email = email
+
+
+class LeadsPageSettings(BasePageFunctionality):
+    url = "https://ads.vk.com/hq/leadads/leadforms"
+    locators = LeadsPageSettingsLocators()
+
+    @property
+    def HEADER(self):
+        return self.find_with_check_visibility(self.locators.HEADER)
+
+    @property
+    def TITLE_NOTIFICATION(self):
+        return self.find_with_check_visibility(self.locators.TITLE_NOTIFICATION)
+
+    @property
+    def TITLE_AGREEMENT(self):
+        return self.find_with_check_visibility(self.locators.TITLE_AGREEMENT)
+
+    @property
+    @add_write
+    @add_get_value
+    def INPUT_FULL_NAME(self):
+        return self.find_with_check_visibility(self.locators.INPUT_FULL_NAME)
+
+    @property
+    @add_write
+    @add_get_value
+    def INPUT_ADDRESS(self):
+        return self.find_with_check_visibility(self.locators.INPUT_ADDRESS)
+
+    @property
+    @add_write
+    @add_get_value
+    def INPUT_EMAIL(self):
+        return self.find_with_check_visibility(self.locators.INPUT_EMAIL)
+
+    @property
+    @add_write
+    @add_get_value
+    def INPUT_INN(self):
+        return self.find_with_check_visibility(self.locators.INPUT_INN)
+
+    def check_first_display(self):
+        assert self.HEADER
+        assert self.TITLE_NOTIFICATION
+        assert self.TITLE_AGREEMENT
+        assert self.INPUT_FULL_NAME
+        assert self.INPUT_ADDRESS
+        assert self.INPUT_EMAIL
+        assert self.INPUT_INN
+
+    def check_leads_form(self, leads_form: LeadsFormSettings):
+        assert self.INPUT_FULL_NAME.get_value() == leads_form.full_name
+        assert self.INPUT_ADDRESS.get_value() == leads_form.address
+        assert self.INPUT_EMAIL.get_value() == leads_form.email
+
+    def check_more_text(self) -> LeadsFormSettings:
+        self.check_first_display()
+
+        full_name = 'Иванов Алексей Николаевич'
+        self.INPUT_FULL_NAME.write(full_name)
+        assert self.INPUT_FULL_NAME.get_value() == full_name
+
+        address = 'г. Москва, ул. Госпитальный переулок 4/6 стр.3'
+        self.INPUT_ADDRESS.write(address)
+        assert self.INPUT_ADDRESS.get_value() == address
+
+        email = 'vilinvil@mail.ru'
+        self.INPUT_EMAIL.write(email)
+        assert self.INPUT_EMAIL.get_value() == email
+
+        return LeadsFormSettings(full_name, address, email)
 
 
 class LeadsPage(BasePageFunctionality):
@@ -484,6 +644,7 @@ class LeadsPage(BasePageFunctionality):
         self.design_page = LeadsPageDesign(driver)
         self.question_page = LeadsPageQuestions(driver)
         self.result_page = LeadsPageResult(driver)
+        self.settings_page = LeadsPageSettings(driver)
 
     @property
     def BUTTON_CREATE_LEAD_FORM(self):
@@ -496,3 +657,32 @@ class LeadsPage(BasePageFunctionality):
     @property
     def BUTTON_SUBMIT(self):
         return self.find_with_check_visibility(self.locators.BUTTON_SUBMIT)
+
+    @add_hover
+    def NAME_LEAD_FORM(self, name):
+        return self.find_with_check_visibility(self.locators.NAME_LEAD_FORM(name))
+
+    def get_button_remove_by_name_lead_form(self, name):
+        lead_form = self.NAME_LEAD_FORM(name).hover()
+        return lead_form.find_element(*self.locators.BUTTON_REMOVE_LEAD_FORM)
+
+    def remove_lead_form(self, name):
+        self.driver.get(self.url)
+        try:
+            self.wait(3).until(EC.alert_is_present(), 'Leave site')
+
+            Alert(self.driver).accept()
+        except TimeoutException:
+            pass
+
+        self.click(self.get_button_remove_by_name_lead_form(name))
+        self.click(self.BUTTON_SUBMIT)
+        assert self.BUTTON_CREATE_LEAD_FORM
+
+    def get_button_edit_by_name_lead_form(self, name):
+        lead_form = self.NAME_LEAD_FORM(name).hover()
+        return lead_form.find_element(*self.locators.BUTTON_EDIT_LEAD_FORM)
+
+    @property
+    def HEADER_EDIT(self):
+        return self.find_with_check_visibility(self.locators.HEADER_EDIT)

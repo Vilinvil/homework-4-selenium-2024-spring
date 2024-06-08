@@ -132,7 +132,37 @@ class LeadsPageResultLocators:
                           f'//input[contains(@value, "{promo_code}")]')
 
 
+class LeadsPageSettingsLocators:
+    HEADER = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
+                        '//*[contains(@class, "vkuiInternalGroup")]'
+                        '//*[contains(text(), "Настройки лид-формы")]')
+
+    TITLE_NOTIFICATION = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
+                                    '//*[contains(@class, "vkuiInternalGroup")]'
+                                    '//*[contains(text(), "Уведомления")]')
+
+    TITLE_AGREEMENT = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
+                                 '//*[contains(@class, "vkuiInternalGroup")]'
+                                 '//*[contains(text(), "Согласие на обработку персональных данных")]')
+
+    INPUT_FULL_NAME = (By.CSS_SELECTOR, '[placeholder="Введите фамилию, имя и отчество"]')
+    INPUT_ADDRESS = (By.CSS_SELECTOR, '[placeholder="Введите адрес"]')
+    INPUT_EMAIL = (By.CSS_SELECTOR, '[placeholder="Введите email"]')
+    INPUT_INN = (By.CSS_SELECTOR, '[placeholder="Введите ИНН"]')
+
+
 class LeadsPageLocators:
     BUTTON_CREATE_LEAD_FORM = (By.CSS_SELECTOR, '[test-id="create-leadform-button"]')
     BUTTON_CANCEL = (By.CSS_SELECTOR, '[data-testid="cancel"]')
     BUTTON_SUBMIT = (By.CSS_SELECTOR, '[data-testid="submit"]')
+
+    @staticmethod
+    def NAME_LEAD_FORM(name):
+        return By.XPATH, (f'//*[contains(@class, "LeadForms_tableContainer")]'
+                          f'//*[contains(@class, "NameCell_wrapper") and .//*[contains(text(), "{name}")]]')
+
+    BUTTON_REMOVE_LEAD_FORM = (By.XPATH, './/*[contains(text(), "Удалить")]')
+    BUTTON_EDIT_LEAD_FORM = (By.XPATH, './/*[contains(text(), "Редактировать")]')
+
+    HEADER_EDIT = (By.XPATH, ('//*[contains(@class, "ModalSidebarPage_header")]'
+                              '//*[contains(text(), "Редактирование лид-формы")]'))
