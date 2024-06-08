@@ -1,55 +1,71 @@
 from ui.pages.base_page import PageWithView, PageWithRedirectWindow
 from ui.locators.budget_locators import BudgetPageLocators
+from ui.pages.base_page_functionality import add_hover, add_write, add_get_value
+from ui.pages.base_page import add_open_view
 
 
 class BudgetPage(PageWithView, PageWithRedirectWindow):
     url = "https://ads.vk.com/hq/budget/transactions"
     locators = BudgetPageLocators()
 
-    def find_title(self):
+    @property
+    def TITLE(self):
         return self.find_with_check_visibility(self.locators.TITLE)
 
-    def find_button_start_budget_replenish(self):
+    @property
+    def BUTTON_START_BUDGET_REPLENISH(self):
         return self.find_with_check_visibility(self.locators.BUTTON_START_BUDGET_REPLENISH)
 
-    def find_title_modal_page_budget(self):
+    @property
+    def TITLE_MODAL_PAGE_BUDGET(self):
         return self.find_with_check_visibility(self.locators.TITLE_MODAL_PAGE_BUDGET)
 
-    def find_title_create_invoice_summ(self):
-        return self.find_with_check_visibility(self.locators.TITLE_CRETE_INVOICE_SUMM)
+    @property
+    def TITLE_CREATE_INVOICE_SUMM(self):
+        return self.find_with_check_visibility(self.locators.TITLE_CREATE_INVOICE_SUMM)
 
-    def find_title_create_invoice_vat(self):
-        return self.find_with_check_visibility(self.locators.TITLE_CRETE_INVOICE_VAT)
+    @property
+    def TITLE_CREATE_INVOICE_VAT(self):
+        return self.find_with_check_visibility(self.locators.TITLE_CREATE_INVOICE_VAT)
 
-    def find_button_continue_budget_replenish(self):
+    @property
+    def BUTTON_CONTINUE_BUDGET_REPLENISH(self):
         return self.find_with_check_visibility(self.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
 
-    def find_tooltip_min_summ(self):
-        return self.find_with_check_visibility(self.locators.TOOLTIP_MIN_SUMM)
-
-    def find_alert_min_summ_replenish(self):
+    @property
+    def ALERT_MIN_SUMM_REPLENISH(self):
         return self.find_with_check_visibility(self.locators.ALERT_MIN_SUMM_REPLENISH)
 
-    def find_alert_max_summ_replenish(self):
+    @property
+    def ALERT_MAX_SUMM_REPLENISH(self):
         return self.find_with_check_visibility(self.locators.ALERT_MAX_SUMM_REPLENISH)
 
-    def find_opening_invoice_end(self):
+    @property
+    def SIGN_OPENING_INVOICE_END(self):
         return self.find_with_check_visibility(self.locators.SIGN_OPENING_INVOICE_END_IFRAME)
 
-    def open_modal_budget_replenish(self):
-        self.open_view(self.locators.BUTTON_START_BUDGET_REPLENISH, self.locators.SIGN_OPENING_MODAL_PAGE_BUDGET)
+    @property
+    @add_open_view(BudgetPageLocators.SIGN_OPENING_MODAL_PAGE_BUDGET)
+    def BUTTON_START_BUDGET_REPLENISH(self):
+        return self.find_with_check_visibility(self.locators.BUTTON_START_BUDGET_REPLENISH)
 
-    def write_amount(self, amount):
-        self.write_input(self.locators.INPUT_AMOUNT, amount)
+    @property
+    @add_write
+    @add_get_value
+    def INPUT_AMOUNT(self):
+        return self.find_with_check_visibility(self.locators.INPUT_AMOUNT)
 
-    def write_amount_without_vat(self, amount):
-        self.write_input(self.locators.INPUT_AMOUNT_WITHOUT_VAT, amount)
+    @property
+    @add_write
+    @add_get_value
+    def INPUT_AMOUNT_WITHOUT_VAT(self):
+        return self.find_with_check_visibility(self.locators.INPUT_AMOUNT_WITHOUT_VAT)
 
-    def click_button_continue_budget_replenish(self):
-        self.click(self.locators.BUTTON_CONTINUE_BUDGET_REPLENISH)
+    @property
+    @add_hover
+    def HINT_MIN_SUMM_TRIGGER(self):
+        return self.find_with_check_visibility(self.locators.HINT_MIN_SUMM_TRIGGER)
 
-    def get_value_amount(self):
-        return self.find(self.locators.INPUT_AMOUNT).get_attribute('value')
-
-    def get_value_amount_without_vat(self):
-        return self.find(self.locators.INPUT_AMOUNT_WITHOUT_VAT).get_attribute('value')
+    @property
+    def HINT_MIN_SUMM(self):
+        return self.find_with_check_visibility(self.locators.HINT_MIN_SUMM)

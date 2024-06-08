@@ -2,7 +2,6 @@ from functools import wraps
 
 from ui.locators import basic_locators
 from ui.pages.base_page_functionality import BasePageFunctionality
-from utils.timeout import BASIC_TIMEOUT
 
 from selenium.webdriver.common.action_chains import ActionChains as AC
 from selenium.webdriver.support import expected_conditions as EC
@@ -185,7 +184,7 @@ class BasePage(BasePageFunctionality):
         return self.find_with_check_visibility(self.locators.FOOTER_WRAPPER_LANGUAGE).text
 
 
-class PageWithView(BasePage):
+class PageWithView(BasePageFunctionality):
     def open_view(self, button_open_locator, sign_opening_locator):
         self.click(button_open_locator)
         self.find_with_check_visibility(sign_opening_locator)
@@ -235,7 +234,7 @@ def add_close_view(sign_opening_locator):
     return add_close_view_decorator
 
 
-class PageWithRedirectWindow(BasePage):
+class PageWithRedirectWindow(BasePageFunctionality):
     def redirect_window_by_element(self, element, expected_number_of_windows_to_be=2):
         original_window = self.driver.current_window_handle
         self.click(element)
