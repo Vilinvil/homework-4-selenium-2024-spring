@@ -1,6 +1,49 @@
 from selenium.webdriver.common.by import By
 
 
+class LeadsPageDesignLocators:
+    HEADER = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_header")]//*[contains(text(), "Новая лид-форма")]')
+    INPUT_LEAD_NAME = (By.CSS_SELECTOR, '[placeholder="Название лид-формы"]')
+    BUTTON_SET_GLOBAL_IMAGE = (By.CSS_SELECTOR, '[data-testid="set-global-image"]')
+    INPUT_ORGANIZATION = (By.CSS_SELECTOR, '[placeholder="Название компании"]')
+
+    RADIOGROUP_FIRST_SCREEN = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_container")]'
+                                         '//*[contains(text(), "Первый экран формы")]//..//*[@role="radiogroup"]')
+    RADIOGROUP_BUTTON_MORE_TEXT = (By.XPATH, '//*[contains(@class, "vkuiSegmentedControlOption")]'
+                                             '//*[contains(text(), "Больше текста")]',)
+
+    INPUT_TITLE = (By.CSS_SELECTOR, '[placeholder="Текст заголовка"]')
+    INPUT_SHORT_DESCRIPTION = (By.CSS_SELECTOR, '[placeholder="Краткое описание опроса"]')
+
+    PIPETTE_CHOICE_GRADIENT = (By.CSS_SELECTOR, '[data-id="101"]')
+    PIPETTE_INPUT_GRADIENT = (By.XPATH, '//*[contains(@class, "ColorMap_actions")]//input')
+    PIPETTE_BUTTON_SUBMIT = (By.XPATH, '//*[contains(@class, "ColorMap_actions")]//button')
+    PIPETTE_GRADIENT_RESULT = (By.XPATH, '//*[contains(@class, "ActionButtons-module_goNext")]')
+
+    BUTTON_SET_MAIN_IMAGE = (By.CSS_SELECTOR, '[data-testid="set-main-image"]')
+
+    PREVIEW_CONTAINER = (By.XPATH, '//*[contains(@class, "CreateLeadFormModal_previewContainer")]')
+    PREVIEW_TITLE_CONTACT_DETAILS = By.XPATH, (f'//*[contains(@class, "CreateLeadFormModal_previewContainer")]'
+                                               '//h3[contains(text(), "Введите свои контактные данные")]')
+    PREVIEW_LOGO = (By.XPATH, '//*[contains(@class, "CreateLeadFormModal_previewContainer")]'
+                              '//*[contains(@class, "TopPart-module_appLogo")]')
+    PREVIEW_TOP_PART_TITLE = (By.XPATH, '//*[contains(@class, "TopPart-module_companyTitle")]')
+
+    MEDIA_HEADER = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_container")]//*[contains(text(), "Медиатека")]')
+    MEDIA_UPLOAD = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_container")]'
+                              '//*[contains(@class, "LocalFileSelector_container")]')
+    MEDIA_DEFAULT_IMAGE = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_container")]'
+                                     '//*[contains(@class, "ImageItems_imageItem")]')
+
+    INPUT_MORE_TEXT = (By.CSS_SELECTOR, '[placeholder="Расскажите о вашем опросе или предложении"]')
+
+    @staticmethod
+    def PREVIEW_LEAD_FORM_TITLE(title):
+        return By.XPATH, f'//*[contains(@class, "OnePageContentBlock-module_wrap")]//h2[contains(text(), "{title}")]'
+
+    PREVIEW_LONG_DESCRIPTION = (By.XPATH, '//*[contains(@class, "LeadForm-module_long_description")]')
+
+
 class LeadsPageQuestionsLocators:
     TITLE_QUESTION = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]//h4[contains(text(), "Вопросы")]')
     BUTTON_ADD_QUESTION = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
@@ -51,50 +94,42 @@ class LeadsPageQuestionsLocators:
 
     @staticmethod
     def PREVIEW_ANSWER_CONTACT_INFO(answer):
-        return (By.XPATH, f'.//*[contains(@placeholder, "{answer}")]')
+        return By.XPATH, f'.//*[contains(@placeholder, "{answer}")]'
 
 
-class LeadsPageDesignLocators:
-    HEADER = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_header")]//*[contains(text(), "Новая лид-форма")]')
-    INPUT_LEAD_NAME = (By.CSS_SELECTOR, '[placeholder="Название лид-формы"]')
-    BUTTON_SET_GLOBAL_IMAGE = (By.CSS_SELECTOR, '[data-testid="set-global-image"]')
-    INPUT_ORGANIZATION = (By.CSS_SELECTOR, '[placeholder="Название компании"]')
-
-    RADIOGROUP_FIRST_SCREEN = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_container")]'
-                                         '//*[contains(text(), "Первый экран формы")]//..//*[@role="radiogroup"]')
-    RADIOGROUP_BUTTON_MORE_TEXT = (By.XPATH, '//*[contains(@class, "vkuiSegmentedControlOption")]'
-                                             '//*[contains(text(), "Больше текста")]',)
-
-    INPUT_TITLE = (By.CSS_SELECTOR, '[placeholder="Текст заголовка"]')
-    INPUT_SHORT_DESCRIPTION = (By.CSS_SELECTOR, '[placeholder="Краткое описание опроса"]')
-
-    PIPETTE_CHOICE_GRADIENT = (By.CSS_SELECTOR, '[data-id="101"]')
-    PIPETTE_INPUT_GRADIENT = (By.XPATH, '//*[contains(@class, "ColorMap_actions")]//input')
-    PIPETTE_BUTTON_SUBMIT = (By.XPATH, '//*[contains(@class, "ColorMap_actions")]//button')
-    PIPETTE_GRADIENT_RESULT = (By.XPATH, '//*[contains(@class, "ActionButtons-module_goNext")]')
-
-    BUTTON_SET_MAIN_IMAGE = (By.CSS_SELECTOR, '[data-testid="set-main-image"]')
-
-    PREVIEW_CONTAINER = (By.XPATH, '//*[contains(@class, "CreateLeadFormModal_previewContainer")]')
-    PREVIEW_TITLE_CONTACT_DETAILS = By.XPATH, (f'//*[contains(@class, "CreateLeadFormModal_previewContainer")]'
-                                               '//h3[contains(text(), "Введите свои контактные данные")]')
-    PREVIEW_LOGO = (By.XPATH, '//*[contains(@class, "CreateLeadFormModal_previewContainer")]'
-                              '//*[contains(@class, "TopPart-module_appLogo")]')
-    PREVIEW_TOP_PART_TITLE = (By.XPATH, '//*[contains(@class, "TopPart-module_companyTitle")]')
-
-    MEDIA_HEADER = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_container")]//*[contains(text(), "Медиатека")]')
-    MEDIA_UPLOAD = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_container")]'
-                              '//*[contains(@class, "LocalFileSelector_container")]')
-    MEDIA_DEFAULT_IMAGE = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_container")]'
-                                     '//*[contains(@class, "ImageItems_imageItem")]')
-
-    INPUT_MORE_TEXT = (By.CSS_SELECTOR, '[placeholder="Расскажите о вашем опросе или предложении"]')
+class LeadsPageResultLocators:
+    HEADER_RESULT = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
+                               '//*[contains(@class, "vkuiInternalGroup")]//*[contains(text(), "Результат")]')
+    INPUT_TITLE = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
+                             '//*[contains(@class, "vkuiFormItem") and .//*[contains(text(), "Заголовок")]]//input')
+    INPUT_DESCRIPTION = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
+                                   '//*[contains(@class, "vkuiFormItem") and'
+                                   ' .//*[contains(text(), "Описание")]]//input')
+    INPUT_SITE = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
+                            '//*[contains(@class, "vkuiFormItem") and'
+                            ' .//*[contains(text(), "Ссылка на сайт")]]//input')
+    INPUT_PROMO_CODE = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]'
+                                  '//*[contains(@class, "vkuiFormItem") and'
+                                  ' .//*[contains(text(), "Промокод")]]//input')
+    BUTTON_ADD_SITE = (By.CSS_SELECTOR, '[data-testid="add-site-btn"]')
+    BUTTON_ADD_PHONE = (By.CSS_SELECTOR, '[data-testid="add-phone-btn"]')
+    BUTTON_ADD_PROMO_CODE = (By.CSS_SELECTOR, '[data-testid="add-promo-code-btn"]')
 
     @staticmethod
-    def PREVIEW_LEAD_FORM_TITLE(title):
-        return By.XPATH, f'//*[contains(@class, "OnePageContentBlock-module_wrap")]//h2[contains(text(), "{title}")]'
+    def PREVIEW_TEXT(text):
+        return By.XPATH, (f'//*[contains(@class, "CreateLeadFormModal_preview")]'
+                          f'//*[contains(@class, "FormPanel-module_formContent")]//*[contains(text(), "{text}")]')
 
-    PREVIEW_LONG_DESCRIPTION = (By.XPATH, '//*[contains(@class, "LeadForm-module_long_description")]')
+    @staticmethod
+    def PREVIEW_SITE(url):
+        return By.XPATH, (f'//*[contains(@class, "CreateLeadFormModal_preview")]'
+                          f'//*[contains(@class, "ActionButtons-module_actionBlock")]//*[contains(@href, "{url}")]')
+
+    @staticmethod
+    def PREVIEW_PROMO_CODE(promo_code):
+        return By.XPATH, (f'//*[contains(@class, "CreateLeadFormModal_preview")]'
+                          f'//*[contains(@class, "ActionButtons-module_actionBlock")]'
+                          f'//input[contains(@value, "{promo_code}")]')
 
 
 class LeadsPageLocators:

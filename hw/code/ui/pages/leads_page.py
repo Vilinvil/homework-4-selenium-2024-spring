@@ -1,8 +1,7 @@
 from ui.pages.base_page_functionality import BasePageFunctionality, add_write, add_get_value
 from ui.locators.leads_locators import (
-    LeadsPageLocators, LeadsPageDesignLocators, LeadsPageQuestionsLocators)
+    LeadsPageLocators, LeadsPageDesignLocators, LeadsPageQuestionsLocators, LeadsPageResultLocators)
 from utils.expected_conditions import element_has_background
-from hw.code.utils.timeout import BASIC_TIMEOUT
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
@@ -138,7 +137,7 @@ class LeadsPageDesign(BasePageFunctionality):
     def INPUT_MORE_TEXT(self):
         return self.find_with_check_visibility(self.locators.INPUT_MORE_TEXT)
 
-    def check_design_display(self):
+    def check_first_display(self):
         assert self.HEADER
         assert self.INPUT_LEAD_NAME
         assert self.BUTTON_SET_GLOBAL_IMAGE
@@ -151,8 +150,8 @@ class LeadsPageDesign(BasePageFunctionality):
         assert self.PREVIEW_CONTAINER
         assert self.PREVIEW_TITLE_CONTACT_DETAILS
 
-    def check_design(self):
-        self.check_design_display()
+    def check_more_text(self):
+        self.check_first_display()
 
         lead_name = 'Лид-форма Лидер'
         self.INPUT_LEAD_NAME.write(lead_name)
@@ -304,14 +303,14 @@ class LeadsPageQuestions(BasePageFunctionality):
     def click_checkbox_contact_info_by_title(self, title):
         self.click(self.locators.CHECKBOX_CONTENT(title))
 
-    def check_question_display(self):
+    def check_first_display(self):
         assert self.TITLE_QUESTION
         assert self.BUTTON_ADD_QUESTION
         assert self.TITLE_CONTACT_INFO
         assert self.BUTTON_ADD_CONTACT_INFO
 
-    def check_questions(self):
-        self.check_question_display()
+    def check_more_text(self):
+        self.check_first_display()
 
         self.BUTTON_ADD_QUESTION.click()
         first_question_num = 1
@@ -393,6 +392,89 @@ class LeadsPageQuestions(BasePageFunctionality):
         assert self.get_preview_contact_info_by_question_title(contact_info_title, city_contact_info)
 
 
+class LeadsPageResult(BasePageFunctionality):
+    url = "https://ads.vk.com/hq/leadads/leadforms"
+    locators = LeadsPageResultLocators()
+
+    @property
+    def HEADER_RESULT(self):
+        return self.find_with_check_visibility(self.locators.HEADER_RESULT)
+
+    @property
+    @add_write
+    def INPUT_TITLE(self):
+        return self.find_with_check_visibility(self.locators.INPUT_TITLE)
+
+    @property
+    @add_write
+    def INPUT_DESCRIPTION(self):
+        return self.find_with_check_visibility(self.locators.INPUT_DESCRIPTION)
+
+    @property
+    @add_write
+    def INPUT_SITE(self):
+        return self.find_with_check_visibility(self.locators.INPUT_SITE)
+
+    @property
+    @add_write
+    def INPUT_PROMO_CODE(self):
+        return self.find_with_check_visibility(self.locators.INPUT_PROMO_CODE)
+
+    @property
+    def BUTTON_ADD_SITE(self):
+        return self.find_with_check_visibility(self.locators.BUTTON_ADD_SITE)
+
+    @property
+    def BUTTON_ADD_PHONE(self):
+        return self.find_with_check_visibility(self.locators.BUTTON_ADD_PHONE)
+
+    @property
+    def BUTTON_ADD_PROMO_CODE(self):
+        return self.find_with_check_visibility(self.locators.BUTTON_ADD_PROMO_CODE)
+
+    def PREVIEW_TEXT(self, text):
+        return self.find_with_check_visibility(self.locators.PREVIEW_TEXT(text))
+
+    def PREVIEW_SITE(self, url):
+        return self.find_with_check_visibility(self.locators.PREVIEW_SITE(url))
+
+    def PREVIEW_PROMO_CODE(self, promo_code):
+        return self.find_with_check_visibility(self.locators.PREVIEW_PROMO_CODE(promo_code))
+
+    def check_first_display(self):
+        assert self.HEADER_RESULT
+        assert self.INPUT_TITLE
+        assert self.INPUT_DESCRIPTION
+        assert self.BUTTON_ADD_SITE
+        assert self.BUTTON_ADD_PHONE
+        assert self.BUTTON_ADD_PROMO_CODE
+
+    def check_more_text(self):
+        self.check_first_display()
+
+        title = 'Спасибо вам!'
+        self.INPUT_TITLE.write(title)
+        assert self.PREVIEW_TEXT(title)
+
+        description = 'Держите промокод, вы всегда можете воспользоваться нашими услугами на сайте'
+        self.INPUT_DESCRIPTION.write(description)
+        self.PREVIEW_TEXT(description)
+
+        self.click(self.BUTTON_ADD_SITE)
+        assert self.INPUT_SITE
+
+        site_url = "goods-galaxy.ru"
+        self.INPUT_SITE.write(site_url)
+        assert self.PREVIEW_SITE(site_url)
+
+        self.click(self.BUTTON_ADD_PROMO_CODE)
+        assert self.INPUT_PROMO_CODE
+
+        promo_code = "AWESOME845"
+        self.INPUT_PROMO_CODE.write(promo_code)
+        assert self.PREVIEW_PROMO_CODE(promo_code)
+
+
 class LeadsPage(BasePageFunctionality):
     url = "https://ads.vk.com/hq/leadads/leadforms"
     locators = LeadsPageLocators()
@@ -401,6 +483,7 @@ class LeadsPage(BasePageFunctionality):
         super().__init__(driver)
         self.design_page = LeadsPageDesign(driver)
         self.question_page = LeadsPageQuestions(driver)
+        self.result_page = LeadsPageResult(driver)
 
     @property
     def BUTTON_CREATE_LEAD_FORM(self):
