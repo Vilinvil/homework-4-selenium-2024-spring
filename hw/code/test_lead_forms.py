@@ -11,9 +11,9 @@ class TestLeadFormPage(LoggedCase):
         self.lead_forms_page = LeadFormsPage(self.driver)
 
     def test_display(self):
-        self.lead_forms_page.CREATE_LEAD_FORM_BUTTON.click()
+        self.lead_forms_page.CREATE_LEAD_FORM_BUTTON.clicks()
         self.lead_forms_page.LEAD_FORM_NAME_INPUT.enter("Test Name")
-        self.lead_forms_page.CANCEL_BUTTON.click()
+        # self.lead_forms_page.CANCEL_BUTTON.clicks()
         # self.lead_forms_page.SEARCH_LEAD_FORM_INPUT.enter("test")
         # self.lead_forms_page.get_search_lead_form_input_field.enter("test")
         # assert self.lead_forms_page.create_lead_form_button != None

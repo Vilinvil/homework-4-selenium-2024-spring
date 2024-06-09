@@ -1,35 +1,36 @@
-from ui.pages.base_page import PageWithModalView, PageWithRedirectWindow
+from ui.pages.base_page import BasePage, PageWithModalView, PageWithRedirectWindow
 from ui.locators.lead_forms_locators import LeadFormsPageLocators
 
 from selenium.webdriver.support import expected_conditions as EC
 
 
-class LeadFormsPage(PageWithModalView, PageWithRedirectWindow):
+class LeadFormsPage(BasePage):
     locators = LeadFormsPageLocators()
 
 
     def add_click(button_getter):
-        """Adds click method to button"""
+        """Adds clicks method to button"""
         def decorator(self):
-            def click():
+            button = button_getter(self)
+            def __click():
                 """Clicks button"""
-                self.click(button_getter(self))
-
-            button_getter(self).click = click
-            return button_getter(self)
+                self.click(button)
+            button.clicks = __click
+            return button
         return decorator
     
 
     def add_enter(input_field_getter):
         """Adds enter method to input_field"""
         def decorator(self):
-            def enter(text):
+            input = input_field_getter(self)
+            def __enter(text):
                 """Enters text in input field"""
-                input_field_getter(self).clear()
-                input_field_getter(self).send_keys(text)
+                input.clear()
+                input.send_keys(text)
 
-            input_field_getter(self).enter = enter
-            return input_field_getter(self)
+            input.enter = __enter
+            return input
         return decorator
     
 
@@ -121,5 +122,4 @@ class LeadFormsPage(PageWithModalView, PageWithRedirectWindow):
     def MORE_TEXT_BUTTON(self):
         return self.find(self.locators.MORE_TEXT_BUTTON)
      
-    
     
