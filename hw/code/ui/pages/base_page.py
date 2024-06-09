@@ -1,57 +1,11 @@
-import time
+from functools import wraps
 
 from ui.locators import basic_locators
-from utils.timeout import BASIC_TIMEOUT
+from ui.pages.base_page_functionality import BasePageFunctionality
 
 from selenium.webdriver.common.action_chains import ActionChains as AC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
-
-class PageNotOpenedException(Exception):
-    pass
-
-
-class BasePageFunctionality(object):
-    def is_opened(self, timeout=BASIC_TIMEOUT):
-        started = time.time()
-        while time.time() - started < timeout:
-            if self.driver.current_url.find(self.url) >= 0:
-                return True
-        raise PageNotOpenedException(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
-
-    def __init__(self, driver):
-        self.driver = driver
-        self.is_opened()
-
-    def wait(self, timeout=BASIC_TIMEOUT):
-        return WebDriverWait(self.driver, timeout=timeout)
-
-    def find(self, locator, timeout=BASIC_TIMEOUT, until_EC=EC.presence_of_element_located):
-        return self.wait(timeout).until(until_EC(locator))
-
-    def find_with_check_visibility(self, locator, timeout=BASIC_TIMEOUT):
-        return self.find(locator, timeout, until_EC=EC.visibility_of_element_located)
-
-    def click(self, locator, timeout=BASIC_TIMEOUT):
-        elem = self.find(locator, timeout=timeout, until_EC=EC.element_to_be_clickable)
-        elem.click()
-
-    def hover_wrapper(self, locator, timeout=BASIC_TIMEOUT):
-        elem = self.find(locator, timeout=timeout)
-        AC(self.driver).move_to_element(elem).perform()
-
-    def write_input(self, locator, message, timeout=BASIC_TIMEOUT):
-        input_element = self.find_with_check_visibility(locator, timeout)
-        input_element.clear()
-        input_element.send_keys(message)
-
-    def write_input_without_clearing(self, locator, message, timeout=BASIC_TIMEOUT):
-        input_element = self.find_with_check_visibility(locator, timeout)
-        input_element.send_keys(message)
-
-    def check_url(self, expected_url, timeout=BASIC_TIMEOUT):
-        return self.wait(timeout).until(EC.url_matches(expected_url))
 
 
 class BasePage(BasePageFunctionality):
@@ -241,8 +195,48 @@ class PageWithView(BasePage):
         self.find(sign_opening_locator, until_EC=EC.invisibility_of_element_located)
 
 
-class PageWithRedirectWindow(BasePage):
-    def redirect_window(self, redirect_button_locator, expected_number_of_windows_to_be=2):
+# add_open_view add method open_view() to button by locator
+def add_open_view(sign_opening_locator):
+    def add_open_view_decorator(elem_getter):
+        @wraps(elem_getter)
+        def functionality(self, *args, **kwargs):
+            openable_elem_result = elem_getter(self, *args, **kwargs)
+
+            def open_view():
+                return self.open_view(openable_elem_result,
+                                      sign_opening_locator=sign_opening_locator)
+
+            openable_elem_result.open_view = open_view
+
+            return openable_elem_result
+
+        return functionality
+
+    return add_open_view_decorator
+
+
+# add_close_view add method close_view() to button by locator
+def add_close_view(sign_opening_locator):
+    def add_close_view_decorator(elem_getter):
+        @wraps(elem_getter)
+        def functionality(self, *args, **kwargs):
+            closable_elem_result = elem_getter(self, *args, **kwargs)
+
+            def close_view():
+                return self.close_view(closable_elem_result,
+                                       sign_opening_locator=sign_opening_locator)
+
+            closable_elem_result.close_view = close_view
+
+            return closable_elem_result
+
+        return functionality
+
+    return add_close_view_decorator
+
+
+class PageWithRedirectWindow(BasePageFunctionality):
+    def redirect_window_by_element(self, element, expected_number_of_windows_to_be=2):
         original_window = self.driver.current_window_handle
         self.click(redirect_button_locator)
 
@@ -253,10 +247,15 @@ class PageWithRedirectWindow(BasePage):
 
         return original_window
 
-    def redirect_window_with_scroll(self, redirect_button_locator, expected_number_of_windows_to_be=2):
+    def redirect_window(self, redirect_button_locator, expected_number_of_windows_to_be=2):
+        element = self.find(redirect_button_locator, EC.element_to_be_clickable)
+
+        return self.redirect_window_by_element(element,
+                                               expected_number_of_windows_to_be=expected_number_of_windows_to_be)
+
+    def redirect_window_with_scroll_by_element(self, element, expected_number_of_windows_to_be=2):
         original_window = self.driver.current_window_handle
-        elem = self.wait(BASIC_TIMEOUT).until(EC.presence_of_element_located(redirect_button_locator))
-        AC(self.driver).move_to_element(elem).click(elem).perform()
+        AC(self.driver).move_to_element(element).click(element).perform()
 
         self.wait().until(EC.number_of_windows_to_be(expected_number_of_windows_to_be))
 
@@ -264,3 +263,43 @@ class PageWithRedirectWindow(BasePage):
         self.driver.switch_to.window(new_window)
 
         return original_window
+
+    def redirect_window_with_scroll(self, redirect_button_locator, expected_number_of_windows_to_be=2):
+        element = self.find(redirect_button_locator)
+        return self.redirect_window_with_scroll_by_element(element, expected_number_of_windows_to_be)
+
+
+# add_redirect add method redirect() to button
+def add_redirect(elem_getter):
+    @wraps(elem_getter)
+    def functionality(self, expected_number_of_windows_to_be=2, *args, **kwargs):
+        redirectable_elem_result = elem_getter(self, *args, **kwargs)
+
+        def redirect(expected_number_of_windows_to_be=expected_number_of_windows_to_be):
+            return self.redirect_window_by_element(redirectable_elem_result,
+                                                   expected_number_of_windows_to_be=
+                                                   expected_number_of_windows_to_be)
+
+        redirectable_elem_result.redirect = redirect
+
+        return redirectable_elem_result
+
+    return functionality
+
+
+# add_redirect_with_scroll add method redirect_with_scroll() to button
+def add_redirect_with_scroll(elem_getter):
+    @wraps(elem_getter)
+    def functionality(self, expected_number_of_windows_to_be=2, *args, **kwargs):
+        redirectable_elem_result = elem_getter(self, *args, **kwargs)
+
+        def redirect_with_scroll(expected_number_of_windows_to_be=expected_number_of_windows_to_be):
+            return self.redirect_window_with_scroll_by_element(redirectable_elem_result,
+                                                               expected_number_of_windows_to_be=
+                                                               expected_number_of_windows_to_be)
+
+        redirectable_elem_result.redirect_with_scroll = redirect_with_scroll
+
+        return redirectable_elem_result
+
+    return functionality

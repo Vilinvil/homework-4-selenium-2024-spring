@@ -39,3 +39,9 @@ class BudgetPageLocators:
 
     SIGN_OPENING_INVOICE_END_IFRAME = \
         (By.XPATH, '//*[contains(@class, "CreateInvoiceModal")]//iframe[contains(@class, "CreateInvoiceModal")]')
+
+    HINT_MIN_SUMM_TRIGGER = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
+                                       '//*[contains(@class, "Hint_hintTrigger")]')
+
+    HINT_MIN_SUMM = (By.XPATH, '//*[contains(@class, "Tooltip_tooltipContainer")]'
+                               '//*[contains(text(), "Подробнее о минимальном платеже и НДС")]')

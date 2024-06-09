@@ -30,9 +30,9 @@ class CampaignsPageSharedLocators:
 
     STEP4_INPUT_TITLE = (By.NAME, 'заголовок, макс. 40 символов')
 
-    STEP4_SHORT_DESCRIPTION = (By.NAME, 'заголовок, макс. 90 символов')
+    STEP4_INPUT_SHORT_DESCRIPTION = (By.NAME, 'заголовок, макс. 90 символов')
 
-    STEP4_LONG_DESCRIPTION = (By.NAME, 'Длинный текст для использования в лентах соцсетей (2000 знаков)')
+    STEP4_INPUT_LONG_DESCRIPTION = (By.NAME, 'Длинный текст для использования в лентах соцсетей (2000 знаков)')
 
     STEP4_BUTTON_SET_MEDIA = (By.XPATH, '//*[@data-testid="set-global-image" and'
                                                                         ' contains(@class, "UnionMediaContentGroup")]')

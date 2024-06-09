@@ -1,1 +1,1 @@
-pytest hw/code --reruns 3
+pytest hw/code --reruns 3 --showlocals

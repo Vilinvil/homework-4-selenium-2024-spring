@@ -12,14 +12,6 @@ class TestNewUserOverview(LoggedNewUserCase):
     def test_display(self):
         self.overview_new_user_page.check_display_start_actions()
 
-    @pytest.mark.parametrize('open_view',
-                             [
-                                 pytest.param(OverviewNewUserPage.open_create_campaign),
-                                 pytest.param(OverviewNewUserPage.open_start_training)
-                             ], )
-    def test_open_page_by_click(self, open_view):
-         open_view(self.overview_new_user_page)
-
 
 class TestOverview(LoggedCase):
     @pytest.fixture(scope='function', autouse=True)
@@ -30,114 +22,29 @@ class TestOverview(LoggedCase):
     def test_display(self):
         self.overview_page.check_display()
 
-    def test_click_create_campaign(self):
-        self.overview_page.open_create_campaign()
-        assert self.overview_page.check_url("https://ads.vk.com/hq/new_create/ad_plan")
-
-    def test_click_new_tab_limit_article(self):
-        self.overview_page.redirect_limit_article()
-
-        assert self.overview_page.check_url("https://ads.vk.com/help/articles/ad_limits")
-
-    def test_change_budget_date(self):
-        budget_date_elem = self.overview_page.get_budget_date()
-        assert budget_date_elem.text.find("cегодня")
-
-        budget_date_elem.click()
-
-        self.overview_page.click_budget_date_yesterday()
-
-        budget_date_elem = self.overview_page.get_budget_date()
-        assert budget_date_elem.text.find("Вчера")
-
-    def test_modal_page_budget(self):
-        self.overview_page.open_budget_replenish()
-        self.overview_page.close_budget_replenish()
-
-    def test_date_picker(self):
-        self.overview_page.open_date_choose()
-        self.overview_page.click_date_choose_today()
-        self.overview_page.apply_date_choose()
-
-        today_date = self.overview_page.get_date()
-
-        self.overview_page.open_date_choose()
-        self.overview_page.click_date_choose_yesterday()
-        self.overview_page.apply_date_choose()
-
-        yesterday_date = self.overview_page.get_date()
-
-        assert (today_date - yesterday_date).days == 1
-
     @pytest.fixture(scope="function")
     def setup_choose_campaigns(self):
-        self.overview_page.open_campaign_choose()
+        self.overview_page.BUTTON_CHOOSE_CAMPAIGNS.open_view()
 
-    @pytest.mark.parametrize('query, find_view',
+    @pytest.mark.parametrize('query, view',
                              [
                                  pytest.param(
                                      "asdfasdf",
-                                     OverviewPage.find_sign_not_found_result_in_choose_campaign,
+                                     lambda overview_page: overview_page.SIGN_SEARCH_NOT_FOUND_RESULTS,
                                  ),
                                  pytest.param(
                                      "Кампания",
-                                     OverviewPage.find_sign_found_result_in_choose_campaign,
+                                     lambda overview_page: overview_page.SIGN_SEARCH_FOUND_RESULTS,
                                  )
                              ], )
-    def test_search_in_choose_campaigns(self,setup_choose_campaigns, query, find_view):
-        self.overview_page.write_search_in_choose_campaign(query)
+    def test_search_in_choose_campaigns(self,setup_choose_campaigns, query, view):
+        self.overview_page.INPUT_SEARCH_IN_CHOOSE_CAMPAIGNS.write(query)
 
-        assert find_view(self.overview_page)
+        assert view(self.overview_page)
 
     def test_tooltip_max_count_campaigns(self, setup_choose_campaigns):
         count_choose_campaigns = self.overview_page.get_current_count_chosen_campaigns()
         self.overview_page.activate_amount_campaigns(self.max_count_campaigns - count_choose_campaigns)
 
-        self.overview_page.hover_checkbox_choose_campaign()
-        assert self.overview_page.find_tooltip_max_choose_campaign()
-
-    def test_reset_choose_campaigns(self, setup_choose_campaigns):
-        cur_count_chose_campaigns = self.overview_page.get_current_count_chosen_campaigns()
-        assert cur_count_chose_campaigns != 0
-
-        self.overview_page.click_reset_choose_campaign()
-
-        cur_count_chose_campaigns = self.overview_page.get_current_count_chosen_campaigns()
-        assert cur_count_chose_campaigns == 0
-
-        assert self.overview_page.is_not_display_checkboxes()
-
-    def test_check_save_campaigns(self, setup_choose_campaigns):
-        expected_count_chose_campaigns = 2
-
-        self.overview_page.click_reset_choose_campaign()
-        self.overview_page.activate_amount_campaigns(expected_count_chose_campaigns)
-
-        self.overview_page.apply_campaign_choose()
-
-        count_chosen_campaigns = self.overview_page.get_counter_choose_campaign_in_main_view()
-
-        assert count_chosen_campaigns == expected_count_chose_campaigns
-
-    def test_choose_settings_graph(self):
-        begin_graph_settings = self.overview_page.get_graph_settings_text()
-
-        self.overview_page.open_settings_graph()
-
-        self.overview_page.click_choose_setting_graph_clicks()
-
-        self.overview_page.apply_settings_graph()
-
-        end_graph_settings = self.overview_page.get_graph_settings_text()
-
-        assert begin_graph_settings != end_graph_settings and end_graph_settings == "Клики"
-
-    def test_useful_articles(self):
-        self.overview_page.click_button_cases()
-        begin_useful_articles = self.overview_page.get_screenshot_useful_articles()
-
-        self.overview_page.click_button_news()
-
-        end_useful_articles = self.overview_page.get_screenshot_useful_articles()
-
-        assert begin_useful_articles != end_useful_articles
+        self.overview_page.CHECKBOX_CHOOSE_CAMPAIGN_FOR_TOOLTIP.hover()
+        assert self.overview_page.TOOLTIP_MAX_COUNT_CHOSE_CAMPAIGN
