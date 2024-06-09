@@ -14,53 +14,73 @@ class TestHelp(BaseCase):
         self.help_page = HelpPage(self.driver)
 
     def test_display(self):
-        assert self.help_page.find_header_help()
-        assert self.help_page.find_input_search()
-        assert self.help_page.find_wrapper_categories()
+        assert self.help_page.HEADER_HELP
+        assert self.help_page.INPUT_SEARCH
+        assert self.help_page.WRAPPER_CATEGORIES
 
     @pytest.mark.parametrize(
-        'query,is_found_expected',
+        'query,is_found_expected,result_articles',
         [
             pytest.param(
-                'авторизация', True
+                'авторизация', True, ('Создание нового кабинета, авторизация', 'API VK Рекламы')
             ),
             pytest.param(
-                'реклама', True
+                'реклама', True, ('Запуск товарной рекламы для сайтов и мобильных приложений',
+                                  'Продвижение сообществ', 'Добавление нового приложения')
             ),
             pytest.param(
-                'asdfasdf', False
+                'статистика', True, ('Дашборд', 'Агентствам: статистика по клиентам',
+                                     'Статистика из приложений для веб-кампаний')
             ),
             pytest.param(
-                'Проверка xss “”></script><img src onerror=alert()>', False
+                'сайт', True, ('Запуск товарной рекламы для сайтов и мобильных приложений',
+                               'Запуск рекламы сайта', 'Блокировка рекламы')
+            ),
+            pytest.param(
+                'таргетинг', True, ('Динамический ретаргетинг на базе мобильных событий',
+                                    'Динамический ретаргетинг на базе веб-событий', 'Таргетинги')
+            ),
+            pytest.param(
+                'asdfasdf', False, ()
+            ),
+            pytest.param(
+                'Проверка xss “”></script><img src onerror=alert()>', False, ()
             ),
         ],
     )
-    def test_search(self, query, is_found_expected):
+    def test_search(self, query, is_found_expected, result_articles):
         self.help_page.search(query)
 
         if is_found_expected:
-            assert self.help_page.find_sign_found_result()
+            assert self.help_page.SIGN_SEARCH_FOUND_RESULT
+
+            for article in result_articles:
+                assert self.help_page.ARTICLE_BY_TITLE(article)
         else:
-            assert self.help_page.find_sign_not_found_result()
+            assert self.help_page.SIGN_SEARCH_NOT_FOUND_RESULT
 
     @pytest.mark.parametrize(
-        'click_to_card,expected_title',
+        'click_to_card,expected_title,expected_articles',
         [
             pytest.param(
-                HelpPage.click_to_card_authorization, 'Авторизация'
+                lambda help_page: help_page.click(help_page.CARD_AUTHORIZATION), 'Авторизация',
+                ('Создание нового кабинета, авторизация', 'Обзор кабинета',
+                 'Агентствам: регистрация и импорт кабинета агентств')
             ),
             pytest.param(
-                HelpPage.click_to_card_general, 'Как настроить рекламу'
+                lambda help_page: help_page.click(help_page.CARD_GENERAL), 'Как настроить рекламу',
+                ('Продвижение видео и трансляций', 'Продвижение музыки',
+                 'Продвижение мини-приложений (VK Mini Apps и игры ВКонтакте)')
             ),
         ],
     )
-    def test_card_display(self, click_to_card, expected_title):
+    def test_card_display(self, click_to_card, expected_title, expected_articles):
         click_to_card(self.help_page)
 
-        title_articles = self.help_page.get_title_articles()
+        assert self.help_page.TITLE_ARTICLES(expected_title)
 
-        assert expected_title == title_articles.text
-        assert self.help_page.find_list_articles()
+        for article in expected_articles:
+            assert self.help_page.ARTICLE_WITH_INNER_LIST_BY_TITLE(article)
 
-        assert self.help_page.find_sidebar_articles_search()
-        assert self.help_page.find_sidebar_articles_categories()
+        assert self.help_page.SEARCH_IN_SIDEBAR_ARTICLES
+        assert self.help_page.CATEGORIES_IN_SIDEBAR_ARTICLES
