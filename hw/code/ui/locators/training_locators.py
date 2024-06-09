@@ -28,6 +28,9 @@ def create_rich_tooltip(message):
 
 
 class TrainingPageStepByStepLocators:
+    BUTTON_CONTINUE = (By.XPATH, '//*[contains(@class, "RichTooltop_wrapper")]'
+                                 '//button[.//*[contains(text(), "Далее")]]')
+
     # STEP 1 of full way step_by_step training. All before click on button STEP1_BUTTON_CREATE_CAMPAIGN.
     STEP1_TOOLTIP_CREATE_CAMPAIGN = create_rich_tooltip('Создание кампании')
 
@@ -44,8 +47,6 @@ class TrainingPageStepByStepLocators:
     STEP2_TOOLTIP_OBJECT_ADS = create_rich_tooltip("Объект рекламы")
 
     STEP2_TOOLTIP_SITE = create_rich_tooltip("Рекламируемый сайт") # disabled
-    STEP2_BUTTON_CONTINUE = (By.XPATH, '//*[contains(@class, "RichTooltop_wrapper")]'
-                                       '//button[.//*[contains(text(), "Далее")]]')
 
     STEP2_TOOLTIP_PIXEL = (By.XPATH, '//*[contains(@class, "RichTooltop_wrapper")]'
                                      '//*[contains(text(), "Установить пиксель") or'
@@ -71,7 +72,6 @@ class TrainingPageStepByStepLocators:
     STEP3_BUTTON_CONTINUE_SETTINGS_TARGET_AUDIENCE = (By.XPATH, '//*[contains(@class, "Info_firstButton")]')
 
     STEP3_TOOLTIP_SCHEDULE = create_rich_tooltip("Расписание показа")
-    STEP3_BUTTON_CONTINUE = STEP2_BUTTON_CONTINUE
 
     STEP3_TOOLTIP_REGIONS = create_rich_tooltip("Регионы показа") # disabled
 
@@ -84,13 +84,12 @@ class TrainingPageStepByStepLocators:
 
     # STEP 4 of full way step_by_step training. ADS.
     STEP4_TOOLTIP_ADS = (By.XPATH, '//*[contains(@class, "Info_root")]'
-                                                        '//*[contains(text(), "Оформление объявления")]')
+                                   '//*[contains(text(), "Оформление объявления")]')
     STEP4_BUTTON_CONTINUE_ADS = (By.XPATH, '//*[contains(@class, "Info_firstButton")]')
 
     STEP4_TOOLTIP_LOGO = create_rich_tooltip("Логотип") # disabled
 
     STEP4_TOOLTIP_TITLE = create_rich_tooltip("Заголовок") # disabled
-    STEP4_BUTTON_CONTINUE = STEP2_BUTTON_CONTINUE
 
     STEP4_TOOLTIP_SHORT_DESCRIPTION = create_rich_tooltip("Короткое описание") # disabled
 
@@ -118,3 +117,7 @@ class TrainingPageLocators:
                                   '//button//*[contains(text(), "Попробовать позже")]')
     BUTTON_CLOSE = (By.CLASS_NAME, 'vkuiModalDismissButton')
     CONTENT_LIST = (By.CLASS_NAME, 'vkuiModalPage__content')
+
+    @staticmethod
+    def SECTION_IN_CONTENT_LIST_BY_NAME(name):
+        return By.XPATH, f'.//*[@role="button"]//*[contains(text(), "{name}")]'

@@ -5,9 +5,6 @@ from ui.locators.overview_locators import OverviewPageLocators
 from ui.locators.training_locators import TrainingPageSharedLocators
 from ui.locators.campaigns_locators import CampaignsPageSharedLocators
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-
 
 class OverviewNewUserPage(BasePageFunctionality):
     url = "https://ads.vk.com/hq/overview"
