@@ -46,6 +46,10 @@ class BasePageFunctionality(object):
         input_element.clear()
         input_element.send_keys(message)
 
+    def write_input_without_clearing(self, locator, message, timeout=BASIC_TIMEOUT):
+        input_element = self.find_with_check_visibility(locator, timeout)
+        input_element.send_keys(message)
+
     def check_url(self, expected_url, timeout=BASIC_TIMEOUT):
         return self.wait(timeout).until(EC.url_matches(expected_url))
 

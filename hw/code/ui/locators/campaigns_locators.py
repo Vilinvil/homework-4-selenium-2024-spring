@@ -37,3 +37,43 @@ class CampaignsPageSharedLocators:
     STEP4_BUTTON_SET_MEDIA = (By.XPATH, '//*[@data-testid="set-global-image" and'
                                                                         ' contains(@class, "UnionMediaContentGroup")]')
     STEP4_BUTTON_SUBMIT_MEDIA = (By.CSS_SELECTOR, '[data-testid="submit"]')
+
+    # not shared locators for campaign tests
+    TAB_TARGETED_ACTIONS = (By.ID, 'tab_conversion')
+    TAB_BRANDING = (By.ID, 'tab_branding')
+    BUTTON_MOBILE_APPS = (By.CSS_SELECTOR, '[data-id="mobapps"]')
+    BUTTON_CATALOG = (By.CSS_SELECTOR, '[data-id="ecomm"]')
+    BUTTON_SOCIAL = (By.CSS_SELECTOR, '[data-id="social"]')
+    BUTTON_OK = (By.CSS_SELECTOR, '[data-id="odkl"]')
+    BUTTON_LEAD_ADS = (By.CSS_SELECTOR, '[data-id="leadads"]')
+    BUTTON_MINI_APPS = (By.CSS_SELECTOR, '[data-id="miniapps"]')
+    BUTTON_MUSIC = (By.CSS_SELECTOR, '[data-id="socialmusic"]')
+    BUTTON_VIDEO = (By.CSS_SELECTOR, '[data-id="socialvideo"]')
+    BUTTON_DZEN = (By.CSS_SELECTOR, '[data-id="dzen"]')
+
+    BUTTON_CLOSE_TRAINING = (By.XPATH, '//*[contains(text(),"Попробовать позже")]')
+    BUTTON_CONTINUE = (By.XPATH, '//*[@id="footer"]//button//*[contains(text(), "Продолжить")]')
+
+    FIELD_GOAL_ACTION = (By.CSS_SELECTOR, '[data-testid="priced-goal"]')
+    FIELD_OPTIMIZE_BUDGET = (By.CSS_SELECTOR, '[data-name="budgetOptimization"]')
+    FIELD_BETTING_STRATEGY = (By.CSS_SELECTOR, '[data-testid="autobidding-mode"]')
+    FIELD_BUDGET = (By.CSS_SELECTOR, '[data-testid="targeting-not-set"]')
+    FIELD_START_DATE = (By.CSS_SELECTOR, '[data-testid="start-date"]')
+    CAMPAIGN_NAME_FIELD = (By.XPATH, "//*[contains(@class, 'EditableTitle')]")
+    CAMPAIGN_NAME_FIELD_EDIT = (By.XPATH, "//*[contains(@class, 'EditableTitle')]//textarea")
+
+    GROUP_NAME_FIELD = (By.XPATH, "//*[contains(@class, 'EditableTitle')]")
+    GROUP_NAME_FIELD_EDIT = (By.XPATH, "//*[contains(@class, 'EditableTitle')]//textarea")
+    GROUP_FIELD_START_DATE = (By.CSS_SELECTOR, '[data-testid="start-date"]')
+    GEO_TAB = (By.CSS_SELECTOR, '[data-testid="section-geo"]')
+    DEMOGRAPHY_TAB = (By.CSS_SELECTOR, '[data-testid="section-demography"]')
+    AUDIENCE_TAB = (By.CSS_SELECTOR, '[data-testid="section-audience"]')
+    INTERESTS_TAB = (By.CSS_SELECTOR, '[data-testid="section-interests"]')
+    DEVICES_TAB = (By.CSS_SELECTOR, '[data-testid="section-devices"]')
+    URL_TAB = (By.CSS_SELECTOR, '[data-testid="section-urlUtm"]')
+    PLACEMENT_TAB = (By.CSS_SELECTOR, '[data-testid="section-placement"]')
+    MOSCOW_REGION_BUTTON = (By.XPATH, '//*[@data-testid="section-geo"]//button//*[contains(text(), "Москва")]')
+
+    INTERESTS_TAB_INTERESTS_SUBTAB = (By.XPATH, "//*[contains(@class, 'InterestsSubSection')]")
+    INTERESTS_INPUT = (By.XPATH, '//*[@id="10_3"]')
+    INTERESTS_AUTOCOMPLETED_VARIANT = (By.XPATH, '//*[contains(text(),"Компьютерная техника и программы")]')
