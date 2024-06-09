@@ -52,3 +52,11 @@ class MainPage(PageWithView):
 
     def open_training(self):
         self.open_view(self.locators.sidebar_locators.BUTTON_TRAINING, self.training_locators.SIGN_OPENING_MODAL_VIEW)
+
+    
+    def click_redirect_to_site_page(self):
+        self.click(self.locators.sidebar_locators.BUTTON_SITES)
+
+
+    def click_redirect_to_lead_forms_page(self):
+        self.click(self.locators.sidebar_locators.BUTTON_LEADS)
