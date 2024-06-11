@@ -1,3 +1,5 @@
+import time
+
 from ui.pages.base_page_functionality import BasePageFunctionality, add_write
 from ui.locators.campaigns_locators import CampaignsPageSharedLocators
 from utils.timeout import BASIC_TIMEOUT
@@ -152,7 +154,7 @@ class CampaignSharedPage(BasePageFunctionality):
         return self.find_with_check_visibility(self.locators_shared.BUTTON_CONTINUE)
 
     def click_continue_button(self):
-        elem = self.find(self.locators_shared.BUTTON_CONTINUE, timeout=BASIC_TIMEOUT, until_EC=EC.presence_of_element_located)
+        elem = self.find(self.locators_shared.BUTTON_CONTINUE, timeout=BASIC_TIMEOUT, until_EC=EC.element_to_be_clickable)
         elem.click()
 
     def find_budget_field(self):
@@ -216,25 +218,99 @@ class CampaignSharedPage(BasePageFunctionality):
         self.click(self.locators_shared.MOSCOW_REGION_BUTTON)
 
     def open_interests_field(self):
-        # elem = self.find(self.locators_shared.INTERESTS_TAB, timeout=BASIC_TIMEOUT,
-        #                  until_EC=EC.presence_of_element_located)
-        # AC(self.driver).move_to_element(elem).click(elem).perform()
-        # elem = self.find(self.locators_shared.INTERESTS_TAB_INTERESTS_SUBTAB, timeout=BASIC_TIMEOUT,
-        #                  until_EC=EC.presence_of_element_located)
-        # AC(self.driver).move_to_element(elem).click(elem).perform()
         self.click(self.locators_shared.INTERESTS_TAB)
         self.click(self.locators_shared.INTERESTS_TAB_INTERESTS_SUBTAB)
 
-    def input_interest(self, text):
-        elem = self.find(self.locators_shared.INTERESTS_INPUT, timeout=BASIC_TIMEOUT,
-            until_EC=EC.presence_of_element_located)
+    def chose_interest(self):
+        elem = self.find_with_check_visibility(self.locators_shared.INTERESTS_TAB_COMMUNITIES_SUBTAB)
         AC(self.driver).move_to_element(elem).perform()
 
-        self.write_input(self.locators_shared.INTERESTS_INPUT, text)
+        self.click(self.locators_shared.INTERESTS_INPUT)
+        self.click(self.locators_shared.INTEREST_AUTO)
+        self.click(self.locators_shared.INTERESTS_CLOSE_INPUT_BUTTON)
 
-    def click_autocompleted_variant(self):
-        elem = self.find(self.locators_shared.INTERESTS_AUTOCOMPLETED_VARIANT, timeout=BASIC_TIMEOUT,
-                         until_EC=EC.presence_of_element_located)
+    def open_devices_tab(self):
+        self.click(self.locators_shared.DEVICES_TAB)
+
+    def click_mobile_checkbox(self):
+        elem = self.find(self.locators_shared.DEVICES_MOBILE_CHECKBOX)
         AC(self.driver).move_to_element(elem).perform()
 
-        self.click(self.locators_shared.INTERESTS_AUTOCOMPLETED_VARIANT)
+        self.click(self.locators_shared.DEVICES_MOBILE_CHECKBOX)
+
+    def find_ad_name_field(self):
+        return self.find_with_check_visibility(self.locators_shared.AD_NAME_FIELD)
+
+    def input_ad_name(self, name):
+        self.click(self.locators_shared.AD_NAME_FIELD)
+        self.write_input_without_clearing(self.locators_shared.AD_NAME_FIELD_EDIT, name)
+
+    def find_ad_short_descr_field(self):
+        return self.find_with_check_visibility(self.locators_shared.AD_FIELD_SHORT_DESCR)
+
+    def find_ad_long_descr_field(self):
+        return self.find_with_check_visibility(self.locators_shared.AD_FIELD_LONG_DESCR)
+
+    def find_ad_title_field(self):
+        return self.find_with_check_visibility(self.locators_shared.AD_FIELD_TITLE)
+
+    def find_ad_extra_title_field(self):
+        return self.find_with_check_visibility(self.locators_shared.AD_FIELD_EXTRA_TITLE)
+
+    def find_ad_ai_image_button(self):
+        return self.find_with_check_visibility(self.locators_shared.AD_AI_IMAGE_BUTTON)
+
+    def input_ad_title(self, text):
+        self.write_input(self.locators_shared.AD_FIELD_TITLE, text)
+
+    def input_ad_short_descr(self, text):
+        self.write_input(self.locators_shared.AD_FIELD_SHORT_DESCR, text)
+
+    def input_ad_long_descr(self, text):
+        self.write_input(self.locators_shared.AD_FIELD_LONG_DESCR, text)
+
+    def input_ad_extra_title(self, text):
+        self.write_input(self.locators_shared.AD_FIELD_EXTRA_TITLE, text)
+
+    def click_ai_image_button(self):
+        self.click(self.locators_shared.AD_AI_IMAGE_BUTTON)
+
+    def click_publish_button(self):
+        self.click(self.locators_shared.BUTTON_PUBLISH)
+
+    def click_ai_image(self):
+        elem = self.find_with_check_visibility(self.locators_shared.AD_AI_IMAGE)
+        elem.click()
+
+    def click_ai_image_submit_button(self):
+        self.click(self.locators_shared.AD_AI_IMAGE_SUBMIT_BUTTON)
+
+    def click_edit_button(self):
+        elem = self.find_with_check_visibility(self.locators_shared.CAMPAIGN_TITLE)
+        self.hover_to_element(elem)
+        elem = self.find_with_check_visibility(self.locators_shared.EDIT_BUTTON)
+        elem.click()
+
+    def find_element_with_text(self, text):
+        return self.find_with_check_visibility(self.locators_shared.LOCATOR_WITH_TEXT(text))
+
+    def click_group_button(self):
+        self.click(self.locators_shared.GROUP_BUTTON)
+
+    def click_ad_button(self):
+        self.click(self.locators_shared.AD_BUTTON)
+
+    def click_cancel_button(self):
+        self.click(self.locators_shared.CANCEL_BUTTON)
+
+    def click_dont_save_button(self):
+        self.click(self.locators_shared.DONT_SAVE_BUTTON)
+
+    def click_delete_button(self, name):
+        self.click(self.locators_shared.CHECKBOX_OF_CAMPAIGN(name))
+        self.click(self.locators_shared.ACTIONS_BUTTON)
+        self.click(self.locators_shared.DELETE_BUTTON)
+
+
+
+

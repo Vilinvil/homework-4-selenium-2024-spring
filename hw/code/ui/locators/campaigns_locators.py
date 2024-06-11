@@ -75,5 +75,37 @@ class CampaignsPageSharedLocators:
     MOSCOW_REGION_BUTTON = (By.XPATH, '//*[@data-testid="section-geo"]//button//*[contains(text(), "Москва")]')
 
     INTERESTS_TAB_INTERESTS_SUBTAB = (By.XPATH, "//*[contains(@class, 'InterestsSubSection')]")
-    INTERESTS_INPUT = (By.XPATH, '//*[@id="10_3"]')
+    INTERESTS_INPUT = (By.XPATH, "//*[@data-name='interests']//input")
     INTERESTS_AUTOCOMPLETED_VARIANT = (By.XPATH, '//*[contains(text(),"Компьютерная техника и программы")]')
+    INTEREST_AUTO = (By.XPATH, '//*[contains(text(),"Авто внедорожники")]')
+    INTERESTS_CLOSE_INPUT_BUTTON = (By.XPATH, '//button[@aria-label="Скрыть"]')
+    INTERESTS_TAB_COMMUNITIES_SUBTAB = (By.XPATH, '//*[contains(text(),"Сообщества")]')
+    DEVICES_MOBILE_CHECKBOX = (By.XPATH, '//input[@value="mobile"]')
+
+    AD_NAME_FIELD = (By.XPATH, "//*[contains(@class, 'EditableTitle')]")
+    AD_NAME_FIELD_EDIT = (By.XPATH, "//*[contains(@class, 'EditableTitle')]//textarea")
+    AD_FIELD_TITLE = (By.CSS_SELECTOR, '[name="заголовок, макс. 40 символов"]')
+    AD_FIELD_SHORT_DESCR = (By.CSS_SELECTOR, '[name="заголовок, макс. 90 символов"]')
+    AD_FIELD_LONG_DESCR = (By.CSS_SELECTOR, '[name="Длинный текст для использования в лентах соцсетей (2000 знаков)"]')
+    AD_FIELD_EXTRA_TITLE = (By.CSS_SELECTOR, '[name="Доп. заголовок 30 знаков"]')
+    AD_AI_IMAGE_BUTTON = (By.XPATH, '//*[contains(text(),"Созданное нейросетью")]')
+    AD_AI_IMAGE = (By.XPATH, "//*[contains(@class, 'ImageItems_imageItem')]")
+    AD_AI_IMAGE_SUBMIT_BUTTON = (By.CSS_SELECTOR, '[data-testid="submit"]')
+    BUTTON_PUBLISH = (By.XPATH, '//*[@id="footer"]//button//*[contains(text(), "Опубликовать")]')
+
+    EDIT_BUTTON = (By.CSS_SELECTOR, '[data-testid="edit"]')
+    CAMPAIGN_TITLE = (By.XPATH, '//*[contains(text(),"Реклама сайта тп")]')
+    GROUP_BUTTON = (By.XPATH, '//*[@data-testid="menu-item"]//*[contains(text(),"Группа рекламы сайта тп")]')
+    AD_BUTTON = (By.XPATH, '//*[@data-testid="menu-item"]//*[contains(text(),"Объявление рекламы сайта тп")]')
+    CANCEL_BUTTON = (By.CSS_SELECTOR, '[data-testid="cancel"]')
+    ACTIONS_BUTTON = (By.CSS_SELECTOR, '[data-testid="select-options"]')
+    DELETE_BUTTON = (By.XPATH, '//*[contains(text(),"Удалить")]')
+    DONT_SAVE_BUTTON = (By.XPATH, '//*[contains(text(),"Не сохранять")]')
+
+    @staticmethod
+    def LOCATOR_WITH_TEXT(text):
+        return (By.XPATH, f'//*[contains(text(),"{text}")]')
+
+    @staticmethod
+    def CHECKBOX_OF_CAMPAIGN(name):
+        return (By.XPATH, f'//div[.//text()[contains(., "{name}")]]//*[contains(@class, "vkuiCheckbox")]')

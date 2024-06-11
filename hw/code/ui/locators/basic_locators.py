@@ -8,7 +8,7 @@ class BasePageLocators:
     NAV_BUTTON_CASES = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/cases"]')
     NAV_BUTTON_NEWS = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/news"]')
     NAV_ICON_ADS_VK = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/"]')
-    NAV_BUTTON_CABINET_LOCATOR = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/hq?ref=main_landing"]')
+    NAV_BUTTON_CABINET_LOCATOR = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/hq?ref=main_landing&v=1"]')
 
     NAV_WRAPPER_EDUCATION = (By.XPATH, '//*[contains(@class, "NavigationVKAds_hasChildren")]')
     NAV_WRAPPED_BUTTON_INSIGHTS = (By.CSS_SELECTOR, '[href="/insights"]')
