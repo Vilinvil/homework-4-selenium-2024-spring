@@ -1,5 +1,3 @@
-import time
-
 from ui.pages.base_page_functionality import BasePageFunctionality, add_write
 from ui.locators.campaigns_locators import CampaignsPageSharedLocators
 from utils.timeout import BASIC_TIMEOUT

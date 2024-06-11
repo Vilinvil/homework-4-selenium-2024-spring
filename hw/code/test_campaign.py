@@ -1,13 +1,7 @@
-import time
-
 import pytest
 
 from cases import LoggedCase
-from ui.pages.base_page import PageWithRedirectWindow
-from ui.pages.main_page import MainPage
 from ui.pages.campaign_page import CampaignSharedPage
-from selenium.webdriver.common.action_chains import ActionChains as AC
-from datetime import datetime
 
 
 class TestCampaign(LoggedCase):
@@ -15,10 +9,9 @@ class TestCampaign(LoggedCase):
     def setup_new_campaign(self, driver):
         self.main_page.open_campaigns()
         self.campaign_page = CampaignSharedPage(self.driver)
-        # print(self.campaign_page.find_close_training_button())
-        # if self.campaign_page.find_close_training_button():
-        #     self.campaign_page.click_close_training_button()
-
+        print(self.campaign_page.find_close_training_button())
+        if self.campaign_page.find_close_training_button():
+            self.campaign_page.click_close_training_button()
 
     def test_create_campaign(self):
         self.campaign_page.click_create_campaign()
