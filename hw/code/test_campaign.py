@@ -87,11 +87,9 @@ class TestCampaign(LoggedCase):
         assert self.campaign_page.find_element_with_text("park.vk.company")
         assert self.campaign_page.find_element_with_text("Клики по рекламе")
         assert self.campaign_page.find_element_with_text("Минимальная цена")
-
         self.campaign_page.click_group_button()
         assert self.campaign_page.find_element_with_text("Москва")
         assert self.campaign_page.find_element_with_text("Авто внедорожники")
-
         self.campaign_page.click_ad_button()
         assert self.campaign_page.find_element_with_text("Технопарк")
         assert self.campaign_page.find_element_with_text("короткое описание рекламы сайта тп")
