@@ -9,6 +9,7 @@ class TestLeads(LoggedCase):
     def setup_create_leads(self):
         self.main_page.open_leads()
         self.leads_page = LeadsPage(self.driver)
+        self.leads_page.close_offer_training_if_exist()
         yield
         self.tear_down_create_leads()
 

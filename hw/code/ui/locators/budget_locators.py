@@ -14,10 +14,10 @@ class BudgetPageLocators:
     TITLE_MODAL_PAGE_BUDGET = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
                                          '//*[contains(@class, "CreateInvoiceModal_desc")]'
                                          '//*[contains(text(), "Пополнение счёта")]')
-    TITLE_CRETE_INVOICE_SUMM = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
+    TITLE_CREATE_INVOICE_SUMM = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
                                           '//*[contains(@class, "CreateInvoiceModal_top")]'
                                           '//*[contains(text(), "Cумма к оплате")]')
-    TITLE_CRETE_INVOICE_VAT = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
+    TITLE_CREATE_INVOICE_VAT = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
                                          '//*[contains(@class, "CreateInvoiceModal_top")]'
                                          '//*[contains(text(), "Сумма, поступающая на ваш счёт (НДС — 20%)")]')
     BUTTON_CONTINUE_BUDGET_REPLENISH = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'

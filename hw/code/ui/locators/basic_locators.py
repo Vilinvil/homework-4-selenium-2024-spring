@@ -25,7 +25,7 @@ class BasePageLocators:
     FOOTER_BUTTON_CASES = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/cases"]')
     FOOTER_BUTTON_HELP = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/help"]')
     FOOTER_BUTTON_MONETIZATION = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/partner"]')
-    FOOTER_BUTTON_CABINET = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/hq?ref=main_landing"]')
+    FOOTER_BUTTON_CABINET = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[contains(@href, "/hq?ref=main_landing")]')
     FOOTER_LOGO_VK_BUSINESS = (
         By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://vk.company/ru/company/business/"]')
     FOOTER_LOGO_VK = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://vk.com/vk_ads"]')

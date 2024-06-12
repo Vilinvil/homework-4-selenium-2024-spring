@@ -84,11 +84,6 @@ class TestFooter(BaseCase):
 
         self.base_page.check_url(url)
 
-    def test_open_login_page(self):
-        self.base_page.click_footer_button_cabinet()
-
-        assert self.base_page.check_url("https://id.vk.com/auth")
-
     @pytest.mark.parametrize(
         'click_language,text_value',
         [

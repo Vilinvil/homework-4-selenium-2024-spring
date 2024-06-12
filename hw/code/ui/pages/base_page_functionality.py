@@ -50,8 +50,7 @@ class BasePageFunctionality(object):
 
         return self.hover_to_element(elem)
 
-    @staticmethod
-    def write_input_to_element(element, message) -> WebElement:
+    def write_input_to_element(self, element, message) -> WebElement:
         element.clear()
         element.send_keys(message)
 
@@ -59,11 +58,17 @@ class BasePageFunctionality(object):
 
     def write_input(self, locator, message, timeout=BASIC_TIMEOUT) -> WebElement:
         input_element = self.find_with_check_visibility(locator, timeout)
-        return self.write_input_to_element(input_element, message)
+        input_element =  self.write_input_to_element(input_element, message)
+        self.wait().until(EC.text_to_be_present_in_element_value(locator, message))
+
+        return input_element
 
     def write_input_without_clearing(self, locator, message, timeout=BASIC_TIMEOUT):
         input_element = self.find_with_check_visibility(locator, timeout)
         input_element.send_keys(message)
+        self.wait().until(EC.text_to_be_present_in_element_value(locator, message))
+
+        return input_element
 
     @staticmethod
     def get_value_from_elem(element):

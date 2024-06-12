@@ -82,16 +82,17 @@ class TestCampaign(LoggedCase):
         self.campaign_page.input_ad_extra_title("тп")
         self.campaign_page.click_ai_image_button()
         self.campaign_page.click_ai_image()
-        self.campaign_page.click_ai_image_submit_button()
+        try:
+            self.campaign_page.click_ai_image_submit_button(timeout=2)
+        except TimeoutException:
+            self.campaign_page.click_ai_image()
+            self.campaign_page.click_ai_image_submit_button()
+
+        assert self.campaign_page.find_ad_ai_preview()
 
         self.campaign_page.click_publish_button()
-        try:
-            self.campaign_page.check_url('https://ads.vk.com/hq/dashboard')
-            self.campaign_page.click_edit_button()
-        except TimeoutException:
-            self.campaign_page.click_publish_button()
-            self.campaign_page.check_url('https://ads.vk.com/hq/dashboard')
-            self.campaign_page.click_edit_button()
+        self.campaign_page.check_url('https://ads.vk.com/hq/dashboard')
+        self.campaign_page.click_edit_button()
 
         assert self.campaign_page.find_element_with_text("park.vk.company")
         assert self.campaign_page.find_element_with_text("Клики по рекламе")

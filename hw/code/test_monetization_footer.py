@@ -14,7 +14,7 @@ class TestMonetizationFooter(BaseCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup_monetization(self, driver):
         self.redirect_page = PageWithRedirectWindow(self.driver)
-        self.base_page.redirect_nav_monetization(self.redirect_page)
+        self.base_page.redirect_nav_monetization(redirect_page=self.redirect_page)
 
         self.monetization_page = MonetizationPage(self.driver)
 

@@ -105,7 +105,6 @@ class CampaignSharedPage(BasePageFunctionality):
 
     def input_budget(self, budget):
         self.write_input(self.locators_shared.STEP2_INPUT_BUDGET, budget)
-        self.wait().until(EC.text_to_be_present_in_element_value(self.locators_shared.STEP2_INPUT_BUDGET, budget))
 
     def find_branding_tab(self):
         return self.find_with_check_visibility(self.locators_shared.TAB_BRANDING)
@@ -261,6 +260,9 @@ class CampaignSharedPage(BasePageFunctionality):
     def find_ad_ai_image_button(self):
         return self.find_with_check_visibility(self.locators_shared.AD_AI_IMAGE_BUTTON)
 
+    def find_ad_ai_preview(self):
+        return self.find_with_check_visibility(self.locators_shared.AD_AI_PREVIEW)
+
     def input_ad_title(self, text):
         self.write_input(self.locators_shared.AD_FIELD_TITLE, text)
 
@@ -283,8 +285,8 @@ class CampaignSharedPage(BasePageFunctionality):
         elem = self.find_with_check_visibility(self.locators_shared.AD_AI_IMAGE)
         elem.click()
 
-    def click_ai_image_submit_button(self):
-        self.click(self.locators_shared.AD_AI_IMAGE_SUBMIT_BUTTON)
+    def click_ai_image_submit_button(self, timeout=BASIC_TIMEOUT):
+        self.click(self.locators_shared.AD_AI_IMAGE_SUBMIT_BUTTON, timeout)
 
     def click_edit_button(self):
         elem = self.find_with_check_visibility(self.locators_shared.CAMPAIGN_TITLE)

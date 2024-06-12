@@ -91,6 +91,7 @@ class CampaignsPageSharedLocators:
     AD_AI_IMAGE_BUTTON = (By.XPATH, '//*[contains(text(),"Созданное нейросетью")]')
     AD_AI_IMAGE = (By.XPATH, "//*[contains(@class, 'ImageItems_imageItem')]")
     AD_AI_IMAGE_SUBMIT_BUTTON = (By.CSS_SELECTOR, '[data-testid="submit"]')
+    AD_AI_PREVIEW = (By.XPATH, '//*[contains(@class,"MediaContentItem_videoPreview")]')
     BUTTON_PUBLISH = (By.XPATH, '//*[@id="footer"]//button//*[contains(text(), "Опубликовать")]')
 
     EDIT_BUTTON = (By.CSS_SELECTOR, '[data-testid="edit"]')

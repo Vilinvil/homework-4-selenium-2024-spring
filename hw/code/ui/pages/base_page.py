@@ -185,7 +185,9 @@ class BasePage(BasePageFunctionality):
         return self.find_with_check_visibility(self.locators.FOOTER_WRAPPER_LANGUAGE).text
 
 
-class PageWithView(BasePage):
+class PageWithView(BasePageFunctionality):
+    url = ""
+
     def open_view(self, button_open_locator, sign_opening_locator):
         self.click(button_open_locator)
         self.find_with_check_visibility(sign_opening_locator)
@@ -236,9 +238,11 @@ def add_close_view(sign_opening_locator):
 
 
 class PageWithRedirectWindow(BasePageFunctionality):
+    url = ""
+
     def redirect_window_by_element(self, element, expected_number_of_windows_to_be=2):
         original_window = self.driver.current_window_handle
-        self.click(redirect_button_locator)
+        self.click(element)
 
         self.wait().until(EC.number_of_windows_to_be(expected_number_of_windows_to_be))
 
@@ -248,7 +252,7 @@ class PageWithRedirectWindow(BasePageFunctionality):
         return original_window
 
     def redirect_window(self, redirect_button_locator, expected_number_of_windows_to_be=2):
-        element = self.find(redirect_button_locator, EC.element_to_be_clickable)
+        element = self.find(redirect_button_locator, until_EC=EC.element_to_be_clickable)
 
         return self.redirect_window_by_element(element,
                                                expected_number_of_windows_to_be=expected_number_of_windows_to_be)

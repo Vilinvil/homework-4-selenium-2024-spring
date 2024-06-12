@@ -32,7 +32,7 @@ class TestTraining(LoggedCase):
     def test_display_site_section(self, setup_training_site):
         assert self.training_page.SITE_TITLE
         assert self.training_page.SITE_BUTTON_VIDEO
-        assert self.training_page.BUTTON_ARTICLES
+        assert self.training_page.SITE_BUTTON_ARTICLES
         assert self.training_page.SITE_BUTTON_STEP_BY_STEP_TRAINING
 
     @pytest.fixture(scope="function")
