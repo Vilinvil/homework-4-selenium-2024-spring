@@ -1,8 +1,11 @@
 from ui.pages.base_page_functionality import BasePageFunctionality, add_write
 from ui.locators.campaigns_locators import CampaignsPageSharedLocators
 from utils.timeout import BASIC_TIMEOUT
+
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains as AC
+from selenium.common import TimeoutException
+
 
 class CampaignSharedPage(BasePageFunctionality):
     url = "https://ads.vk.com/hq/dashboard/ad_plans"
@@ -102,6 +105,7 @@ class CampaignSharedPage(BasePageFunctionality):
 
     def input_budget(self, budget):
         self.write_input(self.locators_shared.STEP2_INPUT_BUDGET, budget)
+        self.wait().until(EC.text_to_be_present_in_element_value(self.locators_shared.STEP2_INPUT_BUDGET, budget))
 
     def find_branding_tab(self):
         return self.find_with_check_visibility(self.locators_shared.TAB_BRANDING)
@@ -139,8 +143,8 @@ class CampaignSharedPage(BasePageFunctionality):
     def find_social_button(self):
         return self.find_with_check_visibility(self.locators_shared.BUTTON_SOCIAL)
 
-    def find_close_training_button(self):
-        return self.find_with_check_visibility(self.locators_shared.BUTTON_CLOSE_TRAINING)
+    def find_close_training_button(self, timeout=BASIC_TIMEOUT):
+        return self.find_with_check_visibility(self.locators_shared.BUTTON_CLOSE_TRAINING, timeout)
 
     def click_close_training_button(self):
         self.click(self.locators_shared.BUTTON_CLOSE_TRAINING)
@@ -151,9 +155,8 @@ class CampaignSharedPage(BasePageFunctionality):
     def find_continue_button(self):
         return self.find_with_check_visibility(self.locators_shared.BUTTON_CONTINUE)
 
-    def click_continue_button(self):
-        elem = self.find(self.locators_shared.BUTTON_CONTINUE, timeout=BASIC_TIMEOUT, until_EC=EC.element_to_be_clickable)
-        elem.click()
+    def click_continue_button(self, timeout=BASIC_TIMEOUT):
+        return self.click(self.locators_shared.BUTTON_CONTINUE, timeout)
 
     def find_budget_field(self):
         return self.find_with_check_visibility(self.locators_shared.FIELD_BUDGET)
@@ -180,8 +183,8 @@ class CampaignSharedPage(BasePageFunctionality):
     def find_group_start_date_field(self):
         return self.find_with_check_visibility(self.locators_shared.GROUP_FIELD_START_DATE)
 
-    def find_group_name_field(self):
-        return self.find_with_check_visibility(self.locators_shared.GROUP_NAME_FIELD)
+    def find_group_name_field(self, timeout=BASIC_TIMEOUT):
+        return self.find_with_check_visibility(self.locators_shared.GROUP_NAME_FIELD, timeout)
 
     def find_geo_tab(self):
         return self.find(self.locators_shared.GEO_TAB)
@@ -309,6 +312,9 @@ class CampaignSharedPage(BasePageFunctionality):
         self.click(self.locators_shared.ACTIONS_BUTTON)
         self.click(self.locators_shared.DELETE_BUTTON)
 
-
-
-
+    def close_training_button_if_exist(self):
+        try:
+            self.find_close_training_button(2)
+            self.click_close_training_button()
+        except TimeoutException:
+            pass

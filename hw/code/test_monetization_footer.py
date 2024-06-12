@@ -27,11 +27,9 @@ class TestMonetizationFooter(BaseCase):
         assert self.monetization_page.find_language_wrapper()
         assert self.monetization_page.find_vk_business_logo()
 
-
     def test_vk_business_logo_redirect(self):
         self.monetization_page.redirect_to_vk_business(self.redirect_page)
         self.monetization_page.check_url('https://vk.company/ru/company/business/')
-
 
     @pytest.mark.parametrize(
         'button,url',
@@ -70,4 +68,3 @@ class TestMonetizationFooter(BaseCase):
 
         button(self.monetization_page)
         assert self.monetization_page.find_language_wrapper().text == text_value
-

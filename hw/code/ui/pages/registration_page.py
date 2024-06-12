@@ -13,13 +13,11 @@ class PreRegistrationPage(BasePage):
     locators = RegistrationPageLocators()
 
     def display_pre_registration(self):
-        return self.find(self.locators.CREATE_NEW_CABINET_BUTTON,
-                                        until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.CREATE_NEW_CABINET_BUTTON)
 
     def open_registration_page(self):
         self.click(self.locators.CREATE_NEW_CABINET_BUTTON)
         self.wait().until(EC.url_to_be("https://ads.vk.com/hq/registration/new"))
-
 
 
 class RegistrationPage(BasePage):

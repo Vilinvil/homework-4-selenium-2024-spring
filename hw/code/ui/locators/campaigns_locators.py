@@ -62,7 +62,7 @@ class CampaignsPageSharedLocators:
     CAMPAIGN_NAME_FIELD = (By.XPATH, "//*[contains(@class, 'EditableTitle')]")
     CAMPAIGN_NAME_FIELD_EDIT = (By.XPATH, "//*[contains(@class, 'EditableTitle')]//textarea")
 
-    GROUP_NAME_FIELD = (By.XPATH, "//*[contains(@class, 'EditableTitle')]")
+    GROUP_NAME_FIELD = (By.XPATH, "//*[contains(@class, 'EditableTitle') and .//*[contains(text(), 'Группа')]]")
     GROUP_NAME_FIELD_EDIT = (By.XPATH, "//*[contains(@class, 'EditableTitle')]//textarea")
     GROUP_FIELD_START_DATE = (By.CSS_SELECTOR, '[data-testid="start-date"]')
     GEO_TAB = (By.CSS_SELECTOR, '[data-testid="section-geo"]')

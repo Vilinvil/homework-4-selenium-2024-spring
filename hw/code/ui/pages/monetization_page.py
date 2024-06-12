@@ -5,6 +5,7 @@ from utils.timeout import BASIC_TIMEOUT
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains as AC
 
+
 class MonetizationPage(BasePage):
     url = "https://ads.vk.com/partner"
 

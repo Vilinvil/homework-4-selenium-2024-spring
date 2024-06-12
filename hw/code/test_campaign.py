@@ -3,15 +3,15 @@ import pytest
 from cases import LoggedCase
 from ui.pages.campaign_page import CampaignSharedPage
 
+from selenium.common import TimeoutException
+
 
 class TestCampaign(LoggedCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup_new_campaign(self, driver):
         self.main_page.open_campaigns()
         self.campaign_page = CampaignSharedPage(self.driver)
-        print(self.campaign_page.find_close_training_button())
-        if self.campaign_page.find_close_training_button():
-            self.campaign_page.click_close_training_button()
+        self.campaign_page.close_training_button_if_exist()
 
     def test_create_campaign(self):
         self.campaign_page.click_create_campaign()
@@ -44,11 +44,15 @@ class TestCampaign(LoggedCase):
         assert self.campaign_page.find_optimize_budget_field()
         assert self.campaign_page.find_start_date_field()
 
-        self.campaign_page.input_budget(100)
-        self.campaign_page.click_continue_button()
+        self.campaign_page.input_budget('100')
 
         self.campaign_page.click_continue_button()
-        assert self.campaign_page.find_group_name_field()
+        try:
+            assert self.campaign_page.find_group_name_field(2)
+        except TimeoutException:
+            self.campaign_page.click_continue_button()
+            assert self.campaign_page.find_group_name_field()
+
         assert self.campaign_page.find_group_start_date_field()
         assert self.campaign_page.find_geo_tab()
         assert self.campaign_page.find_url_tab()
@@ -81,8 +85,13 @@ class TestCampaign(LoggedCase):
         self.campaign_page.click_ai_image_submit_button()
 
         self.campaign_page.click_publish_button()
-
-        self.campaign_page.click_edit_button()
+        try:
+            self.campaign_page.check_url('https://ads.vk.com/hq/dashboard')
+            self.campaign_page.click_edit_button()
+        except TimeoutException:
+            self.campaign_page.click_publish_button()
+            self.campaign_page.check_url('https://ads.vk.com/hq/dashboard')
+            self.campaign_page.click_edit_button()
 
         assert self.campaign_page.find_element_with_text("park.vk.company")
         assert self.campaign_page.find_element_with_text("Клики по рекламе")
