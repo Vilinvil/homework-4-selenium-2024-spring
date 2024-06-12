@@ -1,7 +1,7 @@
 from cases import LoggedCase
 from ui.pages.site_page import SitePage
 import pytest
-from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.keys import Keys
 import random
 # import time
 
@@ -16,12 +16,27 @@ class TestSitePage(LoggedCase):
     FIND_TEXT = "Нашли пиксели, привязанные к сайту"
     CREATE_PIXEL_ID = "Создан ID пикселя"
     NOTHING_FIND_TEXT = "Ничего не найдено"
-    SEARCH_Kopilka = "Kopilka"
+    SEARCH_KOPILKA = "Kopilka"
+
+    NEW_DOMAIN = f"my-kopilka123450.ru"
 
     @pytest.fixture(scope='function', autouse=True)
     def setup_site_page(self):
         self.main_page.click_redirect_to_site_page()
         self.site_page = SitePage(self.driver)
+
+    def test_create_delete_pixel(self):
+        self.site_page.click_create_pixel_button()
+        self.site_page.enter_in_domain_name_field(self.NEW_DOMAIN)
+        self.site_page.click_frame_button()
+        self.site_page.close_modal()
+        self.site_page.enter_in_search_field(self.NEW_DOMAIN)
+        raw = self.site_page.get_pixel_raw()
+        
+        assert raw != None
+        assert self.site_page.get_span_pixel_name(raw, self.NEW_DOMAIN) != None
+        assert self.site_page.get_span_pixel_status(raw, "Данные не поступают") != None
+
 
     @pytest.mark.skip
     def test_open_add_pixel_modal(self):
@@ -69,9 +84,9 @@ class TestSitePage(LoggedCase):
 
         # странное поведение сайта: если ввести несуществующий сайт и сразу закрыть окно, 
         # то пиксель создастся и добавиться в список, при этом если не закрывать окно,
-        # то домен не здается и появлется сообщение об ошибке
+        # то домен не создается и появлется сообщение об ошибке
 
-        # при этом в без автотестов не получается отловить данную ситуацию
+        # при этом без автотестов не получается отловить данную ситуацию
         assert self.site_page.get_pixel_create_message().startswith("Создан ID пикселя")
         self.site_page.close_modal()
         self.site_page.open_delete_modal()
@@ -116,4 +131,4 @@ class TestSitePage(LoggedCase):
     def test_find_pixel(self):
         self.site_page.enter_in_search_field(self.EXISTED_DOMAIN)
 
-        assert self.site_page.verify_domain_found() == self.SEARCH_Kopilka
+        assert self.site_page.verify_domain_found() == self.SEARCH_KOPILKA

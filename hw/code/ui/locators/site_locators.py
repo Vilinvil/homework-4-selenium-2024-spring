@@ -43,3 +43,11 @@ class SitePageLocators:
     DROPDOWN_MENU_DELETE = (By.XPATH, '//div[contains(@class, "ContextMenu_dropdown__")]//label[last()]')
     DROPDOWN_MENU_UPDATE = (By.XPATH, '//div[contains(@class, "ContextMenu_dropdown__")]//label[1]')
     INPUT_PIXEL_NAME_UPDATE = (By.XPATH, '//input[@name="name"]')
+
+    PIXEL_ROW = (By.XPATH, '//div[contains(@class, "PixelsList__row")]')
+    
+    def PIXEL_NAME(name):
+        return (By.XPATH, f'.//span[text()="{name}"]')
+    
+    def PIXEL_STATUS(status="Данные не поступают"):
+        return (By.XPATH, f'.//span[text()="{status}"]')

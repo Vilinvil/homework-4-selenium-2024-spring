@@ -1,9 +1,10 @@
-from ui.pages.base_page import PageWithModalView, PageWithRedirectWindow
+from ui.pages.base_page import PageWithView, PageWithRedirectWindow
 from ui.locators.site_locators import SitePageLocators
 
 from selenium.webdriver.support import expected_conditions as EC
+from ui.pages.base_page_functionality import BasePageFunctionality, add_write, add_click
 
-class SitePage(PageWithModalView, PageWithRedirectWindow):
+class SitePage(PageWithView, PageWithRedirectWindow):
     url = "https://ads.vk.com/hq/pixels"
     locators = SitePageLocators()
 
@@ -31,7 +32,6 @@ class SitePage(PageWithModalView, PageWithRedirectWindow):
         domain_input = self.get_input_field_domain_name()
         domain_input.clear()
         domain_input.send_keys(input_domain)
-
 
     def enter_in_update_modal_new_domain(self, new_domain):
         update_input = self.get_update_name_input()
@@ -73,7 +73,6 @@ class SitePage(PageWithModalView, PageWithRedirectWindow):
 
     def get_update_name_input(self):
         return self.find(self.locators.INPUT_PIXEL_NAME_UPDATE)
-
 
     def open_update_modal(self):
         self.open_more_menu()
@@ -117,3 +116,15 @@ class SitePage(PageWithModalView, PageWithRedirectWindow):
 
     def close_modal(self):
         self.click(self.locators.BUTTON_CLOSE_MODAL)
+
+    # def check_new_pixel(self, name):
+    #     self.find(self.locators.PIXEL_NAME(name))
+
+    def get_pixel_raw(self):
+        return self.find(self.locators.PIXEL_ROW)
+    
+    def get_span_pixel_name(self, pixel_raw, name):
+        return self.find_child(pixel_raw, self.locators.PIXEL_NAME(name))
+    
+    def get_span_pixel_status(self, pixel_raw, status):
+        return self.find_child(pixel_raw, self.locators.PIXEL_STATUS(status))

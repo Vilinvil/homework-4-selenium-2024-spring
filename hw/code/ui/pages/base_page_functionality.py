@@ -72,6 +72,12 @@ class BasePageFunctionality(object):
 
     def check_url(self, expected_url, timeout=BASIC_TIMEOUT):
         return self.wait(timeout).until(EC.url_matches(expected_url))
+    
+
+    def find_child(self, parent, child_locator, timeout=BASIC_TIMEOUT):
+        return WebDriverWait(parent, timeout).until(
+            EC.presence_of_element_located(child_locator)
+        )
 
 
 # add_write add method write() to input field
@@ -120,3 +126,14 @@ def add_get_value(elem_getter):
         return value_elem_result
 
     return functionality
+
+def add_click(button_getter):
+    """Adds clicks method to button"""
+    def decorator(self):
+        button = button_getter(self)
+        def __click():
+            """Clicks button"""
+            self.click(button)
+        button.clicks = __click
+        return button
+    return decorator
