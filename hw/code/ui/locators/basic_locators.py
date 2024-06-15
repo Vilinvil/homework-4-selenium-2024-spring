@@ -8,8 +8,7 @@ class BasePageLocators:
     NAV_BUTTON_CASES = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/cases"]')
     NAV_BUTTON_NEWS = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/news"]')
     NAV_ICON_ADS_VK = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/"]')
-    # NAV_BUTTON_CABINET_LOCATOR = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/hq?ref=main_landing"]')
-    NAV_BUTTON_CABINET_LOCATOR = (By.XPATH, '//span[text()="Перейти в кабинет"]')
+    NAV_BUTTON_CABINET_LOCATOR = (By.XPATH, '//*[@data-test-id="header-test-id:dark"]//*[@href="/hq?ref=main_landing&v=1"]')
 
     NAV_WRAPPER_EDUCATION = (By.XPATH, '//*[contains(@class, "NavigationVKAds_hasChildren")]')
     NAV_WRAPPED_BUTTON_INSIGHTS = (By.CSS_SELECTOR, '[href="/insights"]')
@@ -26,7 +25,7 @@ class BasePageLocators:
     FOOTER_BUTTON_CASES = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/cases"]')
     FOOTER_BUTTON_HELP = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/help"]')
     FOOTER_BUTTON_MONETIZATION = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/partner"]')
-    FOOTER_BUTTON_CABINET = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="/hq?ref=main_landing"]')
+    FOOTER_BUTTON_CABINET = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[contains(@href, "/hq?ref=main_landing")]')
     FOOTER_LOGO_VK_BUSINESS = (
         By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://vk.company/ru/company/business/"]')
     FOOTER_LOGO_VK = (By.XPATH, '//*[@data-test-id="footer-test-id"]//*[@href="https://vk.com/vk_ads"]')

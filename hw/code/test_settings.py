@@ -21,7 +21,6 @@ class TestSettings(LoggedCase):
         assert self.settings_page.find_access_tab()
         assert self.settings_page.find_logs_tab()
 
-
     def test_display(self):
         assert self.settings_page.find_phone_field()
         assert self.settings_page.find_email_field()

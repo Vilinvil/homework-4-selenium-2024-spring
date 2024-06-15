@@ -20,6 +20,7 @@ class SitePage(PageWithView, PageWithRedirectWindow):
     def get_error_message(self):
         return self.find(self.locators.ERROR_DOMAIN_INPUT).text
 
+    @add_write
     def get_input_field_pixel_id(self):
         return self.find(self.locators.PIXEL_ID_INPUT)
     
@@ -43,8 +44,13 @@ class SitePage(PageWithView, PageWithRedirectWindow):
         domain_input.clear()
         domain_input.send_keys(domain_name)
 
+    @add_write
     def get_input_email_owner(self):
         return self.find(self.locators.EMAIL_INPUT, 3)
+    
+    @add_write
+    def get_input_email_owner_input(self):
+        return self.find(self.locators.INPUT_EMAIL_INPUT, 3)
 
     def click_frame_button(self):
         self.click(self.locators.BUTTON_GROUP_IFRAME, 5)
@@ -126,5 +132,20 @@ class SitePage(PageWithView, PageWithRedirectWindow):
     def get_span_pixel_name(self, pixel_raw, name):
         return self.find_child(pixel_raw, self.locators.PIXEL_NAME(name))
     
+    def get_div_pixel_id(self, pixel_raw, id):
+        return self.find_child(pixel_raw, self.locators.PIXEL_ID(id))
+    
     def get_span_pixel_status(self, pixel_raw, status):
         return self.find_child(pixel_raw, self.locators.PIXEL_STATUS(status))
+    
+    @add_click
+    def get_access_button(self):
+        return self.find(self.locators.BUTTON_REQUEST_ACCESS)
+    
+    @add_click
+    def get_confirm_access_button(self):
+        return self.find(self.locators.BUTTON_REQUEST)
+    
+    def refresh(self):
+        self.driver.refresh()
+        self.close_alert_if_shown()

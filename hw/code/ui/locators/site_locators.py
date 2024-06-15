@@ -45,9 +45,19 @@ class SitePageLocators:
     INPUT_PIXEL_NAME_UPDATE = (By.XPATH, '//input[@name="name"]')
 
     PIXEL_ROW = (By.XPATH, '//div[contains(@class, "PixelsList__row")]')
+
+    BUTTON_REQUEST_ACCESS = (By.XPATH, '//span[text()="Запросить доступ к пикселю"]')
+    BUTTON_REQUEST = (By.XPATH, '//span[text()="Запросить доступ"]')
+    INPUT_EMAIL_INPUT = (By.XPATH, '//input[@placeholder="Введите email"]')
     
+    @staticmethod
     def PIXEL_NAME(name):
-        return (By.XPATH, f'.//span[text()="{name}"]')
+        return (By.XPATH, f'.//span[text()="*{name}*"]')
     
+    @staticmethod
+    def PIXEL_ID(id):
+        return (By.XPATH, f'.//div[text()="{id}"]')
+    
+    @staticmethod
     def PIXEL_STATUS(status="Данные не поступают"):
         return (By.XPATH, f'.//span[text()="{status}"]')

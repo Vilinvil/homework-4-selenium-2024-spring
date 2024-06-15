@@ -747,3 +747,13 @@ class LeadsPage(BasePageFunctionality):
 
     def check_invisibility_any_error(self):
         assert self.wait().until(EC.invisibility_of_element(self.locators.ANY_ERROR))
+
+    def close_offer_training_if_exist(self):
+        try:
+            self.click(self.locators.BUTTON_CLOSE_OFFER_TRAINING)
+            self.click(self.locators.BUTTON_CLOSE_TOOLTIP_TRAINING)
+        except TimeoutException:
+            pass
+
+    def redirect_to_surveys(self):
+        self.click(self.locators.TO_SURVEYS)

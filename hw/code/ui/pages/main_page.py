@@ -58,5 +58,11 @@ class MainPage(PageWithView):
         self.click(self.locators.sidebar_locators.BUTTON_SITES)
 
 
+    def click_redirect_to_surveys_page(self):
+        self.click(self.locators.sidebar_locators.BUTTON_LEADS)
+        # self.click(self.locators.)
+        # self.click()
+
+
     def click_redirect_to_lead_forms_page(self):
         self.click(self.locators.sidebar_locators.BUTTON_LEADS)

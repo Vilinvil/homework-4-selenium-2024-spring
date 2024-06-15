@@ -184,3 +184,9 @@ class LeadsPageLocators:
                           f'//*[contains(text(), "{error_message}")]')
 
     ANY_ERROR = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]//*[@role="alert"]')
+
+    BUTTON_CLOSE_OFFER_TRAINING = (By.XPATH, '//*[contains(@class, "ModalRoot_componentWrapper")]'
+                                            '//button[.//*[contains(text(), "Не сейчас")]]')
+    BUTTON_CLOSE_TOOLTIP_TRAINING = (By.XPATH, '//*[contains(@class, "CloseButton_wrapper")]')
+
+    TO_SURVEYS = (By.XPATH, '//span[text()="Опросы"]')

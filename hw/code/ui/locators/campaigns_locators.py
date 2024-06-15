@@ -37,3 +37,76 @@ class CampaignsPageSharedLocators:
     STEP4_BUTTON_SET_MEDIA = (By.XPATH, '//*[@data-testid="set-global-image" and'
                                                                         ' contains(@class, "UnionMediaContentGroup")]')
     STEP4_BUTTON_SUBMIT_MEDIA = (By.CSS_SELECTOR, '[data-testid="submit"]')
+
+    # not shared locators for campaign tests
+    TAB_TARGETED_ACTIONS = (By.ID, 'tab_conversion')
+    TAB_BRANDING = (By.ID, 'tab_branding')
+    BUTTON_MOBILE_APPS = (By.CSS_SELECTOR, '[data-id="mobapps"]')
+    BUTTON_CATALOG = (By.CSS_SELECTOR, '[data-id="ecomm"]')
+    BUTTON_SOCIAL = (By.CSS_SELECTOR, '[data-id="social"]')
+    BUTTON_OK = (By.CSS_SELECTOR, '[data-id="odkl"]')
+    BUTTON_LEAD_ADS = (By.CSS_SELECTOR, '[data-id="leadads"]')
+    BUTTON_MINI_APPS = (By.CSS_SELECTOR, '[data-id="miniapps"]')
+    BUTTON_MUSIC = (By.CSS_SELECTOR, '[data-id="socialmusic"]')
+    BUTTON_VIDEO = (By.CSS_SELECTOR, '[data-id="socialvideo"]')
+    BUTTON_DZEN = (By.CSS_SELECTOR, '[data-id="dzen"]')
+
+    BUTTON_CLOSE_TRAINING = (By.XPATH, '//*[contains(text(),"Попробовать позже")]')
+    BUTTON_CONTINUE = (By.XPATH, '//*[@id="footer"]//button//*[contains(text(), "Продолжить")]')
+
+    FIELD_GOAL_ACTION = (By.CSS_SELECTOR, '[data-testid="priced-goal"]')
+    FIELD_OPTIMIZE_BUDGET = (By.CSS_SELECTOR, '[data-name="budgetOptimization"]')
+    FIELD_BETTING_STRATEGY = (By.CSS_SELECTOR, '[data-testid="autobidding-mode"]')
+    FIELD_BUDGET = (By.CSS_SELECTOR, '[data-testid="targeting-not-set"]')
+    FIELD_START_DATE = (By.CSS_SELECTOR, '[data-testid="start-date"]')
+    CAMPAIGN_NAME_FIELD = (By.XPATH, "//*[contains(@class, 'EditableTitle')]")
+    CAMPAIGN_NAME_FIELD_EDIT = (By.XPATH, "//*[contains(@class, 'EditableTitle')]//textarea")
+
+    GROUP_NAME_FIELD = (By.XPATH, "//*[contains(@class, 'EditableTitle') and .//*[contains(text(), 'Группа')]]")
+    GROUP_NAME_FIELD_EDIT = (By.XPATH, "//*[contains(@class, 'EditableTitle')]//textarea")
+    GROUP_FIELD_START_DATE = (By.CSS_SELECTOR, '[data-testid="start-date"]')
+    GEO_TAB = (By.CSS_SELECTOR, '[data-testid="section-geo"]')
+    DEMOGRAPHY_TAB = (By.CSS_SELECTOR, '[data-testid="section-demography"]')
+    AUDIENCE_TAB = (By.CSS_SELECTOR, '[data-testid="section-audience"]')
+    INTERESTS_TAB = (By.CSS_SELECTOR, '[data-testid="section-interests"]')
+    DEVICES_TAB = (By.CSS_SELECTOR, '[data-testid="section-devices"]')
+    URL_TAB = (By.CSS_SELECTOR, '[data-testid="section-urlUtm"]')
+    PLACEMENT_TAB = (By.CSS_SELECTOR, '[data-testid="section-placement"]')
+    MOSCOW_REGION_BUTTON = (By.XPATH, '//*[@data-testid="section-geo"]//button//*[contains(text(), "Москва")]')
+
+    INTERESTS_TAB_INTERESTS_SUBTAB = (By.XPATH, "//*[contains(@class, 'InterestsSubSection')]")
+    INTERESTS_INPUT = (By.XPATH, "//*[@data-name='interests']//input")
+    INTERESTS_AUTOCOMPLETED_VARIANT = (By.XPATH, '//*[contains(text(),"Компьютерная техника и программы")]')
+    INTEREST_AUTO = (By.XPATH, '//*[contains(text(),"Авто внедорожники")]')
+    INTERESTS_CLOSE_INPUT_BUTTON = (By.XPATH, '//button[@aria-label="Скрыть"]')
+    INTERESTS_TAB_COMMUNITIES_SUBTAB = (By.XPATH, '//*[contains(text(),"Сообщества")]')
+    DEVICES_MOBILE_CHECKBOX = (By.XPATH, '//input[@value="mobile"]')
+
+    AD_NAME_FIELD = (By.XPATH, "//*[contains(@class, 'EditableTitle')]")
+    AD_NAME_FIELD_EDIT = (By.XPATH, "//*[contains(@class, 'EditableTitle')]//textarea")
+    AD_FIELD_TITLE = (By.CSS_SELECTOR, '[name="заголовок, макс. 40 символов"]')
+    AD_FIELD_SHORT_DESCR = (By.CSS_SELECTOR, '[name="заголовок, макс. 90 символов"]')
+    AD_FIELD_LONG_DESCR = (By.CSS_SELECTOR, '[name="Длинный текст для использования в лентах соцсетей (2000 знаков)"]')
+    AD_FIELD_EXTRA_TITLE = (By.CSS_SELECTOR, '[name="Доп. заголовок 30 знаков"]')
+    AD_AI_IMAGE_BUTTON = (By.XPATH, '//*[contains(text(),"Созданное нейросетью")]')
+    AD_AI_IMAGE = (By.XPATH, "//*[contains(@class, 'ImageItems_imageItem')]")
+    AD_AI_IMAGE_SUBMIT_BUTTON = (By.CSS_SELECTOR, '[data-testid="submit"]')
+    AD_AI_PREVIEW = (By.XPATH, '//*[contains(@class,"MediaContentItem_videoPreview")]')
+    BUTTON_PUBLISH = (By.XPATH, '//*[@id="footer"]//button//*[contains(text(), "Опубликовать")]')
+
+    EDIT_BUTTON = (By.CSS_SELECTOR, '[data-testid="edit"]')
+    CAMPAIGN_TITLE = (By.XPATH, '//*[contains(text(),"Реклама сайта тп")]')
+    GROUP_BUTTON = (By.XPATH, '//*[@data-testid="menu-item"]//*[contains(text(),"Группа рекламы сайта тп")]')
+    AD_BUTTON = (By.XPATH, '//*[@data-testid="menu-item"]//*[contains(text(),"Объявление рекламы сайта тп")]')
+    CANCEL_BUTTON = (By.CSS_SELECTOR, '[data-testid="cancel"]')
+    ACTIONS_BUTTON = (By.CSS_SELECTOR, '[data-testid="select-options"]')
+    DELETE_BUTTON = (By.XPATH, '//*[contains(text(),"Удалить")]')
+    DONT_SAVE_BUTTON = (By.XPATH, '//*[contains(text(),"Не сохранять")]')
+
+    @staticmethod
+    def LOCATOR_WITH_TEXT(text):
+        return (By.XPATH, f'//*[contains(text(),"{text}")]')
+
+    @staticmethod
+    def CHECKBOX_OF_CAMPAIGN(name):
+        return (By.XPATH, f'//div[.//text()[contains(., "{name}")]]//*[contains(@class, "vkuiCheckbox")]')
