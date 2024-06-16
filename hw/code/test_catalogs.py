@@ -119,15 +119,6 @@ class TestSurveysPage(LoggedCase):
         self.catalogs_page.BUTTON_TO_EVENTS.clicks()
         self.catalogs_page.BUTTON_TO_GOODS.clicks()
 
-        # Не работает поиск на моей системе, на которой запускаю тесты:(
-        # # Поиск по имени товара
-        # self.catalogs_page.SEARCH_FIELD.write(self.GOOD_NAME_TO_SEARCH)
-        # assert self.GOOD_NAME_TO_SEARCH in self.catalogs_page.GOODS_NAME(1)
-
-        # # Поиск по ID товара
-        # self.catalogs_page.SEARCH_FIELD.write(self.GOOD_ID_TO_SEARCH)
-        # assert self.GOOD_ID_TO_SEARCH in self.catalogs_page.GOODS_ID(1)
-        
         # Удаляем каталог
         self.catalogs_page.BUTTON_SETTINGS.clicks()
         self.catalogs_page.BUTTON_DELETE.clicks()

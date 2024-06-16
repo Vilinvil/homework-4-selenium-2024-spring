@@ -16,18 +16,18 @@ class SurveysPage(BasePageFunctionality):
     @property
     @add_clicks
     def BUTTON_CREATE_SURVEYS(self):
-        return self.find(self.locators.BUTTON_CREATE_SURVEYS, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_CREATE_SURVEYS)
 
     @property
     @add_write
     def INPUT_NAME(self):
-        return self.find(self.locators.INPUT_NAME, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.INPUT_NAME)
          
 
     @property
     @add_write
     def INPUT_COMPANY_NAME(self):
-        return self.find(self.locators.INPUT_COMPANY_NAME, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.INPUT_COMPANY_NAME)
 
     def COMPANY_NAME(self, name):
         return self.find(self.locators.SURVEYS_COMPANY_NAME(name))
@@ -36,7 +36,7 @@ class SurveysPage(BasePageFunctionality):
     @property
     @add_write
     def INPUT_SURVEYS_HEADER(self):
-        return self.find(self.locators.INPUT_SURVEYS_HEADER, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.INPUT_SURVEYS_HEADER)
 
 
     def SURVEYS_HEADER(self, header):
@@ -45,7 +45,7 @@ class SurveysPage(BasePageFunctionality):
     @property
     @add_write
     def INPUT_SURVEYS_DESCRIPTION(self):
-        return self.find(self.locators.INPUT_SURVEYS_DESCRIPTION, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.INPUT_SURVEYS_DESCRIPTION)
 
     
     def SURVEYS_DESCRIPTION(self, desc):
@@ -55,18 +55,18 @@ class SurveysPage(BasePageFunctionality):
     @property
     @add_clicks
     def BUTTON_TO_QUESTIONS(self):
-        return self.find(self.locators.BUTTON_TO_QUESTIONS, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_TO_QUESTIONS)
     
 
     @property
     @add_clicks 
     def BUTTON_LOAD_IMAGE(self):
-        return self.find(self.locators.BUTTON_LOAD_IMAGE, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_LOAD_IMAGE)
 
     @property
     @add_clicks
     def BUTTON_LOAD_MEDIAFILES(self):
-        return self.find(self.locators.BUTTON_LOAD_MEDIAFILES, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_LOAD_MEDIAFILES)
     
 
     @property
@@ -77,7 +77,7 @@ class SurveysPage(BasePageFunctionality):
 
     @property
     def LOGO_IMAGE(self):
-        return self.find(self.locators.LOGO_IMG, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.LOGO_IMG)
 
     def load_logo(self, filepath):
         self.BUTTON_LOAD_IMAGE.clicks()
@@ -89,23 +89,23 @@ class SurveysPage(BasePageFunctionality):
     @add_clicks
     @add_write
     def INPUT_TEXT_QUESTION(self, i=1):
-        return self.find(self.locators.INPUT_QUESTION_TEXT(i), until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.INPUT_QUESTION_TEXT(i))
         
 
     @add_write
     def INPUT_QUESTION_ANSWER(self, i=1):
-        return self.find(self.locators.INPUT_ANSWER(i), until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.INPUT_ANSWER(i))
     
 
     @property
     @add_clicks
     def BUTTON_ADD_QUESTION(self):
-        return self.find(self.locators.BUTTON_ADD_QUESTION, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_ADD_QUESTION)
     
 
     @add_clicks
     def BUTTON_ADD_ANSWER(self, i=1):
-        return self.find(self.locators.BUTTON_ADD_ANSWER(i), until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_ADD_ANSWER(i))
     
 
     @property
@@ -126,7 +126,7 @@ class SurveysPage(BasePageFunctionality):
 
     @add_clicks
     def BUTTON_SELECT_ANSWER(self):
-        return self.find(self.locators.SELECT_ANSWER(1), until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.SELECT_ANSWER(1))
     
 
     @add_clicks
@@ -154,7 +154,7 @@ class SurveysPage(BasePageFunctionality):
 
     @add_clicks
     def QUESTION_OPTION_STOP_VIEW(self, question_num):
-        return self.find(self.locators.SELECT_QUESTION(question_num), until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.SELECT_QUESTION(question_num))
     
 
     def choose_question_stop_view(self, question_num=1):
@@ -170,7 +170,7 @@ class SurveysPage(BasePageFunctionality):
     
     @add_clicks
     def ANSWER_OPTION_STOP_VIEW(self, answer_text=""):
-        return self.find(self.locators.CHOOSE_ANSWER_STOP_VIEW(answer_text), until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.CHOOSE_ANSWER_STOP_VIEW(answer_text))
     
 
     def choose_answer_stop_view(self, answer_text):
@@ -190,13 +190,11 @@ class SurveysPage(BasePageFunctionality):
         return self.find(self.locators.INPUT_STOP_VIEW_DESCRIPTION)
     
 
-
     @property
     @add_clicks
     def BUTTON_TO_RESULTS(self):
         return self.find(self.locators.BUTTON_TO_RESULT)
     
-
 
     @property
     @add_write
@@ -230,39 +228,40 @@ class SurveysPage(BasePageFunctionality):
 
     @add_clicks
     def SURVEY_RAW(self, name):
-        return self.find(self.locators.CHANGE_SURVEY(name), until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.CHANGE_SURVEY(name))
     
 
     @property
     def CONDITION_QUESTION_ANSWER_TEXT(self):
-        return self.find(self.locators.QUESTION_ANSWER_REMOVABLE_CHIP(1), until_EC=EC.visibility_of_element_located).text
+        return self.find_with_check_visibility(self.locators.QUESTION_ANSWER_REMOVABLE_CHIP(1)).text
     
 
     @property
     def STOP_VIEW_QUESTION_ANSWER_TEXT(self):
-        return self.find(self.locators.QUESTION_ANSWER_REMOVABLE_CHIP(2), until_EC=EC.visibility_of_element_located).text
+        return self.find_with_check_visibility(self.locators.QUESTION_ANSWER_REMOVABLE_CHIP(2)).text
     
 
     def DESIGN_ERROR_MESSAGE(self, i):
-        return self.find(self.locators.DESIGN_MESSAGE_ERROR(i), until_EC=EC.visibility_of_element_located).text
+        return self.find_with_check_visibility(self.locators.DESIGN_MESSAGE_ERROR(i)).text
+    
     
     def QUESTION_ERROR_MESSAGE(self, i):
-        return self.find(self.locators.QUESTIONS_MESSAGE_ERROR(i), until_EC=EC.visibility_of_element_located).text
+        return self.find_with_check_visibility(self.locators.QUESTIONS_MESSAGE_ERROR(i)).text
     
 
     @property
     @add_clicks
     def BUTTON_ADD_LINK(self):
-        return self.find(self.locators.BUTTON_ADD_LINK, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_ADD_LINK)
 
     
     @property
     @add_write
     def INPUT_ADD_LINK(self):
-        return self.find(self.locators.INPUT_ADD_LINK, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.INPUT_ADD_LINK)
     
 
     @property
     def ERROR_LINK_MESSAGE(self):
-        return self.find(self.locators.INPUT_ADD_LINK, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.INPUT_ADD_LINK)
     

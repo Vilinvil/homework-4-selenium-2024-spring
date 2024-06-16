@@ -17,13 +17,13 @@ class CatalogsPage(BasePageFunctionality):
     @property
     @add_clicks
     def BUTTON_CREATE_CATALOG(self):
-        return self.find(self.locators.BUTTON_CREATE_CATALOG, until_EC=EC.visibility_of_element_located) 
+        return self.find_with_check_visibility(self.locators.BUTTON_CREATE_CATALOG) 
     
 
     @property
     @add_clicks
     def BUTTON_BY_HAND(self):
-        return self.find(self.locators.BUTTON_BY_HAND, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_BY_HAND)
     
 
     @property
@@ -35,12 +35,12 @@ class CatalogsPage(BasePageFunctionality):
     @property
     @add_clicks
     def OPTION_AUTO(self):
-        return self.find(self.locators.OPTION_AUTO, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.OPTION_AUTO)
 
 
     def close_training_if_shown(self):
         try:
-            self.find(self.locators.MODAL_VIEW_TRAINING, until_EC=EC.visibility_of_element_located)
+            self.find_with_check_visibility(self.locators.MODAL_VIEW_TRAINING)
             self.click(self.find(self.locators.CHOOSE_NO))
         except TimeoutException:
             pass
@@ -59,7 +59,7 @@ class CatalogsPage(BasePageFunctionality):
     @property
     @add_clicks
     def BUTTON_CONFIRM_CREATE_CATALOG(self):
-        return self.find(self.locators.BUTTON_CONFIRM_CREATE_CATALOG, until_EC=EC.visibility_of_element_located) 
+        return self.find_with_check_visibility(self.locators.BUTTON_CONFIRM_CREATE_CATALOG) 
     
 
     @property
@@ -82,19 +82,19 @@ class CatalogsPage(BasePageFunctionality):
     @property
     @add_clicks
     def BUTTON_FEED_OR_COMMUNITY(self):
-        return self.find(self.locators.FEED_OR_COMMUNITY, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.FEED_OR_COMMUNITY)
     
 
     @property
     @add_clicks
     def BUTTON_SETTINGS(self):
-        return self.find(self.locators.BUTTON_SETTINGS, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_SETTINGS)
     
 
     @property
     @add_clicks
     def BUTTON_DELETE(self):
-        return self.find(self.locators.BUTTON_DELETE, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_DELETE)
     
 
     @property
@@ -105,16 +105,16 @@ class CatalogsPage(BasePageFunctionality):
 
     @add_clicks
     def BUTTON_OPEN_GOOD(self, name):
-        return self.find(self.locators.BUTTON_OPEN_GOOD(name), timeout=120, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.BUTTON_OPEN_GOOD(name), timeout=120)
 
 
     def INFO_FIELD(self, i):
-        return self.find(self.locators.INFO_FIELD(i), until_EC=EC.visibility_of_element_located).text
+        return self.find_with_check_visibility(self.locators.INFO_FIELD(i)).text
     
 
     @property
     def NOT_FOUND_MESSAGE(self):
-        return self.find(self.locators.TEXT_NOT_FOUND, timeout=120, until_EC=EC.visibility_of_element_located)
+        return self.find_with_check_visibility(self.locators.TEXT_NOT_FOUND, timeout=120)
     
 
     @property
@@ -143,13 +143,12 @@ class CatalogsPage(BasePageFunctionality):
 
     @add_clicks
     def UPDATE_PERIOD_OPTION(self, period='1 час'):
-        return self.find(self.locators.CHOOSE_PERIOD(period=period), until_EC=EC.visibility_of_element_located)
-    
+        return self.find_with_check_visibility(self.locators.CHOOSE_PERIOD(period=period))
     
 
     @property
     def UPDATE_PERIOD_SPAN(self):
-        return self.find(self.locators.UPDATE_PERIOD_SPAN, until_EC=EC.visibility_of_element_located).text
+        return self.find_with_check_visibility(self.locators.UPDATE_PERIOD_SPAN).text
     
 
     @property
@@ -159,9 +158,9 @@ class CatalogsPage(BasePageFunctionality):
     
 
     def GOODS_NAME(self, i=1):
-        return self.find(self.locators.ITEM_NAME(i), until_EC=EC.visibility_of_element_located).text
+        return self.find_with_check_visibility(self.locators.ITEM_NAME(i)).text
     
 
     def GOODS_ID(self, i=1):
-        return self.find(self.locators.ITEM_ID(i), until_EC=EC.visibility_of_element_located).text
+        return self.find_with_check_visibility(self.locators.ITEM_ID(i)).text
 

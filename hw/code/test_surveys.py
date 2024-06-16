@@ -56,10 +56,10 @@ class TestSurveysPage(LoggedCase):
         self.surveys_page.INPUT_SURVEYS_DESCRIPTION.write(self.SURVEYS_DESCRIPTION)
         self.surveys_page.load_logo(self.LOGO_RELATIVE_PATH)
 
-        assert self.surveys_page.COMPANY_NAME(self.COMPANY_NAME) != None
-        assert self.surveys_page.SURVEYS_HEADER(self.SURVEYS_HEADER) != None
-        assert self.surveys_page.SURVEYS_DESCRIPTION(self.SURVEYS_DESCRIPTION) != None
-        assert self.surveys_page.LOGO_IMAGE != None
+        assert self.surveys_page.COMPANY_NAME(self.COMPANY_NAME)
+        assert self.surveys_page.SURVEYS_HEADER(self.SURVEYS_HEADER)
+        assert self.surveys_page.SURVEYS_DESCRIPTION(self.SURVEYS_DESCRIPTION)
+        assert self.surveys_page.LOGO_IMAGE
         
         self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
 
@@ -113,10 +113,10 @@ class TestSurveysPage(LoggedCase):
         # Проверка опроса в форме редактирование, после сохранения
         self.surveys_page.SURVEY_RAW(self.NAME).clicks()
         # Оформление
-        assert self.surveys_page.COMPANY_NAME(self.COMPANY_NAME) != None
-        assert self.surveys_page.SURVEYS_HEADER(self.SURVEYS_HEADER) != None
-        assert self.surveys_page.SURVEYS_DESCRIPTION(self.SURVEYS_DESCRIPTION) != None
-        assert self.surveys_page.LOGO_IMAGE != None
+        assert self.surveys_page.COMPANY_NAME(self.COMPANY_NAME)
+        assert self.surveys_page.SURVEYS_HEADER(self.SURVEYS_HEADER)
+        assert self.surveys_page.SURVEYS_DESCRIPTION(self.SURVEYS_DESCRIPTION)
+        assert self.surveys_page.LOGO_IMAGE
 
         self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
 
@@ -159,7 +159,7 @@ class TestSurveysPage(LoggedCase):
 
         # Проверяем, что появилось 5 сообщений об ошибке
         for i in range(1, self.ERRORS_DESIGN_MSG_COUNT + 1):
-            assert self.surveys_page.DESIGN_ERROR_MESSAGE(i) != None
+            assert self.surveys_page.DESIGN_ERROR_MESSAGE(i)
 
         # Заполняем поля
         self.surveys_page.INPUT_NAME.write(self.NAME)
@@ -181,7 +181,7 @@ class TestSurveysPage(LoggedCase):
         self.surveys_page.BUTTON_TO_RESULTS.clicks()
 
         # Проверяем появившееся сообщение об ошибке
-        assert self.surveys_page.QUESTION_ERROR_MESSAGE(1) != None
+        assert self.surveys_page.QUESTION_ERROR_MESSAGE(1)
 
         # Заполняем вопрос
         self.surveys_page.INPUT_TEXT_QUESTION().write(self.QUESTION_TEXT_1)
@@ -191,18 +191,6 @@ class TestSurveysPage(LoggedCase):
         # Переходим к результату
         self.surveys_page.BUTTON_TO_RESULTS.clicks()
 
-        # На моей системе, на которой запускались тесты, получилось создать опрос с пустыми полями
-        # Делаем поля пустыми
-        # self.surveys_page.INPUT_RESULT_HEADER.clear()
-        # self.surveys_page.INPUT_RESULT_DESCRIPTION.clear()
-
-        # Пытаемся запутсить опрос ---- после этого опрос создавался, хотя поля выше очищаются
-        # self.surveys_page.BUTTON_START_SURVEY.clicks()
-
-        # # Проверяем сообщения, что поля должны быть не пустыми
-        # for i in range(1, self.ERRORS_RESULT_MSG_COUNT):
-        #     assert self.surveys_page.DESIGN_ERROR_MESSAGE(i) != None
-
         # Добавляем неправильную ссылку
         self.surveys_page.BUTTON_ADD_LINK.clicks()
         self.surveys_page.INPUT_ADD_LINK.write("ne ssilka")
@@ -211,7 +199,7 @@ class TestSurveysPage(LoggedCase):
         # Пытаемся запутсить опрос
         self.surveys_page.BUTTON_START_SURVEY.clicks()
 
-        assert self.surveys_page.ERROR_LINK_MESSAGE != None
+        assert self.surveys_page.ERROR_LINK_MESSAGE
 
 
 

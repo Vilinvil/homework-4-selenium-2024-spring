@@ -8,143 +8,211 @@ class SitePage(PageWithView, PageWithRedirectWindow):
     url = "https://ads.vk.com/hq/pixels"
     locators = SitePageLocators()
 
-    def clear_search(self):
-        self.click(self.find(self.locators.BUTTON_CLEAR, until_EC=EC.visibility_of_element_located))
 
-    def click_create_pixel_by_id(self):
-        self.click(self.locators.LABEL_ID_PIXEL)
+    @property
+    @add_clicks
+    def BUTTON_CLEAR_SEARCH(self):
+        return self.find_with_check_visibility(self.locators.BUTTON_CLEAR)
 
-    def click_create_pixel_button(self):
-        self.click(self.locators.BUTTON_CREATE_NEW_PIXEL)
 
-    def click_create_pixel_copy(self):
-        self.click(self.locators.BUTTON_CREATE_COPY_PIXEL)
+    @property
+    @add_clicks
+    def BUTTON_CREATE_PIXEL_BY_ID(self):
+        return self.find(self.locators.LABEL_ID_PIXEL)
 
-    def get_error_message(self):
+
+    @property
+    @add_clicks
+    def BUTTON_CREATE_PIXEL(self):
+        return self.find(self.locators.BUTTON_CREATE_NEW_PIXEL)
+
+
+    @property
+    @add_clicks
+    def BUTTON_CREATE_PIXEL_COPY(self):
+        return self.find(self.locators.BUTTON_CREATE_COPY_PIXEL)
+
+
+    @property
+    def ERROR_MESSAGE(self):
         return self.find(self.locators.ERROR_DOMAIN_INPUT).text
 
+    @property
     @add_write
-    def get_input_field_pixel_id(self):
+    def INPUT_FIELD_PIXEL_ID(self):
         return self.find(self.locators.PIXEL_ID_INPUT)
     
-    def enter_pixel_id(self, input_id):
-        domain_input = self.get_input_field_pixel_id()
-        domain_input.clear()
-        domain_input.send_keys(input_id)
 
-    def enter_in_domain_name_field(self, input_domain):
-        domain_input = self.get_input_field_domain_name()
-        domain_input.clear()
-        domain_input.send_keys(input_domain)
+    # @property
+    # @add_write
+    # def enter_pixel_id(self):
+    #     domain_input = self.INPUT_FIELD_PIXEL_ID()
+    #     domain_input.clear()
+    #     domain_input.send_keys(input_id)
 
-    def enter_in_update_modal_new_domain(self, new_domain):
-        update_input = self.get_update_name_input()
-        update_input.clear()
-        update_input.send_keys(new_domain)
+    # def enter_in_domain_name_field(self, input_domain):
+    #     domain_input = self.INPUT_FIELD_DOMAIN_NAME()
+    #     domain_input.clear()
+    #     domain_input.send_keys(input_domain)
 
-    def enter_in_search_field(self, domain_name):
-        domain_input = self.get_search_input_field()
-        domain_input.clear()
-        domain_input.send_keys(domain_name)
 
+    # def enter_in_update_modal_new_domain(self, new_domain):
+    #     update_input = self.UPDATE_NAME_INPUT()
+    #     update_input.clear()
+    #     update_input.send_keys(new_domain)
+
+
+    # def enter_in_search_field(self, domain_name):
+    #     domain_input = self.SEARCH_INPUT_FIELD()
+    #     domain_input.clear()
+    #     domain_input.send_keys(domain_name)
+
+
+    @property
     @add_write
-    def get_input_email_owner(self):
+    def INPUT_EMAIL_OWNER(self):
         return self.find(self.locators.EMAIL_INPUT, 3)
     
+
+    @property
     @add_write
-    def get_input_email_owner_input(self):
+    def INPUT_EMAIL_OWNER_INPUT(self):
         return self.find(self.locators.INPUT_EMAIL_INPUT, 3)
 
-    def click_frame_button(self):
-        self.click(self.locators.BUTTON_GROUP_IFRAME, 5)
 
-    def get_pixel_create_message(self):
+    @property
+    @add_clicks
+    def FRAME_BUTTON(self):
+        return self.find(self.locators.BUTTON_GROUP_IFRAME, 5)
+
+
+    @property
+    def PIXEL_CREATE_MESSAGE(self):
         return self.find(self.locators.TEXT_CREATE_PIXEL_ID_CONFIRM).text
 
-    def get_pixel_found_message(self):
+
+    @property
+    def PIXEL_NOT_FOUND_MESSAGE(self):
         return self.find(self.locators.MESSAGE_PIXEL_FOUND).text
 
-    def get_input_field_domain_name(self):
+
+    @property
+    @add_write
+    def INPUT_FIELD_DOMAIN_NAME(self):
         return self.find(self.locators.DOMAIN_INPUT)
 
-    def get_add_pixel_message(self):
+
+    @property
+    def ADD_PIXEL_MESSAGE(self):
         return self.find(self.locators.TEXT_ADD_PIXEL_HEADER).text
     
-    def get_not_found_pixel_message(self):
+
+    @property
+    def NOT_FOUND_PIXEL_MESSAGE(self):
         return self.find(self.locators.TEXT_NOTHING_FOUND).text
+
 
     def open_more_menu(self):
         self.hover_wrapper(self.locators.BUTTON_MENU_MORE)
         self.click(self.locators.BUTTON_MENU_MORE)
 
-    def submit_update_button(self):
-        self.click(self.locators.BUTTON_SUBMIT_UPDATE)
 
-    def get_update_name_input(self):
+    @property
+    @add_clicks
+    def SUBMIT_UPDATE_BUTTON(self):
+        return self.find(self.locators.BUTTON_SUBMIT_UPDATE)
+
+
+    @property
+    @add_write
+    def UPDATE_NAME_INPUT(self):
         return self.find(self.locators.INPUT_PIXEL_NAME_UPDATE)
+
+
+    @property
+    @add_clicks
+    def BUTTON_DELETE(self):
+        return self.find(self.locators.BUTTON_DELETE_CONFIRM)
+
+
+    @property
+    def NO_PIXELS_MESSAGE(self):
+        return self.find(self.locators.TEXT_NO_PIXELS_FOUND).text
+
+
+    @property
+    def NOTHING_FOUND_MESSAGE(self):
+        return self.find(self.locators.TEXT_NOTHING_FOUND).text
+
+
+    @property
+    def DOMAIN_FOUND_MESSAGE(self):
+        return self.find(self.locators.TEXT_PIXEL_DOMAIN_FOUND).text
+
+
+    @property
+    @add_write
+    def SEARCH_INPUT_FIELD(self):
+        return self.find(self.locators.SEARCH_INPUT)
+
+
+    @property
+    @add_clicks
+    def BUTTON_ADD_PIXEL(self):
+        return self.find(self.locators.BUTTON_ADD_PIXEL)
+
+
+    @property
+    @add_clicks
+    def BUTTON_CLOSE_MODAL(self):
+        return self.find(self.locators.BUTTON_CLOSE_MODAL)
+
+
+    @property
+    def PIXEL_RAW(self):
+        return self.find(self.locators.PIXEL_ROW)
+    
+
+    def SPAN_PIXEL_NAME(self, pixel_raw, name):
+        return self.find_child(pixel_raw, self.locators.PIXEL_NAME(name))
+    
+
+    def DIV_PIXEL_ID(self, pixel_raw, id):
+        return self.find_child(pixel_raw, self.locators.PIXEL_ID(id))
+    
+
+    def SPAN_PIXEL_STATUS(self, pixel_raw, status):
+        return self.find_child(pixel_raw, self.locators.PIXEL_STATUS(status))
+    
+
+    @property
+    @add_clicks
+    def BUTTON_ACCESS(self):
+        return self.find(self.locators.BUTTON_REQUEST_ACCESS)
+    
+
+    @property
+    @add_clicks
+    def CONFIRM_ACCESS_BUTTON(self):
+        return self.find(self.locators.BUTTON_REQUEST)
+    
 
     def open_update_modal(self):
         self.open_more_menu()
         self.click(self.locators.DROPDOWN_MENU_UPDATE)
 
+
     def open_delete_modal(self):
         self.open_more_menu()
         self.click(self.locators.DROPDOWN_MENU_DELETE)
 
-    def click_delete_button(self):
-        self.click(self.locators.BUTTON_DELETE_CONFIRM)
-
-    def verify_no_pixels_message(self):
-        return self.find(self.locators.TEXT_NO_PIXELS_FOUND).text
 
     def create_new_pixel(self, domain_name):
-        self.click_create_pixel_button()
+        self.BUTTON_CREATE_PIXEL.clicks()
 
-        domain_input = self.get_input_field_domain_name()
-        domain_input.clear()
-        domain_input.send_keys(domain_name)
+        self.INPUT_FIELD_DOMAIN_NAME.write(domain_name)
 
-        self.click_frame_button()
-        self.click_create_pixel_button()
-        self.click(self.locators.BUTTON_CLOSE_MODAL)
+        self.FRAME_BUTTON.clicks()
+        self.BUTTON_CREATE_PIXEL.clicks()
+        self.BUTTON_CLOSE_MODAL()
 
-
-    def verify_nothing_found(self):
-        return self.find(self.locators.TEXT_NOTHING_FOUND).text
-
-    def verify_domain_found(self):
-        return self.find(self.locators.TEXT_PIXEL_DOMAIN_FOUND).text
-
-    @add_write
-    def get_search_input_field(self):
-        return self.find(self.locators.SEARCH_INPUT)
-
-    def click_add_pixel_button(self):
-        self.click(self.locators.BUTTON_ADD_PIXEL)
-
-    def close_modal(self):
-        self.click(self.locators.BUTTON_CLOSE_MODAL)
-
-    def get_pixel_raw(self):
-        return self.find(self.locators.PIXEL_ROW)
-    
-    def get_span_pixel_name(self, pixel_raw, name):
-        return self.find_child(pixel_raw, self.locators.PIXEL_NAME(name))
-    
-    def get_div_pixel_id(self, pixel_raw, id):
-        return self.find_child(pixel_raw, self.locators.PIXEL_ID(id))
-    
-    def get_span_pixel_status(self, pixel_raw, status):
-        return self.find_child(pixel_raw, self.locators.PIXEL_STATUS(status))
-    
-    @add_clicks
-    def get_access_button(self):
-        return self.find(self.locators.BUTTON_REQUEST_ACCESS)
-    
-    @add_clicks
-    def get_confirm_access_button(self):
-        return self.find(self.locators.BUTTON_REQUEST)
-    
-    def refresh(self):
-        self.driver.refresh()
-        self.close_alert_if_shown()
