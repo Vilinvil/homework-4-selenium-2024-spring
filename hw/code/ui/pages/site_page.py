@@ -2,11 +2,14 @@ from ui.pages.base_page import PageWithView, PageWithRedirectWindow
 from ui.locators.site_locators import SitePageLocators
 
 from selenium.webdriver.support import expected_conditions as EC
-from ui.pages.base_page_functionality import BasePageFunctionality, add_write, add_click
+from ui.pages.base_page_functionality import BasePageFunctionality, add_write, add_clicks
 
 class SitePage(PageWithView, PageWithRedirectWindow):
     url = "https://ads.vk.com/hq/pixels"
     locators = SitePageLocators()
+
+    def clear_search(self):
+        self.click(self.find(self.locators.BUTTON_CLEAR, until_EC=EC.visibility_of_element_located))
 
     def click_create_pixel_by_id(self):
         self.click(self.locators.LABEL_ID_PIXEL)
@@ -105,8 +108,6 @@ class SitePage(PageWithView, PageWithRedirectWindow):
         self.click_create_pixel_button()
         self.click(self.locators.BUTTON_CLOSE_MODAL)
 
-    # def search_for_pixel(self, domain_name):
-    #     return self.find(self.locators.find_element(domain_name))
 
     def verify_nothing_found(self):
         return self.find(self.locators.TEXT_NOTHING_FOUND).text
@@ -114,6 +115,7 @@ class SitePage(PageWithView, PageWithRedirectWindow):
     def verify_domain_found(self):
         return self.find(self.locators.TEXT_PIXEL_DOMAIN_FOUND).text
 
+    @add_write
     def get_search_input_field(self):
         return self.find(self.locators.SEARCH_INPUT)
 
@@ -122,9 +124,6 @@ class SitePage(PageWithView, PageWithRedirectWindow):
 
     def close_modal(self):
         self.click(self.locators.BUTTON_CLOSE_MODAL)
-
-    # def check_new_pixel(self, name):
-    #     self.find(self.locators.PIXEL_NAME(name))
 
     def get_pixel_raw(self):
         return self.find(self.locators.PIXEL_ROW)
@@ -138,11 +137,11 @@ class SitePage(PageWithView, PageWithRedirectWindow):
     def get_span_pixel_status(self, pixel_raw, status):
         return self.find_child(pixel_raw, self.locators.PIXEL_STATUS(status))
     
-    @add_click
+    @add_clicks
     def get_access_button(self):
         return self.find(self.locators.BUTTON_REQUEST_ACCESS)
     
-    @add_click
+    @add_clicks
     def get_confirm_access_button(self):
         return self.find(self.locators.BUTTON_REQUEST)
     

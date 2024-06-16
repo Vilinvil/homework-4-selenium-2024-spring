@@ -8,9 +8,7 @@ class TrainingPageSharedLocators:
 class SitePageLocators:
     SIGN_OPENNING_SITE = (By.ID, "pixels")
 
-    # LABEL_ID_PIXEL = (By.XPATH, "//label[contains(@class, 'vkuiSegmentedControlOption vkuiSegmentedControlOption--checked vkui-focus-visible')]")
     LABEL_ID_PIXEL = (By.XPATH, '//h4[text()="ID пикселя"]')
-    # CLOSE_MODAL = (By.XPATH, '//div[]')
 
     SEARCH_INPUT = (By.XPATH, '//input[@placeholder="Поиск"]')
     PIXEL_ID_INPUT = (By.XPATH, '//input[@placeholder="ID пикселя"]')
@@ -49,10 +47,11 @@ class SitePageLocators:
     BUTTON_REQUEST_ACCESS = (By.XPATH, '//span[text()="Запросить доступ к пикселю"]')
     BUTTON_REQUEST = (By.XPATH, '//span[text()="Запросить доступ"]')
     INPUT_EMAIL_INPUT = (By.XPATH, '//input[@placeholder="Введите email"]')
+    BUTTON_CLEAR = (By.XPATH, '//button[@aria-label="Очистить"]')
     
     @staticmethod
     def PIXEL_NAME(name):
-        return (By.XPATH, f'.//span[text()="*{name}*"]')
+        return (By.XPATH, f'.//span[text()="{name}"]')
     
     @staticmethod
     def PIXEL_ID(id):

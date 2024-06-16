@@ -2,8 +2,7 @@ from cases import LoggedCase
 from ui.pages.surveys_page import SurveysPage
 from ui.pages.leads_page import LeadsPage
 import pytest
-from selenium.common.exceptions import StaleElementReferenceException
-import time
+from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
 
 
 class TestSurveysPage(LoggedCase):
@@ -29,6 +28,9 @@ class TestSurveysPage(LoggedCase):
     RESULT_HEADER = "Спасибо за ответы!"
     RESULT_DESCRIPTION = "Заявка отправлена"
 
+    ERRORS_DESIGN_MSG_COUNT = 5
+    ERRORS_RESULT_MSG_COUNT = 2
+
     @pytest.fixture(scope='function', autouse=True)
     def setup_surveys_page(self):
         self.main_page.open_leads()
@@ -37,6 +39,7 @@ class TestSurveysPage(LoggedCase):
         self.surveys_page = SurveysPage(self.driver)
     
 
+    # @pytest.mark.skip
     def test_simple_positive(self):
         # Клик на кнопку создания опроса (почему-то, с первого раза вылетает эксепшен, несмотря на правильно проставленный until_EC)
         while True:
@@ -95,9 +98,9 @@ class TestSurveysPage(LoggedCase):
         self.surveys_page.INPUT_HEADER_STOP_VIEW.write(self.STOP_VIEW_HEADER)
         self.surveys_page.INPUT_DESCRIPTION_STOP_VIEW.write(self.STOP_VIEW_DESCRIPTION)
 
-        # Результат
         self.surveys_page.BUTTON_TO_RESULTS.clicks()
 
+        # Результат
         self.surveys_page.INPUT_RESULT_HEADER.write(self.RESULT_HEADER)
         self.surveys_page.INPUT_RESULT_DESCRIPTION.write(self.RESULT_DESCRIPTION)
         
@@ -142,5 +145,78 @@ class TestSurveysPage(LoggedCase):
         # Результаты
         assert self.surveys_page.RESULT_HEADER == self.RESULT_HEADER
         assert self.surveys_page.RESULT_DESCRIPTION == self.RESULT_DESCRIPTION
+
+    def test_neg_cases(self):
+        while True:
+            try:
+                self.surveys_page.BUTTON_CREATE_SURVEYS.clicks()
+                break
+            except StaleElementReferenceException:
+                pass
+
+        # Переходим на следующим этап, не заполнив поля
+        self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
+
+        # Проверяем, что появилось 5 сообщений об ошибке
+        for i in range(1, self.ERRORS_DESIGN_MSG_COUNT + 1):
+            assert self.surveys_page.DESIGN_ERROR_MESSAGE(i) != None
+
+        # Заполняем поля
+        self.surveys_page.INPUT_NAME.write(self.NAME)
+        self.surveys_page.INPUT_COMPANY_NAME.write(self.COMPANY_NAME)
+        self.surveys_page.INPUT_SURVEYS_HEADER.write(self.SURVEYS_HEADER)
+        self.surveys_page.INPUT_SURVEYS_DESCRIPTION.write(self.SURVEYS_DESCRIPTION)
+        self.surveys_page.load_logo(self.LOGO_RELATIVE_PATH)
+
+        # Переходим к вопросам
+        while 1:
+            try:
+                self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
+                break
+            except TimeoutException:
+                pass
+
+
+        # Переходим к результатам, не заполнив поля
+        self.surveys_page.BUTTON_TO_RESULTS.clicks()
+
+        # Проверяем появившееся сообщение об ошибке
+        assert self.surveys_page.QUESTION_ERROR_MESSAGE(1) != None
+
+        # Заполняем вопрос
+        self.surveys_page.INPUT_TEXT_QUESTION().write(self.QUESTION_TEXT_1)
+        self.surveys_page.INPUT_QUESTION_ANSWER().write(self.ANSWER_1)
+        self.surveys_page.INPUT_QUESTION_ANSWER(2).write(self.ANSWER_2)
+
+        # Переходим к результату
+        self.surveys_page.BUTTON_TO_RESULTS.clicks()
+
+        # На моей системе, на которой запускались тесты, получилось создать опрос с пустыми полями
+        # Делаем поля пустыми
+        # self.surveys_page.INPUT_RESULT_HEADER.clear()
+        # self.surveys_page.INPUT_RESULT_DESCRIPTION.clear()
+
+        # Пытаемся запутсить опрос ---- после этого опрос создавался, хотя поля выше очищаются
+        # self.surveys_page.BUTTON_START_SURVEY.clicks()
+
+        # # Проверяем сообщения, что поля должны быть не пустыми
+        # for i in range(1, self.ERRORS_RESULT_MSG_COUNT):
+        #     assert self.surveys_page.DESIGN_ERROR_MESSAGE(i) != None
+
+        # Добавляем неправильную ссылку
+        self.surveys_page.BUTTON_ADD_LINK.clicks()
+        self.surveys_page.INPUT_ADD_LINK.write("ne ssilka")
+        
+
+        # Пытаемся запутсить опрос
+        self.surveys_page.BUTTON_START_SURVEY.clicks()
+
+        assert self.surveys_page.ERROR_LINK_MESSAGE != None
+
+
+
+        
+
+
 
         

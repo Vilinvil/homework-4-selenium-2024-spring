@@ -145,7 +145,7 @@ def add_get_value(elem_getter):
 
     return functionality
 
-def add_click(button_getter):
+def add_clicks(button_getter):
     """Adds clicks method to button"""
     def decorator(self, *args, **kwargs):
         button = button_getter(self, *args, **kwargs)
