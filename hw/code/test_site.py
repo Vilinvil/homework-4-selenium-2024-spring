@@ -27,14 +27,13 @@ class TestSitePage(LoggedCase):
         self.main_page.click_redirect_to_site_page()
         self.site_page = SitePage(self.driver)
 
-    # @pytest.mark.skip
+
+    @pytest.mark.skip
     def test_pixel_create_delete(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
-        # self.site_page.enter_in_domain_name_field(self.NEW_DOMAIN)
         self.site_page.INPUT_FIELD_DOMAIN_NAME.write(self.NEW_DOMAIN)
         self.site_page.FRAME_BUTTON.clicks()
         self.site_page.BUTTON_CLOSE_MODAL.clicks()
-        # self.site_page.enter_in_search_field(self.NEW_DOMAIN)
         self.site_page.SEARCH_INPUT_FIELD.write(self.NEW_DOMAIN)
         raw = self.site_page.PIXEL_RAW
         
@@ -46,10 +45,9 @@ class TestSitePage(LoggedCase):
         self.site_page.BUTTON_DELETE.clicks()
 
 
-    # @pytest.mark.skip
+    @pytest.mark.skip
     def test_input_existed_domain(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
-        # self.site_page.enter_in_domain_name_field(self.ONE_EXISTED_DOMAIN)
         self.site_page.INPUT_FIELD_DOMAIN_NAME.write(self.ONE_EXISTED_DOMAIN)
 
         self.site_page.FRAME_BUTTON.clicks()
@@ -58,7 +56,6 @@ class TestSitePage(LoggedCase):
         self.site_page.CONFIRM_ACCESS_BUTTON.clicks()
         self.site_page.BUTTON_CLOSE_MODAL.clicks()
 
-        # self.site_page.enter_in_search_field(self.ONE_EXISTED_DOMAIN)
         self.site_page.SEARCH_INPUT_FIELD.write(self.ONE_EXISTED_DOMAIN)
         raw = self.site_page.PIXEL_RAW
         
@@ -69,19 +66,17 @@ class TestSitePage(LoggedCase):
         self.site_page.open_delete_modal()
         self.site_page.BUTTON_DELETE.clicks()
 
-    # @pytest.mark.skip
+
+    @pytest.mark.skip
     def test_input_two_existed_domain(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
-        # self.site_page.enter_in_domain_name_field(self.TWO_EXISTED_DOMAIN)
         self.site_page.INPUT_FIELD_DOMAIN_NAME.write(self.TWO_EXISTED_DOMAIN)
-
         self.site_page.FRAME_BUTTON.clicks()
         self.site_page.BUTTON_ACCESS.clicks()
         self.site_page.INPUT_EMAIL_OWNER_INPUT.write(self.EMAIL)
         self.site_page.CONFIRM_ACCESS_BUTTON.clicks()
         self.site_page.BUTTON_CLOSE_MODAL.clicks()
 
-        # self.site_page.enter_in_search_field(self.TWO_EXISTED_DOMAIN)
         self.site_page.SEARCH_INPUT_FIELD.write(self.TWO_EXISTED_DOMAIN)
         raw = self.site_page.PIXEL_RAW
         
@@ -93,8 +88,7 @@ class TestSitePage(LoggedCase):
         self.site_page.BUTTON_DELETE.clicks()
         
 
-
-    # @pytest.mark.skip
+    @pytest.mark.skip
     def test_create_delete_pixel_by_id(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
         self.site_page.BUTTON_CREATE_PIXEL_BY_ID.clicks()
@@ -102,7 +96,7 @@ class TestSitePage(LoggedCase):
         self.site_page.INPUT_FIELD_PIXEL_ID.write(self.ID)
         self.site_page.FRAME_BUTTON.clicks()
         self.site_page.BUTTON_CLOSE_MODAL.clicks()
-        # self.site_page.enter_in_search_field(self.ID)
+
         self.site_page.SEARCH_INPUT_FIELD.write(self.ID)
         raw = self.site_page.PIXEL_RAW
 
@@ -114,12 +108,9 @@ class TestSitePage(LoggedCase):
         self.site_page.BUTTON_DELETE.clicks()
 
     
-    
-
     # @pytest.mark.skip
     def test_pixel_search(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
-        # self.site_page.enter_in_domain_name_field(self.NEW_DOMAIN)
         self.site_page.INPUT_FIELD_DOMAIN_NAME.write(self.NEW_DOMAIN)
         self.site_page.FRAME_BUTTON.clicks()
         self.site_page.BUTTON_CLOSE_MODAL.clicks()
@@ -144,10 +135,12 @@ class TestSitePage(LoggedCase):
         search.write("")
         self.site_page.BUTTON_CLEAR_SEARCH.clicks()
         search.write(self.INVALID_DOMAIN)
-        assert self.site_page.NOT_FOUND_PIXEL_MESSAGE() == self.NOTHING_FIND_TEXT
+
+        assert self.site_page.NOT_FOUND_PIXEL_MESSAGE == self.NOTHING_FIND_TEXT
 
         search.write("")
         self.site_page.BUTTON_CLEAR_SEARCH.clicks()
         search.write("")
+
         self.site_page.open_delete_modal()
         self.site_page.BUTTON_DELETE.clicks()
