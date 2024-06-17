@@ -121,7 +121,7 @@ class SitePage(PageWithView, PageWithRedirectWindow):
 
     def PIXEL_RAW(self, name):
         return self.find(self.locators.PIXEL_ROW(name), timeout=20).parent
-    
+
     def PIXEL_RAW_BY_ID(self, id):
         return self.find(self.locators.PIXEL_ROW_BY_ID(id), timeout=20).parent
 

@@ -9,7 +9,7 @@ class TestSitePage(LoggedCase):
     ERROR_MSG_INVALID_DOMAIN = "Введите корректный адрес сайта (вида: example.ru)"
     NOTHING_FIND_TEXT = "Ничего не найдено"
 
-    EXISTED_DOMAIN = f"my-kopilka.ru"
+    EXISTED_DOMAIN = "my-kopilka.ru"
 
     NEW_DOMAIN = f"my-kopilka{random.randint(100, 1000)}.ru"
     UPDATE_DOMAIN = "update-domain.ru"

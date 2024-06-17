@@ -222,7 +222,7 @@ class SurveysPage(BasePageFunctionality):
     @property
     def ERROR_LINK_MESSAGE(self):
         return self.find_with_check_visibility(self.locators.INPUT_ADD_LINK)
-    
+
     def close_training_if_shown(self):
         try:
             self.find_with_check_visibility(self.locators.MODAL_VIEW_TRAINING)

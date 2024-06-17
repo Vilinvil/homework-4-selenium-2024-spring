@@ -1,8 +1,9 @@
 from cases import LoggedCase
 from ui.pages.surveys_page import SurveysPage
 from ui.pages.leads_page import LeadsPage
+
 import pytest
-from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
+from selenium.common.exceptions import StaleElementReferenceException
 
 
 class TestSurveysPage(LoggedCase):

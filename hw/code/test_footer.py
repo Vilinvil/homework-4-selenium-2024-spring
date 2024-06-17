@@ -78,7 +78,7 @@ class TestFooter(BaseCase):
             ),
         ],
     )
-    def test_open_pages(self, redirect_to, url):
+    def test_open_pages_redirect(self, redirect_to, url):
         page_with_redirect = PageWithRedirectWindow(self.driver)
         redirect_to(self.base_page, page_with_redirect)
 

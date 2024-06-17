@@ -5,7 +5,7 @@ from ui.pages.catalogs_page import CatalogsPage
 
 from selenium.common.exceptions import TimeoutException
 
-import random 
+import random
 
 
 class TestSurveysPage(LoggedCase):
@@ -90,7 +90,7 @@ class TestSurveysPage(LoggedCase):
 
             # Дожидаемся удаления
             self.catalogs_page.BUTTON_CREATE_CATALOG
-        
+
         except Exception as ex:
             # Удаляем каталог
             self.catalogs_page.BUTTON_SETTINGS.clicks()
@@ -115,7 +115,7 @@ class TestSurveysPage(LoggedCase):
         self.catalogs_page.UPDATE_PERIOD_OPTION('1 час').clicks()
         self.catalogs_page.BUTTON_CONFIRM_CREATE_CATALOG.clicks()
 
-        # Если тест падает, то удаляем каталог и бросаем исключение 
+        # Если тест падает, то удаляем каталог и бросаем исключение
         try:
             # Проверяем период обновления
             try:

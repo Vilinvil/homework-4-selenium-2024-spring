@@ -36,7 +36,8 @@ class SitePageLocators:
     BUTTON_GROUP_IFRAME = (By.XPATH, '//div[contains(@class, "vkuiButtonGroup")]/button')
 
     BUTTON_MENU_MORE = (By.XPATH, '//button[@aria-label="More"]')
-    ELEMENT_TABLE_DOMAIN = (By.XPATH, "//div[contains(@class, 'BaseTable__row-cell') and contains(@style, 'width: 50px')]")
+    ELEMENT_TABLE_DOMAIN = (By.XPATH, "//div[contains(@class, 'BaseTable__row-cell') and"
+                                      " contains(@style, 'width: 50px')]")
 
     DROPDOWN_MENU_DELETE = (By.XPATH, '//div[contains(@class, "ContextMenu_dropdown__")]//label[last()]')
     DROPDOWN_MENU_UPDATE = (By.XPATH, '//div[contains(@class, "ContextMenu_dropdown__")]//label[1]')
@@ -49,7 +50,6 @@ class SitePageLocators:
     @staticmethod
     def PIXEL_ROW_BY_ID(id):
         return (By.XPATH, f'//div[contains(@class, "PixelsList__row")]//div[text()="{id}"]')
-
 
     BUTTON_REQUEST_ACCESS = (By.XPATH, '//span[text()="Запросить доступ к пикселю"]')
     BUTTON_REQUEST = (By.XPATH, '//span[text()="Запросить доступ"]')
