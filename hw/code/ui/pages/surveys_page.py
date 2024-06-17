@@ -48,7 +48,7 @@ class SurveysPage(BasePageFunctionality):
     @property
     @add_clicks
     def BUTTON_TO_QUESTIONS(self):
-        return self.find_with_check_visibility(self.locators.BUTTON_TO_QUESTIONS)
+        return self.find(self.locators.BUTTON_TO_QUESTIONS, until_EC=EC.element_to_be_clickable)
 
     @property
     @add_clicks
