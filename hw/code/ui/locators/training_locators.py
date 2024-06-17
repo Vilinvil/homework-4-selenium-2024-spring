@@ -46,7 +46,7 @@ class TrainingPageStepByStepLocators:
 
     STEP2_TOOLTIP_OBJECT_ADS = create_rich_tooltip("Объект рекламы")
 
-    STEP2_TOOLTIP_SITE = create_rich_tooltip("Рекламируемый сайт") # disabled
+    STEP2_TOOLTIP_SITE = create_rich_tooltip("Рекламируемый сайт")  # disabled
 
     STEP2_TOOLTIP_PIXEL = (By.XPATH, '//*[contains(@class, "RichTooltop_wrapper")]'
                                      '//*[contains(text(), "Установить пиксель") or'
@@ -60,7 +60,7 @@ class TrainingPageStepByStepLocators:
 
     STEP2_TOOLTIP_STRATEGY = create_rich_tooltip("Стратегия ставок кампании")
 
-    STEP2_TOOLTIP_BUDGET = create_rich_tooltip("Бюджет") # disabled
+    STEP2_TOOLTIP_BUDGET = create_rich_tooltip("Бюджет")  # disabled
 
     STEP2_TOOLTIP_DATE = create_rich_tooltip("Даты проведения")
 
@@ -73,7 +73,7 @@ class TrainingPageStepByStepLocators:
 
     STEP3_TOOLTIP_SCHEDULE = create_rich_tooltip("Расписание показа")
 
-    STEP3_TOOLTIP_REGIONS = create_rich_tooltip("Регионы показа") # disabled
+    STEP3_TOOLTIP_REGIONS = create_rich_tooltip("Регионы показа")  # disabled
 
     STEP3_TOOLTIP_PARAMETERS_AUDIENCE = create_rich_tooltip("Параметры аудитории")
 
@@ -87,13 +87,13 @@ class TrainingPageStepByStepLocators:
                                    '//*[contains(text(), "Оформление объявления")]')
     STEP4_BUTTON_CONTINUE_ADS = (By.XPATH, '//*[contains(@class, "Info_firstButton")]')
 
-    STEP4_TOOLTIP_LOGO = create_rich_tooltip("Логотип") # disabled
+    STEP4_TOOLTIP_LOGO = create_rich_tooltip("Логотип")  # disabled
 
-    STEP4_TOOLTIP_TITLE = create_rich_tooltip("Заголовок") # disabled
+    STEP4_TOOLTIP_TITLE = create_rich_tooltip("Заголовок")  # disabled
 
-    STEP4_TOOLTIP_SHORT_DESCRIPTION = create_rich_tooltip("Короткое описание") # disabled
+    STEP4_TOOLTIP_SHORT_DESCRIPTION = create_rich_tooltip("Короткое описание")  # disabled
 
-    STEP4_TOOLTIP_LONG_DESCRIPTION = create_rich_tooltip("Длинное описание") # disabled
+    STEP4_TOOLTIP_LONG_DESCRIPTION = create_rich_tooltip("Длинное описание")  # disabled
 
     STEP4_TOOLTIP_HREF = create_rich_tooltip("Укажите ссылку")
 

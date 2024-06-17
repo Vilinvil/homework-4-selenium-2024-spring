@@ -23,7 +23,7 @@ class LeadsPageDesignLocators:
     BUTTON_SET_MAIN_IMAGE = (By.CSS_SELECTOR, '[data-testid="set-main-image"]')
 
     PREVIEW_CONTAINER = (By.XPATH, '//*[contains(@class, "CreateLeadFormModal_previewContainer")]')
-    PREVIEW_TITLE_CONTACT_DETAILS = By.XPATH, (f'//*[contains(@class, "CreateLeadFormModal_previewContainer")]'
+    PREVIEW_TITLE_CONTACT_DETAILS = By.XPATH, ('//*[contains(@class, "CreateLeadFormModal_previewContainer")]'
                                                '//h3[contains(text(), "Введите свои контактные данные")]')
     PREVIEW_LOGO = (By.XPATH, '//*[contains(@class, "CreateLeadFormModal_previewContainer")]'
                               '//*[contains(@class, "TopPart-module_appLogo")]')
@@ -67,11 +67,13 @@ class LeadsPageQuestionsLocators:
 
     @staticmethod
     def PREVIEW_TITLE_QUESTION(title):
-        return By.XPATH, f'//*[contains(@class, "OnePageContentBlock-module_titleWrap") and .//*[contains(text(), "{title}")]]'
+        return By.XPATH, (f'//*[contains(@class, "OnePageContentBlock-module_titleWrap") and'
+                          f' .//*[contains(text(), "{title}")]]')
 
     @staticmethod
     def PREVIEW_QUESTION_BY_TITLE(title):
-        return By.XPATH, f'//*[contains(@class, "OnePageContentBlock-module_wrap") and .//*[contains(text(), "{title}")]]'
+        return By.XPATH, (f'//*[contains(@class, "OnePageContentBlock-module_wrap") and'
+                          f' .//*[contains(text(), "{title}")]]')
 
     PREVIEW_ANSWERS_SIGN_RADIOGROUP = (By.XPATH, './/*[contains(@class, "vkuiRadioGroup")]')
     PREVIEW_ANSWERS_SIGN_CHECKBOX = (By.XPATH, './/*[contains(@class, "vkuiCheckbox")]')
@@ -186,7 +188,7 @@ class LeadsPageLocators:
     ANY_ERROR = (By.XPATH, '//*[contains(@class, "ModalSidebarPage_content")]//*[@role="alert"]')
 
     BUTTON_CLOSE_OFFER_TRAINING = (By.XPATH, '//*[contains(@class, "ModalRoot_componentWrapper")]'
-                                            '//button[.//*[contains(text(), "Не сейчас")]]')
+                                             '//button[.//*[contains(text(), "Не сейчас")]]')
     BUTTON_CLOSE_TOOLTIP_TRAINING = (By.XPATH, '//*[contains(@class, "CloseButton_wrapper")]')
 
     TO_SURVEYS = (By.XPATH, '//span[text()="Опросы"]')

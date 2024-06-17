@@ -1,10 +1,7 @@
 import pytest
 
 from cases import BaseCase
-from ui.locators.help_locators import HelpPageLocators
 from ui.pages.help_page import HelpPage
-
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class TestHelp(BaseCase):

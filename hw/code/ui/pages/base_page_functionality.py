@@ -58,7 +58,7 @@ class BasePageFunctionality(object):
 
     def write_input(self, locator, message, timeout=BASIC_TIMEOUT) -> WebElement:
         input_element = self.find_with_check_visibility(locator, timeout)
-        input_element =  self.write_input_to_element(input_element, message)
+        input_element = self.write_input_to_element(input_element, message)
         self.wait().until(EC.text_to_be_present_in_element_value(locator, message))
 
         return input_element
@@ -81,13 +81,11 @@ class BasePageFunctionality(object):
 
     def check_url(self, expected_url, timeout=BASIC_TIMEOUT):
         return self.wait(timeout).until(EC.url_matches(expected_url))
-    
 
     def find_child(self, parent, child_locator, timeout=BASIC_TIMEOUT, until_EC=EC.presence_of_element_located):
         return WebDriverWait(parent, timeout).until(
             until_EC(child_locator)
         )
-    
 
     def close_alert_if_shown(self, timeout=BASIC_TIMEOUT):
         try:
@@ -145,13 +143,18 @@ def add_get_value(elem_getter):
 
     return functionality
 
+
 def add_clicks(button_getter):
     """Adds clicks method to button"""
+
     def decorator(self, *args, **kwargs):
         button = button_getter(self, *args, **kwargs)
+
         def __click():
             """Clicks button"""
             self.click(button)
+
         button.clicks = __click
         return button
+
     return decorator

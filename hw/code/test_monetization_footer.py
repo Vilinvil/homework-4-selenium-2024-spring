@@ -1,13 +1,8 @@
 import pytest
 
 from cases import BaseCase
-from ui.locators.monetization_locators import MonetizationPageLocators
 from ui.pages.base_page import PageWithRedirectWindow
 from ui.pages.monetization_page import MonetizationPage
-from utils.timeout import BASIC_TIMEOUT
-
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains as AC
 
 
 class TestMonetizationFooter(BaseCase):

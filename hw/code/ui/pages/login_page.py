@@ -7,7 +7,7 @@ from utils.credentials import Credentials
 
 class LoginPage(BasePage):
     locators = login_locators.LoginPageLocators()
-    
+
     def login(self, credentials: Credentials):
         self.click(super().locators.NAV_BUTTON_CABINET_LOCATOR)
 

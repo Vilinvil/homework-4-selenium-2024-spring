@@ -21,7 +21,6 @@ class TestSurveysPage(LoggedCase):
     ANSWER_2_1 = "ответ 2.1"
     ANSWER_2_2 = "ответ 2.2"
 
-
     STOP_VIEW_HEADER = "Неверный ответ"
     STOP_VIEW_DESCRIPTION = "Опрос закончен"
 
@@ -37,11 +36,11 @@ class TestSurveysPage(LoggedCase):
         self.leadpage = LeadsPage(self.driver)
         self.leadpage.redirect_to_surveys()
         self.surveys_page = SurveysPage(self.driver)
-    
 
     # @pytest.mark.skip
     def test_simple_positive(self):
-        # Клик на кнопку создания опроса (почему-то, с первого раза вылетает эксепшен, несмотря на правильно проставленный until_EC)
+        # Клик на кнопку создания опроса (почему-то, с первого раза вылетает эксепшен, несмотря на правильно
+        # проставленный until_EC)
         while True:
             try:
                 self.surveys_page.BUTTON_CREATE_SURVEYS.clicks()
@@ -60,7 +59,7 @@ class TestSurveysPage(LoggedCase):
         assert self.surveys_page.SURVEYS_HEADER(self.SURVEYS_HEADER)
         assert self.surveys_page.SURVEYS_DESCRIPTION(self.SURVEYS_DESCRIPTION)
         assert self.surveys_page.LOGO_IMAGE
-        
+
         self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
 
         # Вопросы
@@ -70,7 +69,7 @@ class TestSurveysPage(LoggedCase):
         self.surveys_page.INPUT_QUESTION_ANSWER(2).write(self.ANSWER_2)
         self.surveys_page.BUTTON_ADD_ANSWER().clicks()
         self.surveys_page.INPUT_QUESTION_ANSWER(3).write(self.ANSWER_3)
-        
+
         assert self.surveys_page.QUESTION_TEXT == self.QUESTION_TEXT_1
         assert self.surveys_page.ANSWER_TEXT(1) == self.ANSWER_1
         assert self.surveys_page.ANSWER_TEXT(2) == self.ANSWER_2
@@ -103,7 +102,7 @@ class TestSurveysPage(LoggedCase):
         # Результат
         self.surveys_page.INPUT_RESULT_HEADER.write(self.RESULT_HEADER)
         self.surveys_page.INPUT_RESULT_DESCRIPTION.write(self.RESULT_DESCRIPTION)
-        
+
         assert self.surveys_page.RESULT_HEADER == self.RESULT_HEADER
         assert self.surveys_page.RESULT_DESCRIPTION == self.RESULT_DESCRIPTION
 
@@ -128,7 +127,7 @@ class TestSurveysPage(LoggedCase):
         assert self.surveys_page.ANSWER_TEXT(3) == self.ANSWER_3
 
         self.surveys_page.INPUT_TEXT_QUESTION(2).clicks()
-        
+
         # Второй вопрос
         assert self.surveys_page.QUESTION_TEXT == self.QUESTION_TEXT_2
         assert self.surveys_page.ANSWER_TEXT(1) == self.ANSWER_2_1
@@ -176,7 +175,6 @@ class TestSurveysPage(LoggedCase):
             except TimeoutException:
                 pass
 
-
         # Переходим к результатам, не заполнив поля
         self.surveys_page.BUTTON_TO_RESULTS.clicks()
 
@@ -194,17 +192,8 @@ class TestSurveysPage(LoggedCase):
         # Добавляем неправильную ссылку
         self.surveys_page.BUTTON_ADD_LINK.clicks()
         self.surveys_page.INPUT_ADD_LINK.write("ne ssilka")
-        
 
         # Пытаемся запутсить опрос
         self.surveys_page.BUTTON_START_SURVEY.clicks()
 
         assert self.surveys_page.ERROR_LINK_MESSAGE
-
-
-
-        
-
-
-
-        

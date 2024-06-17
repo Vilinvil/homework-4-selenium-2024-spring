@@ -23,7 +23,6 @@ class SettingsPageLocators:
     SETTINGS_SHORT_INN_ALERT = (By.XPATH, '//*[contains(text(),"Длина ИНН должна быть 12 символов")]')
     SETTINGS_WRONG_EMAIL_ALERT = (By.XPATH, '//*[contains(text(),"Некорректный email адрес")]')
 
-
     SETTINGS_LANGUAGE_SELECT = (By.XPATH, '//*[@data-testid="interface-language"]')
 
     SETTINGS_SAVE_BUTTON = (By.XPATH, '//*[@data-testid="settings-save"]')

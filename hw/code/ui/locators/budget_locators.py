@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 
-
 HINT_MIN_SUMM_URL = "https://ads.vk.com/help/articles/billing#min"
 
 
@@ -15,11 +14,11 @@ class BudgetPageLocators:
                                          '//*[contains(@class, "CreateInvoiceModal_desc")]'
                                          '//*[contains(text(), "Пополнение счёта")]')
     TITLE_CREATE_INVOICE_SUMM = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
-                                          '//*[contains(@class, "CreateInvoiceModal_top")]'
-                                          '//*[contains(text(), "Cумма к оплате")]')
+                                           '//*[contains(@class, "CreateInvoiceModal_top")]'
+                                           '//*[contains(text(), "Cумма к оплате")]')
     TITLE_CREATE_INVOICE_VAT = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
-                                         '//*[contains(@class, "CreateInvoiceModal_top")]'
-                                         '//*[contains(text(), "Сумма, поступающая на ваш счёт (НДС — 20%)")]')
+                                          '//*[contains(@class, "CreateInvoiceModal_top")]'
+                                          '//*[contains(text(), "Сумма, поступающая на ваш счёт (НДС — 20%)")]')
     BUTTON_CONTINUE_BUDGET_REPLENISH = (By.XPATH, '//*[contains(@class, "CreateInvoiceModal_modal")]'
                                                   '//button//*[contains(text(), "Пополнить счёт")]')
 

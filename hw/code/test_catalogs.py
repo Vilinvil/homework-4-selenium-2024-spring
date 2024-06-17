@@ -1,8 +1,9 @@
+import pytest
+
 from cases import LoggedCase
 from ui.pages.catalogs_page import CatalogsPage
-import pytest
-from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
-import time
+
+from selenium.common.exceptions import TimeoutException
 
 
 class TestSurveysPage(LoggedCase):
@@ -14,23 +15,23 @@ class TestSurveysPage(LoggedCase):
         "Товар": "3",
         "Название товара": "Москвич 3",
         "Категория товара": "-",
-        "Наличие":"В наличии",
+        "Наличие": "В наличии",
         "Цена": "250,00 ₽",
         "Ссылка на сайт": "https://moskvich-auto.ru/models/moskvich-3",
         "Название": "Москвич 3",
-        "Производитель":"Москвич",
-        "Модель":"3",
-        "Кузов":"suv",
-        "Цвет кузова":"Белый",
-        "Статус":"new",
-        "Тип транспортного средства":"автомобиль",
-        "VIN":"1A2BCDEF3GH456789",
-        "Год производства":"2023",
-        "Адрес":"3-я улица Строителей 55",
-        "Состояние":"отличное",
-        "Страна":"Россия",
-        "Населённый пункт":"Казань",
-        "Регион":"Республика Татарстан",
+        "Производитель": "Москвич",
+        "Модель": "3",
+        "Кузов": "suv",
+        "Цвет кузова": "Белый",
+        "Статус": "new",
+        "Тип транспортного средства": "автомобиль",
+        "VIN": "1A2BCDEF3GH456789",
+        "Год производства": "2023",
+        "Адрес": "3-я улица Строителей 55",
+        "Состояние": "отличное",
+        "Страна": "Россия",
+        "Населённый пункт": "Казань",
+        "Регион": "Республика Татарстан",
     }
 
     LINK = "https://vk.com/gangperm"
@@ -43,7 +44,6 @@ class TestSurveysPage(LoggedCase):
     def setup_surveys_page(self):
         self.main_page.open_catalogs()
         self.catalogs_page = CatalogsPage(self.driver)
-
 
     # @pytest.mark.skip
     def test_pos_case_by_hand(self):
@@ -85,7 +85,6 @@ class TestSurveysPage(LoggedCase):
         self.catalogs_page.BUTTON_DELETE.clicks()
         self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
 
-    
     def test_pos_case_feed(self):
         # Закрываем окно "Хотите пройти обучение?", если появляется
         self.catalogs_page.close_training_if_shown()
@@ -123,4 +122,3 @@ class TestSurveysPage(LoggedCase):
         self.catalogs_page.BUTTON_SETTINGS.clicks()
         self.catalogs_page.BUTTON_DELETE.clicks()
         self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
-

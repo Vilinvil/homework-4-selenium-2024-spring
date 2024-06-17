@@ -2,7 +2,6 @@ from ui.pages.base_page import PageWithView
 from ui.locators.main_locators import MainPageLocators
 from ui.locators.training_locators import TrainingPageSharedLocators
 
-
 URL_MAIN_PAGE = 'https://ads.vk.com/hq/overview'
 
 
@@ -53,16 +52,11 @@ class MainPage(PageWithView):
     def open_training(self):
         self.open_view(self.locators.sidebar_locators.BUTTON_TRAINING, self.training_locators.SIGN_OPENING_MODAL_VIEW)
 
-    
     def click_redirect_to_site_page(self):
         self.click(self.locators.sidebar_locators.BUTTON_SITES)
 
-
     def click_redirect_to_surveys_page(self):
         self.click(self.locators.sidebar_locators.BUTTON_LEADS)
-        # self.click(self.locators.)
-        # self.click()
-
 
     def click_redirect_to_lead_forms_page(self):
         self.click(self.locators.sidebar_locators.BUTTON_LEADS)

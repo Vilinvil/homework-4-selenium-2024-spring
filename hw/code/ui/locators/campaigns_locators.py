@@ -35,7 +35,7 @@ class CampaignsPageSharedLocators:
     STEP4_INPUT_LONG_DESCRIPTION = (By.NAME, 'Длинный текст для использования в лентах соцсетей (2000 знаков)')
 
     STEP4_BUTTON_SET_MEDIA = (By.XPATH, '//*[@data-testid="set-global-image" and'
-                                                                        ' contains(@class, "UnionMediaContentGroup")]')
+                                        ' contains(@class, "UnionMediaContentGroup")]')
     STEP4_BUTTON_SUBMIT_MEDIA = (By.CSS_SELECTOR, '[data-testid="submit"]')
 
     # not shared locators for campaign tests
@@ -91,7 +91,7 @@ class CampaignsPageSharedLocators:
     AD_AI_IMAGE_BUTTON = (By.XPATH, '//*[contains(text(),"Созданное нейросетью")]')
     AD_AI_IMAGE = (By.XPATH, "//*[contains(@class, 'ImageItems_imageItem')]")
     AD_AI_IMAGE_SUBMIT_BUTTON = (By.CSS_SELECTOR, '[data-testid="submit"]')
-    AD_AI_PREVIEW = (By.XPATH, '//*[contains(@class,"MediaContentItem_videoPreview")]')
+    AD_AI_PREVIEW = (By.XPATH, '//*[contains(@class,"VideoContainer_container")]')
     BUTTON_PUBLISH = (By.XPATH, '//*[@id="footer"]//button//*[contains(text(), "Опубликовать")]')
 
     EDIT_BUTTON = (By.CSS_SELECTOR, '[data-testid="edit"]')

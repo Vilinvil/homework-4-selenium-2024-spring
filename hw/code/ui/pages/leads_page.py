@@ -147,11 +147,6 @@ class LeadsPageDesign(BasePageFunctionality):
 
     @property
     @add_write
-    def INPUT_SHORT_DESCRIPTION(self):
-        return self.find_with_check_visibility(self.locators.INPUT_SHORT_DESCRIPTION)
-
-    @property
-    @add_write
     def INPUT_MORE_TEXT(self):
         return self.find_with_check_visibility(self.locators.INPUT_MORE_TEXT)
 

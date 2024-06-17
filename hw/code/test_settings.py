@@ -2,10 +2,7 @@ import pytest
 
 from ui.pages.settings_page import SettingsPage
 from cases import LoggedCase
-from utils.timeout import BASIC_TIMEOUT
-from ui.locators.settings_locators import SettingsPageLocators
 
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains as AC
 
 

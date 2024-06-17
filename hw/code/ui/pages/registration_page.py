@@ -138,4 +138,3 @@ class RegistrationPage(BasePage):
             EC.presence_of_element_located(SettingsPageLocators.SETTINGS_BUTTON_DELETE_CABINET))
         AC(self.driver).move_to_element(elem).click(elem).perform()
         self.click(SettingsPageLocators.SETTINGS_BUTTON_ACCEPT_DELETE_CABINET)
-

@@ -27,7 +27,6 @@ class TestSitePage(LoggedCase):
         self.main_page.click_redirect_to_site_page()
         self.site_page = SitePage(self.driver)
 
-
     def test_pixel_create_delete(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
         self.site_page.INPUT_FIELD_DOMAIN_NAME.write(self.NEW_DOMAIN)
@@ -35,14 +34,13 @@ class TestSitePage(LoggedCase):
         self.site_page.BUTTON_CLOSE_MODAL.clicks()
         self.site_page.SEARCH_INPUT_FIELD.write(self.NEW_DOMAIN)
         raw = self.site_page.PIXEL_RAW
-        
+
         assert raw
         assert self.site_page.SPAN_PIXEL_NAME(raw, self.NEW_DOMAIN)
         assert self.site_page.SPAN_PIXEL_STATUS(raw, self.STATUS_DONT_ARRIVE)
-        
+
         self.site_page.open_delete_modal()
         self.site_page.BUTTON_DELETE.clicks()
-
 
     def test_input_existed_domain(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
@@ -56,14 +54,13 @@ class TestSitePage(LoggedCase):
 
         self.site_page.SEARCH_INPUT_FIELD.write(self.ONE_EXISTED_DOMAIN)
         raw = self.site_page.PIXEL_RAW
-        
+
         assert raw
         assert self.site_page.SPAN_PIXEL_NAME(raw, self.ONE_EXISTED_DOMAIN)
         assert self.site_page.SPAN_PIXEL_STATUS(raw, self.STATUS_ACCESS_REQUESTED)
-        
+
         self.site_page.open_delete_modal()
         self.site_page.BUTTON_DELETE.clicks()
-
 
     def test_input_two_existed_domain(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
@@ -76,14 +73,13 @@ class TestSitePage(LoggedCase):
 
         self.site_page.SEARCH_INPUT_FIELD.write(self.TWO_EXISTED_DOMAIN)
         raw = self.site_page.PIXEL_RAW
-        
+
         assert raw
         assert self.site_page.SPAN_PIXEL_NAME(raw, self.TWO_EXISTED_DOMAIN)
         assert self.site_page.SPAN_PIXEL_STATUS(raw, self.STATUS_ACCESS_REQUESTED)
-        
+
         self.site_page.open_delete_modal()
         self.site_page.BUTTON_DELETE.clicks()
-        
 
     def test_create_delete_pixel_by_id(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
@@ -99,11 +95,10 @@ class TestSitePage(LoggedCase):
         assert raw
         assert self.site_page.DIV_PIXEL_ID(raw, self.ID)
         assert self.site_page.SPAN_PIXEL_STATUS(raw, self.STATUS_ACCESS_REQUESTED)
-        
+
         self.site_page.open_delete_modal()
         self.site_page.BUTTON_DELETE.clicks()
 
-    
     def test_pixel_search(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
         self.site_page.INPUT_FIELD_DOMAIN_NAME.write(self.NEW_DOMAIN)
@@ -113,7 +108,7 @@ class TestSitePage(LoggedCase):
         search = self.site_page.SEARCH_INPUT_FIELD
         search.write(self.NEW_DOMAIN)
         raw = self.site_page.PIXEL_RAW
-        
+
         assert raw
         assert self.site_page.SPAN_PIXEL_NAME(raw, self.NEW_DOMAIN)
         assert self.site_page.SPAN_PIXEL_STATUS(raw, self.STATUS_DONT_ARRIVE)

@@ -37,7 +37,7 @@ class TestOverview(LoggedCase):
                                      lambda overview_page: overview_page.SIGN_SEARCH_FOUND_RESULTS,
                                  )
                              ], )
-    def test_search_in_choose_campaigns(self,setup_choose_campaigns, query, view):
+    def test_search_in_choose_campaigns(self, setup_choose_campaigns, query, view):
         self.overview_page.INPUT_SEARCH_IN_CHOOSE_CAMPAIGNS.write(query)
 
         assert view(self.overview_page)

@@ -13,10 +13,6 @@ class BudgetPage(PageWithView, PageWithRedirectWindow):
         return self.find_with_check_visibility(self.locators.TITLE)
 
     @property
-    def BUTTON_START_BUDGET_REPLENISH(self):
-        return self.find_with_check_visibility(self.locators.BUTTON_START_BUDGET_REPLENISH)
-
-    @property
     def TITLE_MODAL_PAGE_BUDGET(self):
         return self.find_with_check_visibility(self.locators.TITLE_MODAL_PAGE_BUDGET)
 

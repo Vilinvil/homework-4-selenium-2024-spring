@@ -2,10 +2,8 @@ import pytest
 
 from cases import RegisteredUserCase
 from ui.pages.registration_page import PreRegistrationPage, RegistrationPage
-from utils.timeout import BASIC_TIMEOUT
 from utils.credentials import Credentials
 
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains as AC
 
 

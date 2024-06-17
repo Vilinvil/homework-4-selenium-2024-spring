@@ -6,6 +6,7 @@ from ui.pages.campaign_page import CampaignSharedPage
 
 from selenium.webdriver import Keys
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common import TimeoutException
 
 
 class TrainingPage(PageWithView, PageWithRedirectWindow):
@@ -239,7 +240,12 @@ class TrainingPage(PageWithView, PageWithRedirectWindow):
         assert campaign_shared_page.check_text_input_site_url('goods-galaxy.ru')
         self.click(self.BUTTON_CONTINUE)
 
-        assert self.STEP2_TOOLTIP_PIXEL
+        try:
+            assert self.STEP2_TOOLTIP_PIXEL
+        except TimeoutException:
+            self.click(self.BUTTON_CONTINUE)
+            assert self.STEP2_TOOLTIP_PIXEL
+
         # check back in tooltips
         self.click(self.STEP2_BUTTON_BACK)
         assert self.STEP2_TOOLTIP_SITE

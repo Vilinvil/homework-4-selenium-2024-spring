@@ -2,7 +2,6 @@ from ui.locators.settings_locators import SettingsPageLocators
 from utils.timeout import BASIC_TIMEOUT
 from ui.pages.base_page import PageWithView, PageWithRedirectWindow
 
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains as AC
 
 

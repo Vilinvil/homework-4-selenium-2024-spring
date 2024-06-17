@@ -4,7 +4,6 @@ from ui.locators import basic_locators
 from ui.pages.base_page_functionality import BasePageFunctionality
 
 from selenium.webdriver.common.action_chains import ActionChains as AC
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 

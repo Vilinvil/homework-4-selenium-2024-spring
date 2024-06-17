@@ -7,7 +7,7 @@ class LeadFormsPageLocators:
     BONUS_BUTTON = (By.XPATH, '//span[text()="Бонус"]')
     RUBLES_BUTTON = (By.XPATH, '//h4[text()="₽"]')
     RUBLES_BUTTON = (By.XPATH, '//h4[text()="₽"]')
-    
+
     # DROP_MENU = (By.XPATH, '//span[text()="Активные" and @aria-live="polite"]')
     SEARCH_INPUT = (By.XPATH, '//input[@placeholder="Поиск"]')
     LEADFORMS_TAB = (By.XPATH, '//div[@aria-controls="leadforms"]')
@@ -20,7 +20,6 @@ class LeadFormsPageLocators:
     INPUT_SURVEYS_INFO = (By.XPATH, '//input[@placeholder="Краткое описание опроса"]')
     TEXTAREA_SURVEYS_DESCRIPTION = (By.XPATH, '//textarea[@placeholder="Расскажите о вашем опросе или предложении"]')
     SALE_VALUE_INPUT = (By.XPATH, '//span[@value="Бонус"]')
-
 
     CHOOSE_IMAGE_BUTTON = (By.XPATH, '//div[@data-testid="set-global-image]"')
     COMPACT_BUTTON = (By.XPATH, '//span[text()="Компактный"]')
