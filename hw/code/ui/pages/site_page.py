@@ -43,31 +43,6 @@ class SitePage(PageWithView, PageWithRedirectWindow):
         return self.find(self.locators.PIXEL_ID_INPUT)
     
 
-    # @property
-    # @add_write
-    # def enter_pixel_id(self):
-    #     domain_input = self.INPUT_FIELD_PIXEL_ID()
-    #     domain_input.clear()
-    #     domain_input.send_keys(input_id)
-
-    # def enter_in_domain_name_field(self, input_domain):
-    #     domain_input = self.INPUT_FIELD_DOMAIN_NAME()
-    #     domain_input.clear()
-    #     domain_input.send_keys(input_domain)
-
-
-    # def enter_in_update_modal_new_domain(self, new_domain):
-    #     update_input = self.UPDATE_NAME_INPUT()
-    #     update_input.clear()
-    #     update_input.send_keys(new_domain)
-
-
-    # def enter_in_search_field(self, domain_name):
-    #     domain_input = self.SEARCH_INPUT_FIELD()
-    #     domain_input.clear()
-    #     domain_input.send_keys(domain_name)
-
-
     @property
     @add_write
     def INPUT_EMAIL_OWNER(self):

@@ -28,7 +28,6 @@ class TestSitePage(LoggedCase):
         self.site_page = SitePage(self.driver)
 
 
-    @pytest.mark.skip
     def test_pixel_create_delete(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
         self.site_page.INPUT_FIELD_DOMAIN_NAME.write(self.NEW_DOMAIN)
@@ -45,7 +44,6 @@ class TestSitePage(LoggedCase):
         self.site_page.BUTTON_DELETE.clicks()
 
 
-    @pytest.mark.skip
     def test_input_existed_domain(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
         self.site_page.INPUT_FIELD_DOMAIN_NAME.write(self.ONE_EXISTED_DOMAIN)
@@ -67,7 +65,6 @@ class TestSitePage(LoggedCase):
         self.site_page.BUTTON_DELETE.clicks()
 
 
-    @pytest.mark.skip
     def test_input_two_existed_domain(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
         self.site_page.INPUT_FIELD_DOMAIN_NAME.write(self.TWO_EXISTED_DOMAIN)
@@ -88,7 +85,6 @@ class TestSitePage(LoggedCase):
         self.site_page.BUTTON_DELETE.clicks()
         
 
-    @pytest.mark.skip
     def test_create_delete_pixel_by_id(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
         self.site_page.BUTTON_CREATE_PIXEL_BY_ID.clicks()
@@ -108,7 +104,6 @@ class TestSitePage(LoggedCase):
         self.site_page.BUTTON_DELETE.clicks()
 
     
-    # @pytest.mark.skip
     def test_pixel_search(self):
         self.site_page.BUTTON_CREATE_PIXEL.clicks()
         self.site_page.INPUT_FIELD_DOMAIN_NAME.write(self.NEW_DOMAIN)
