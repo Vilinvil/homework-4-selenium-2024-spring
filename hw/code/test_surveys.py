@@ -198,7 +198,7 @@ class TestSurveysPage(LoggedCase):
             try:
                 self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
                 break
-            except TimeoutException:
+            except Exception:
                 pass
 
         # Переходим к результатам, не заполнив поля
