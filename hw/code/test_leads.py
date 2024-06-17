@@ -3,6 +3,8 @@ import pytest
 from cases import LoggedCase
 from ui.pages.leads_page import LeadsPage
 
+from selenium.common import TimeoutException
+
 
 class TestLeads(LoggedCase):
     @pytest.fixture(scope='function')
@@ -69,7 +71,12 @@ class TestLeads(LoggedCase):
         self.leads_page.click(self.leads_page.BUTTON_SUBMIT)
         self.leads_page.check_invisibility_any_error()
 
-        self.leads_page.click(self.leads_page.question_page.BUTTON_ADD_QUESTION)
+        try:
+            self.leads_page.click(self.leads_page.question_page.BUTTON_ADD_QUESTION)
+        except TimeoutException:
+            self.leads_page.click(self.leads_page.BUTTON_SUBMIT)
+            self.leads_page.click(self.leads_page.question_page.BUTTON_ADD_QUESTION)
+
         self.leads_page.click(self.leads_page.BUTTON_SUBMIT)
         self.leads_page.question_page.check_error_question()
 
