@@ -87,12 +87,18 @@ class TestSurveysPage(LoggedCase):
             self.catalogs_page.BUTTON_SETTINGS.clicks()
             self.catalogs_page.BUTTON_DELETE.clicks()
             self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
+
+            # Дожидаемся удаления
+            self.catalogs_page.BUTTON_CREATE_CATALOG
         
         except Exception as ex:
             # Удаляем каталог
             self.catalogs_page.BUTTON_SETTINGS.clicks()
             self.catalogs_page.BUTTON_DELETE.clicks()
             self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
+
+            # Дожидаемся удаления
+            self.catalogs_page.BUTTON_CREATE_CATALOG
 
             raise ex
 
@@ -135,11 +141,16 @@ class TestSurveysPage(LoggedCase):
             self.catalogs_page.BUTTON_SETTINGS.clicks()
             self.catalogs_page.BUTTON_DELETE.clicks()
             self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
-        
+
+            # Дожидаемся удаления
+            self.catalogs_page.BUTTON_CREATE_CATALOG
         except Exception as ex:
             # Удаляем каталог
             self.catalogs_page.BUTTON_SETTINGS.clicks()
             self.catalogs_page.BUTTON_DELETE.clicks()
             self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
+
+            # Дожидаемся удаления
+            self.catalogs_page.BUTTON_CREATE_CATALOG
 
             raise ex
