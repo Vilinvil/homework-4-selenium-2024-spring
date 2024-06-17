@@ -19,6 +19,8 @@ class SurveysLocators:
     BUTTON_LOAD_MEDIAFILES = (By.XPATH, '//span[text()="Загрузите медиафайлы"]')
     FILE_INPUT_LOCATOR = (By.XPATH, '//input[@type="file"]')
     LOGO_IMG = (By.XPATH, '//div[contains(@class, "TitleBlock-module_appLogo__HXtKt")]')
+    MODAL_VIEW_TRAINING = (By.XPATH, '//*[text()="Хотите пройти обучение?"]')
+    CHOOSE_NO = (By.XPATH, '//*[text()="Не сейчас"]')
 
     @staticmethod
     def CHOOSE_IMAGE(i=1):

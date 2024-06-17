@@ -5,11 +5,13 @@ from ui.pages.catalogs_page import CatalogsPage
 
 from selenium.common.exceptions import TimeoutException
 
+import random 
+
 
 class TestSurveysPage(LoggedCase):
     FEED_RELATIVE_FILEPATH = "hw/code/files/catalog_auto_google.csv"
-    CATALOG_NAME = "Вручную"
-    CATALOG_NAME_FEED = "Каталог 1"
+    CATALOG_NAME = f"Вручную {random.randint(2, 100)}"
+    CATALOG_NAME_FEED = f"Каталог {random.randint(2, 100)}"
     GOOD_NAME = "Москвич 3"
     ATTR_VALUE = {
         "Товар": "3",
@@ -45,7 +47,6 @@ class TestSurveysPage(LoggedCase):
         self.main_page.open_catalogs()
         self.catalogs_page = CatalogsPage(self.driver)
 
-    # @pytest.mark.skip
     def test_pos_case_by_hand(self):
         # Закрываем окно "Хотите пройти обучение?", если появляется
         self.catalogs_page.close_training_if_shown()
@@ -58,32 +59,42 @@ class TestSurveysPage(LoggedCase):
         self.catalogs_page.load_feed_file(self.FEED_RELATIVE_FILEPATH)
         self.catalogs_page.BUTTON_CONFIRM_CREATE_CATALOG.clicks()
 
-        # Переключаемся на товары
-        self.catalogs_page.BUTTON_TO_GOODS.clicks()
+        # Если тест падает, то удаляем каталог и бросаем исключение
+        try:
+            # Переключаемся на товары
+            self.catalogs_page.BUTTON_TO_GOODS.clicks()
 
-        # Проверяем название каталога
-        assert self.catalogs_page.CATALOG_HEADER_NAME == self.CATALOG_NAME
+            # Проверяем название каталога
+            assert self.catalogs_page.CATALOG_HEADER_NAME == self.CATALOG_NAME
 
-        # Ждем пока загрузится фид
-        self.catalogs_page.NOT_FOUND_MESSAGE
+            # Ждем пока загрузится фид
+            self.catalogs_page.NOT_FOUND_MESSAGE
 
-        # Обновляем страницу каталога товаров
-        self.catalogs_page.BUTTON_TO_EVENTS.clicks()
-        self.catalogs_page.BUTTON_TO_GOODS.clicks()
+            # Обновляем страницу каталога товаров
+            self.catalogs_page.BUTTON_TO_EVENTS.clicks()
+            self.catalogs_page.BUTTON_TO_GOODS.clicks()
 
-        # Проверяем, что товар каталога имеет ожидаемые параметры
-        self.catalogs_page.BUTTON_OPEN_GOOD(self.GOOD_NAME).clicks()
-        i = 1
-        for key, value in self.ATTR_VALUE.items():
-            assert self.catalogs_page.INFO_FIELD(i) == f"{key}" + "\n" + f"{value}"
-            i += 1
+            # Проверяем, что товар каталога имеет ожидаемые параметры
+            self.catalogs_page.BUTTON_OPEN_GOOD(self.GOOD_NAME).clicks()
+            i = 1
+            for key, value in self.ATTR_VALUE.items():
+                assert self.catalogs_page.INFO_FIELD(i) == f"{key}" + "\n" + f"{value}"
+                i += 1
 
-        self.catalogs_page.CLOSE_GOOD.clicks()
+            self.catalogs_page.CLOSE_GOOD.clicks()
 
-        # Удаляем каталог
-        self.catalogs_page.BUTTON_SETTINGS.clicks()
-        self.catalogs_page.BUTTON_DELETE.clicks()
-        self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
+            # Удаляем каталог
+            self.catalogs_page.BUTTON_SETTINGS.clicks()
+            self.catalogs_page.BUTTON_DELETE.clicks()
+            self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
+        
+        except Exception as ex:
+            # Удаляем каталог
+            self.catalogs_page.BUTTON_SETTINGS.clicks()
+            self.catalogs_page.BUTTON_DELETE.clicks()
+            self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
+
+            raise ex
 
     def test_pos_case_feed(self):
         # Закрываем окно "Хотите пройти обучение?", если появляется
@@ -98,27 +109,37 @@ class TestSurveysPage(LoggedCase):
         self.catalogs_page.UPDATE_PERIOD_OPTION('1 час').clicks()
         self.catalogs_page.BUTTON_CONFIRM_CREATE_CATALOG.clicks()
 
-        # Проверяем период обновления
+        # Если тест падает, то удаляем каталог и бросаем исключение 
         try:
-            assert self.catalogs_page.UPDATE_PERIOD_SPAN == self.UPDATE_PERIOD
-        except TimeoutException:
-            self.catalogs_page.BUTTON_CONFIRM_CREATE_CATALOG.clicks()
-            assert self.catalogs_page.UPDATE_PERIOD_SPAN == self.UPDATE_PERIOD
+            # Проверяем период обновления
+            try:
+                assert self.catalogs_page.UPDATE_PERIOD_SPAN == self.UPDATE_PERIOD
+            except TimeoutException:
+                self.catalogs_page.BUTTON_CONFIRM_CREATE_CATALOG.clicks()
+                assert self.catalogs_page.UPDATE_PERIOD_SPAN == self.UPDATE_PERIOD
 
-        # Переключаемся на товары
-        self.catalogs_page.BUTTON_TO_GOODS.clicks()
+            # Переключаемся на товары
+            self.catalogs_page.BUTTON_TO_GOODS.clicks()
 
-        # Проверяем название каталога
-        assert self.catalogs_page.CATALOG_HEADER_NAME == "Товары – " + self.CATALOG_NAME_FEED
+            # Проверяем название каталога
+            assert self.catalogs_page.CATALOG_HEADER_NAME == "Товары – " + self.CATALOG_NAME_FEED
 
-        # Ждем пока загрузится фид
-        self.catalogs_page.NOT_FOUND_MESSAGE
+            # Ждем пока загрузится фид
+            self.catalogs_page.NOT_FOUND_MESSAGE
 
-        # Обновляем страницу каталога товаров
-        self.catalogs_page.BUTTON_TO_EVENTS.clicks()
-        self.catalogs_page.BUTTON_TO_GOODS.clicks()
+            # Обновляем страницу каталога товаров
+            self.catalogs_page.BUTTON_TO_EVENTS.clicks()
+            self.catalogs_page.BUTTON_TO_GOODS.clicks()
 
-        # Удаляем каталог
-        self.catalogs_page.BUTTON_SETTINGS.clicks()
-        self.catalogs_page.BUTTON_DELETE.clicks()
-        self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
+            # Удаляем каталог
+            self.catalogs_page.BUTTON_SETTINGS.clicks()
+            self.catalogs_page.BUTTON_DELETE.clicks()
+            self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
+        
+        except Exception as ex:
+            # Удаляем каталог
+            self.catalogs_page.BUTTON_SETTINGS.clicks()
+            self.catalogs_page.BUTTON_DELETE.clicks()
+            self.catalogs_page.BUTTON_CONFIRM_DELETE.clicks()
+
+            raise ex

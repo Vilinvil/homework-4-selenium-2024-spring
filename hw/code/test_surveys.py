@@ -37,8 +37,8 @@ class TestSurveysPage(LoggedCase):
         self.leadpage.redirect_to_surveys()
         self.surveys_page = SurveysPage(self.driver)
 
-    # @pytest.mark.skip
     def test_simple_positive(self):
+        self.surveys_page.close_training_if_shown()
         # Клик на кнопку создания опроса (почему-то, с первого раза вылетает эксепшен, несмотря на правильно
         # проставленный until_EC)
         while True:
@@ -146,6 +146,8 @@ class TestSurveysPage(LoggedCase):
         assert self.surveys_page.RESULT_DESCRIPTION == self.RESULT_DESCRIPTION
 
     def test_neg_cases(self):
+        self.surveys_page.close_training_if_shown()
+
         while True:
             try:
                 self.surveys_page.BUTTON_CREATE_SURVEYS.clicks()
