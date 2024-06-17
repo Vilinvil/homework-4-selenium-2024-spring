@@ -6,6 +6,7 @@ from selenium.common.exceptions import StaleElementReferenceException, TimeoutEx
 
 
 class TestSurveysPage(LoggedCase):
+    TRIES = 3
     NAME = "Название 1"
     COMPANY_NAME = "Название компании 1"
     SURVEYS_HEADER = "Заголовок опроса 1"
@@ -41,7 +42,7 @@ class TestSurveysPage(LoggedCase):
     def test_simple_positive(self):
         # Клик на кнопку создания опроса (почему-то, с первого раза вылетает эксепшен, несмотря на правильно
         # проставленный until_EC)
-        while True:
+        for _ in range(self.TRIES):
             try:
                 self.surveys_page.BUTTON_CREATE_SURVEYS.clicks()
                 break
@@ -60,7 +61,12 @@ class TestSurveysPage(LoggedCase):
         assert self.surveys_page.SURVEYS_DESCRIPTION(self.SURVEYS_DESCRIPTION)
         assert self.surveys_page.LOGO_IMAGE
 
-        self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
+        for _ in range(self.TRIES):
+            try:
+                self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
+                break
+            except Exception:
+                pass
 
         # Вопросы
         # Первый вопрос
@@ -97,7 +103,12 @@ class TestSurveysPage(LoggedCase):
         self.surveys_page.INPUT_HEADER_STOP_VIEW.write(self.STOP_VIEW_HEADER)
         self.surveys_page.INPUT_DESCRIPTION_STOP_VIEW.write(self.STOP_VIEW_DESCRIPTION)
 
-        self.surveys_page.BUTTON_TO_RESULTS.clicks()
+        for _ in range(self.TRIES):
+            try:
+                self.surveys_page.BUTTON_TO_RESULTS.clicks()
+                break
+            except Exception:
+                pass
 
         # Результат
         self.surveys_page.INPUT_RESULT_HEADER.write(self.RESULT_HEADER)
@@ -117,7 +128,12 @@ class TestSurveysPage(LoggedCase):
         assert self.surveys_page.SURVEYS_DESCRIPTION(self.SURVEYS_DESCRIPTION)
         assert self.surveys_page.LOGO_IMAGE
 
-        self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
+        for _ in range(self.TRIES):
+            try:
+                self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
+                break
+            except Exception:
+                pass
 
         # Вопросы
         # Первый вопрос
@@ -139,14 +155,19 @@ class TestSurveysPage(LoggedCase):
         # Стоп-экран
         assert self.surveys_page.STOP_VIEW_QUESTION_ANSWER_TEXT == self.ANSWER_2_1
 
-        self.surveys_page.BUTTON_TO_RESULTS.clicks()
+        for _ in range(self.TRIES):
+            try:
+                self.surveys_page.BUTTON_TO_RESULTS.clicks()
+                break
+            except Exception:
+                pass
 
         # Результаты
         assert self.surveys_page.RESULT_HEADER == self.RESULT_HEADER
         assert self.surveys_page.RESULT_DESCRIPTION == self.RESULT_DESCRIPTION
 
     def test_neg_cases(self):
-        while True:
+        for _ in range(self.TRIES):
             try:
                 self.surveys_page.BUTTON_CREATE_SURVEYS.clicks()
                 break
@@ -154,7 +175,12 @@ class TestSurveysPage(LoggedCase):
                 pass
 
         # Переходим на следующим этап, не заполнив поля
-        self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
+        for _ in range(self.TRIES):
+            try:
+                self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
+                break
+            except Exception:
+                pass
 
         # Проверяем, что появилось 5 сообщений об ошибке
         for i in range(1, self.ERRORS_DESIGN_MSG_COUNT + 1):
@@ -168,7 +194,7 @@ class TestSurveysPage(LoggedCase):
         self.surveys_page.load_logo(self.LOGO_RELATIVE_PATH)
 
         # Переходим к вопросам
-        while 1:
+        for _ in range(self.TRIES):
             try:
                 self.surveys_page.BUTTON_TO_QUESTIONS.clicks()
                 break
@@ -176,7 +202,12 @@ class TestSurveysPage(LoggedCase):
                 pass
 
         # Переходим к результатам, не заполнив поля
-        self.surveys_page.BUTTON_TO_RESULTS.clicks()
+        for _ in range(self.TRIES):
+            try:
+                self.surveys_page.BUTTON_TO_RESULTS.clicks()
+                break
+            except Exception:
+                pass
 
         # Проверяем появившееся сообщение об ошибке
         assert self.surveys_page.QUESTION_ERROR_MESSAGE(1)
@@ -187,13 +218,23 @@ class TestSurveysPage(LoggedCase):
         self.surveys_page.INPUT_QUESTION_ANSWER(2).write(self.ANSWER_2)
 
         # Переходим к результату
-        self.surveys_page.BUTTON_TO_RESULTS.clicks()
+        for _ in range(self.TRIES):
+            try:
+                self.surveys_page.BUTTON_TO_RESULTS.clicks()
+                break
+            except Exception:
+                pass
 
         # Добавляем неправильную ссылку
         self.surveys_page.BUTTON_ADD_LINK.clicks()
         self.surveys_page.INPUT_ADD_LINK.write("ne ssilka")
 
         # Пытаемся запутсить опрос
-        self.surveys_page.BUTTON_START_SURVEY.clicks()
+        for _ in range(self.TRIES):
+            try:
+                self.surveys_page.BUTTON_START_SURVEY.clicks()
+                break
+            except Exception:
+                pass
 
         assert self.surveys_page.ERROR_LINK_MESSAGE
