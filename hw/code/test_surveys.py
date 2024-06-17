@@ -146,8 +146,6 @@ class TestSurveysPage(LoggedCase):
         assert self.surveys_page.RESULT_DESCRIPTION == self.RESULT_DESCRIPTION
 
     def test_neg_cases(self):
-        self.surveys_page.close_training_if_shown()
-
         while True:
             try:
                 self.surveys_page.BUTTON_CREATE_SURVEYS.clicks()
