@@ -34,11 +34,11 @@ class TestSurveysPage(LoggedCase):
     def setup_surveys_page(self):
         self.main_page.open_leads()
         self.leadpage = LeadsPage(self.driver)
+        self.leadpage.close_offer_training_if_exist()
         self.leadpage.redirect_to_surveys()
         self.surveys_page = SurveysPage(self.driver)
 
     def test_simple_positive(self):
-        self.surveys_page.close_training_if_shown()
         # Клик на кнопку создания опроса (почему-то, с первого раза вылетает эксепшен, несмотря на правильно
         # проставленный until_EC)
         while True:
