@@ -107,7 +107,7 @@ class SitePage(PageWithView, PageWithRedirectWindow):
     @property
     @add_write
     def SEARCH_INPUT_FIELD(self):
-        return self.find(self.locators.SEARCH_INPUT)
+        return self.find(self.locators.SEARCH_INPUT, timeout=20)
 
     @property
     @add_clicks
@@ -119,9 +119,11 @@ class SitePage(PageWithView, PageWithRedirectWindow):
     def BUTTON_CLOSE_MODAL(self):
         return self.find(self.locators.BUTTON_CLOSE_MODAL)
 
-    @property
-    def PIXEL_RAW(self):
-        return self.find(self.locators.PIXEL_ROW)
+    def PIXEL_RAW(self, name):
+        return self.find(self.locators.PIXEL_ROW(name), timeout=20).parent
+    
+    def PIXEL_RAW_BY_ID(self, id):
+        return self.find(self.locators.PIXEL_ROW_BY_ID(id), timeout=20).parent
 
     def SPAN_PIXEL_NAME(self, pixel_raw, name):
         return self.find_child(pixel_raw, self.locators.PIXEL_NAME(name))

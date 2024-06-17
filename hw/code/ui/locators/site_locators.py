@@ -42,7 +42,14 @@ class SitePageLocators:
     DROPDOWN_MENU_UPDATE = (By.XPATH, '//div[contains(@class, "ContextMenu_dropdown__")]//label[1]')
     INPUT_PIXEL_NAME_UPDATE = (By.XPATH, '//input[@name="name"]')
 
-    PIXEL_ROW = (By.XPATH, '//div[contains(@class, "PixelsList__row")]')
+    @staticmethod
+    def PIXEL_ROW(name):
+        return (By.XPATH, f'//div[contains(@class, "PixelsList__row")]//span[text()="{name}"]')
+
+    @staticmethod
+    def PIXEL_ROW_BY_ID(id):
+        return (By.XPATH, f'//div[contains(@class, "PixelsList__row")]//div[text()="{id}"]')
+
 
     BUTTON_REQUEST_ACCESS = (By.XPATH, '//span[text()="Запросить доступ к пикселю"]')
     BUTTON_REQUEST = (By.XPATH, '//span[text()="Запросить доступ"]')
